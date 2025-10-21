@@ -1,0 +1,594 @@
+// src/components/common/Drawer/Drawer.tsx
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Dimensions, Animated } from 'react-native';
+import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-navigation/drawer';
+import { DrawerActions } from '@react-navigation/native';
+
+// Dapatkan lebar layar untuk menyesuaikan lebar Drawer
+const { width: screenWidth } = Dimensions.get('window');
+const DRAWER_WIDTH = screenWidth * 0.8;
+
+// Color palette inspired by Javanese culture
+const colors = {
+  primary: '#2C5530',       // Deep green (nature, growth)
+  secondary: '#8D6E63',     // Warm brown (earth, tradition)
+  background: '#F5F1E8',    // Warm cream (organic, paper-like)
+  accent: '#A52A2A',        // Rich red (Javanese batik influence)
+  text: '#3E2723',          // Deep brown (readable, warm)
+  lightText: '#D7CCC8',     // Light text for dark backgrounds
+  sectionBg: 'rgba(44, 85, 48, 0.05)', // Subtle green tint
+  border: '#D4C9BC',        // Warm border color
+};
+
+// Import gambar logo dan galeri Anda
+const LogoImage = require('../../../assets/images/LOGO1.jpg');
+const CuriousShevaImage = require('../../../assets/images/curioussheva.png'); 
+
+const GalleryImages = [
+  require('../../../assets/images/Keris Jawa-24.jpg'),
+  require('../../../assets/images/Tombak-3.jpeg'),
+  require('../../../assets/images/Jin Kunti 1.jpg'),
+  require('../../../assets/images/Batu Biduri Bulan-4.jpg'),
+  require('../../../assets/images/Mustika Merah Delima 1-1.jpg'),
+];
+
+const Drawer: React.FC<DrawerContentComponentProps> = (props) => {
+  const { navigation: nav } = props;
+  const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({
+    filosofi: true,
+    praktik: false,
+    referensi: false,
+    tools: false,
+  });
+
+  const [activeItem, setActiveItem] = useState<string | null>(null);
+
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
+const menuStructure = {
+    SeputarBudayaKebatinanJawa: {
+      title: 'Seputar Budaya Kebatinan Jawa',
+      icon: '️',
+      items: [
+        { id: 'sangkan-paran', label: 'Sangkan Paraning Dumadi', icon: '🕉️', screen: 'Category', params: { categoryId: 'sangkan-paran', categoryName: 'Sangkan Paraning Dumadi' } },
+        { id: 'memayu-hayuning', label: 'Memayu Hayuning Bawana', icon: '🌍', screen: 'Category', params: { categoryId: 'memayu-hayuning', categoryName: 'Memayu Hayuning Bawana' } },
+        { id: 'manunggaling', label: 'Manunggaling Kawula Gusti', icon: '⚡', screen: 'Category', params: { categoryId: 'manunggaling', categoryName: 'Manunggaling Kawula Gusti' } },
+        { id: 'filosofi-lain', label: 'Filosofi Lainnya', icon: '📚', screen: 'Category', params: { categoryId: 'filosofi-lain', categoryName: 'Filosofi Lainnya' } },
+      ]
+    },
+    
+    KebatinandanSpiritual: {
+      title: 'Kebatinan dan Spiritual',
+      icon: '',
+      items: [
+        { id: 'meditasi', label: 'Meditasi & Semedi', icon: '🪷', screen: 'Category', params: { categoryId: 'meditasi', categoryName: 'Meditasi & Semedi' } },
+        { id: 'tirakat', label: 'Tirakat & Prihatin', icon: '🌙', screen: 'Category', params: { categoryId: 'tirakat', categoryName: 'Tirakat & Prihatin' } },
+        { id: 'lelaku', label: 'Laku Spiritual', icon: '🚶', screen: 'Category', params: { categoryId: 'lelaku', categoryName: 'Laku Spiritual' } },
+        { id: 'ritual', label: 'Ritual Harian', icon: '🕯️', screen: 'Category', params: { categoryId: 'ritual', categoryName: 'Ritual Harian' } },
+      ]
+    },
+    
+    aKebatinanSpiritualKetuhanan: {
+      title: 'Kebatinan & Spiritual Ketuhanan',
+      icon: '',
+      items: [
+        { id: 'serat-wedhatama', label: 'Serat Wedhatama', icon: '📜', screen: 'Category', params: { categoryId: 'serat-wedhatama', categoryName: 'Serat Wedhatama' } },
+        { id: 'suluk', label: 'Suluk & Wejangan', icon: '✍️', screen: 'Category', params: { categoryId: 'suluk', categoryName: 'Suluk & Wejangan' } },
+        { id: 'paribasan', label: 'Paribasan Jawa', icon: '💬', screen: 'Category', params: { categoryId: 'paribasan', categoryName: 'Paribasan Jawa' } },
+        { id: 'primbon', label: 'Primbon & Ramalan', icon: '🔮', screen: 'Category', params: { categoryId: 'primbon', categoryName: 'Primbon & Ramalan' } },
+      ]
+    },
+      
+     bKebatinanSpiritualKetuhanan: {
+      title: 'Kebatinan & Spiritual Ketuhanan',
+      icon: '',
+      items: [
+        { id: 'serat-wedhatama', label: 'Serat Wedhatama', icon: '📜', screen: 'Category', params: { categoryId: 'serat-wedhatama', categoryName: 'Serat Wedhatama' } },
+        { id: 'suluk', label: 'Suluk & Wejangan', icon: '✍️', screen: 'Category', params: { categoryId: 'suluk', categoryName: 'Suluk & Wejangan' } },
+        { id: 'paribasan', label: 'Paribasan Jawa', icon: '💬', screen: 'Category', params: { categoryId: 'paribasan', categoryName: 'Paribasan Jawa' } },
+        { id: 'primbon', label: 'Primbon & Ramalan', icon: '🔮', screen: 'Category', params: { categoryId: 'primbon', categoryName: 'Primbon & Ramalan' } },
+      ]
+    },
+    
+
+    cKebatinanSpiritualKetuhanan: {
+      title: 'Kebatinan & Spiritual Ketuhanan',
+      icon: '',
+      items: [
+        { id: 'serat-wedhatama', label: 'Serat Wedhatama', icon: '📜', screen: 'Category', params: { categoryId: 'serat-wedhatama', categoryName: 'Serat Wedhatama' } },
+        { id: 'suluk', label: 'Suluk & Wejangan', icon: '✍️', screen: 'Category', params: { categoryId: 'suluk', categoryName: 'Suluk & Wejangan' } },
+        { id: 'paribasan', label: 'Paribasan Jawa', icon: '💬', screen: 'Category', params: { categoryId: 'paribasan', categoryName: 'Paribasan Jawa' } },
+        { id: 'primbon', label: 'Primbon & Ramalan', icon: '🔮', screen: 'Category', params: { categoryId: 'primbon', categoryName: 'Primbon & Ramalan' } },
+      ]
+    },
+    
+
+     dKebatinanSpiritualKetuhanan: {
+      title: 'Kebatinan & Spiritual Ketuhanan',
+      icon: '',
+      items: [
+        { id: 'serat-wedhatama', label: 'Serat Wedhatama', icon: '📜', screen: 'Category', params: { categoryId: 'serat-wedhatama', categoryName: 'Serat Wedhatama' } },
+        { id: 'suluk', label: 'Suluk & Wejangan', icon: '✍️', screen: 'Category', params: { categoryId: 'suluk', categoryName: 'Suluk & Wejangan' } },
+        { id: 'paribasan', label: 'Paribasan Jawa', icon: '💬', screen: 'Category', params: { categoryId: 'paribasan', categoryName: 'Paribasan Jawa' } },
+        { id: 'primbon', label: 'Primbon & Ramalan', icon: '🔮', screen: 'Category', params: { categoryId: 'primbon', categoryName: 'Primbon & Ramalan' } },
+      ]
+    },
+    
+ 
+    eKebatinanSpiritualKetuhanan: {
+      title: 'Kebatinan & Spiritual Ketuhanan',
+      icon: '',
+      items: [
+        { id: 'serat-wedhatama', label: 'Serat Wedhatama', icon: '📜', screen: 'Category', params: { categoryId: 'serat-wedhatama', categoryName: 'Serat Wedhatama' } },
+        { id: 'suluk', label: 'Suluk & Wejangan', icon: '✍️', screen: 'Category', params: { categoryId: 'suluk', categoryName: 'Suluk & Wejangan' } },
+        { id: 'paribasan', label: 'Paribasan Jawa', icon: '💬', screen: 'Category', params: { categoryId: 'paribasan', categoryName: 'Paribasan Jawa' } },
+        { id: 'primbon', label: 'Primbon & Ramalan', icon: '🔮', screen: 'Category', params: { categoryId: 'primbon', categoryName: 'Primbon & Ramalan' } },
+      ]
+    },
+    
+
+     fKebatinanSpiritualKetuhanan: {
+      title: 'Kebatinan & Spiritual Ketuhanan',
+      icon: '',
+      items: [
+        { id: 'serat-wedhatama', label: 'Serat Wedhatama', icon: '📜', screen: 'Category', params: { categoryId: 'serat-wedhatama', categoryName: 'Serat Wedhatama' } },
+        { id: 'suluk', label: 'Suluk & Wejangan', icon: '✍️', screen: 'Category', params: { categoryId: 'suluk', categoryName: 'Suluk & Wejangan' } },
+        { id: 'paribasan', label: 'Paribasan Jawa', icon: '💬', screen: 'Category', params: { categoryId: 'paribasan', categoryName: 'Paribasan Jawa' } },
+        { id: 'primbon', label: 'Primbon & Ramalan', icon: '🔮', screen: 'Category', params: { categoryId: 'primbon', categoryName: 'Primbon & Ramalan' } },
+      ]
+    },
+    
+   
+    SpiritualKebatinanKerisJawa: {
+      title: 'Spiritual & Kebatinan Keris Jawal',
+      icon: '️',
+      items: [
+        { id: 'kalender', label: 'Kalender Spiritual', icon: '📅', screen: 'Category', params: { categoryId: 'kalender', categoryName: 'Kalender Spiritual' } },
+        { id: 'weton', label: 'Kalkulator Weton', icon: '🧮', screen: 'Category', params: { categoryId: 'weton', categoryName: 'Kalkulator Weton' } },
+        { id: 'meditasi-panduan', label: 'Panduan Meditasi', icon: '🎧', screen: 'Category', params: { categoryId: 'meditasi-panduan', categoryName: 'Panduan Meditasi' } },
+        { id: 'jurnal', label: 'Jurnal Spiritual', icon: '📓', screen: 'Category', params: { categoryId: 'jurnal', categoryName: 'Jurnal Spiritual' } },
+      ]
+    }
+  };
+
+
+  const handleItemPress = (screen: string, params?: any, itemId?: string) => {
+    console.log('Navigating to:', screen, params);
+    setActiveItem(itemId || null);
+    
+    nav.dispatch(DrawerActions.closeDrawer());
+    
+    if (screen === 'Home') {
+      nav.navigate('Home');
+    } else {
+      nav.navigate(screen as any, params);
+    }
+  };
+
+  const handleSectionPress = (section: string) => {
+    toggleSection(section);
+  };
+
+  const closeDrawer = () => {
+    nav.dispatch(DrawerActions.closeDrawer());
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.drawer}>
+        {/* Header with improved design */}
+        <View style={styles.drawerHeader}>
+          <View style={styles.headerContent}>
+            <View style={styles.logoContainer}>
+              <Image source={LogoImage} style={styles.drawerLogo} resizeMode="contain" />
+            </View>
+            <Text style={styles.drawerSubtitle}>Javanese2000. Filosofi Kebatinan, Spiritual, dan Kegaiban.</Text>
+          </View>
+
+        </View>
+
+        <DrawerContentScrollView {...props} style={styles.drawerContent} showsVerticalScrollIndicator={false}>
+          {/* Home Button */}
+          <TouchableOpacity
+            style={[styles.navItem, activeItem === 'home' && styles.navItemActive]}
+            onPress={() => handleItemPress('Home', null, 'home')}
+            accessibilityRole="button"
+            accessibilityLabel="Navigasi ke Beranda"
+          >
+            <View style={styles.navIconContainer}>
+              <Text style={[styles.navIcon, activeItem === 'home' && styles.navIconActive]}>🏠</Text>
+            </View>
+            <Text style={[styles.navLabel, activeItem === 'home' && styles.navLabelActive]}>
+              WELCOME to Javanese2000
+            </Text>
+            {activeItem === 'home' && <View style={styles.activeIndicator} />}
+          </TouchableOpacity>
+
+          <View style={styles.divider} />
+
+          {/* Nested Menu Sections */}
+          {Object.entries(menuStructure).map(([key, section]) => (
+            <View key={key} style={styles.section}>
+              <TouchableOpacity
+                style={[styles.sectionHeader, expandedSections[key] && styles.sectionHeaderExpanded]}
+                onPress={() => handleSectionPress(key)}
+                accessibilityRole="button"
+                accessibilityLabel={`Buka bagian ${section.title}`}
+              >
+                <View style={styles.sectionHeaderContent}>
+                  <View style={styles.sectionIconContainer}>
+                    <Text style={styles.sectionIcon}>{section.icon}</Text>
+                  </View>
+                  <Text style={styles.sectionTitle}>{section.title}</Text>
+                </View>
+                <View style={styles.expandIconContainer}>
+                  <Text style={[styles.expandIcon, expandedSections[key] && styles.expandIconExpanded]}>
+                    {expandedSections[key] ? '▼' : '►'}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              {expandedSections[key] && (
+                <View style={styles.sectionItems}>
+                  {section.items.map(item => (
+                    <TouchableOpacity
+                      key={item.id}
+                      style={[styles.navItem, styles.nestedItem, activeItem === item.id && styles.navItemActive]}
+                      onPress={() => handleItemPress(item.screen, item.params, item.id)}
+                      accessibilityRole="button"
+                      accessibilityLabel={`Navigasi ke ${item.label}`}
+                    >
+                      <View style={styles.navIconContainer}>
+                        <Text style={[styles.navIcon, activeItem === item.id && styles.navIconActive]}>{item.icon}</Text>
+                      </View>
+                      <Text style={[styles.navLabel, styles.nestedLabel, activeItem === item.id && styles.navLabelActive]}>
+                        {item.label}
+                      </Text>
+                      {activeItem === item.id && <View style={styles.activeIndicator} />}
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
+            </View>
+          ))}
+
+          <View style={styles.divider} />
+
+          {/* Settings & Help */}
+          <TouchableOpacity
+            style={[styles.navItem, activeItem === 'settings' && styles.navItemActive]}
+            onPress={() => handleItemPress('Category', { categoryId: 'pengaturan', categoryName: 'Pengaturan' }, 'settings')}
+            accessibilityRole="button"
+            accessibilityLabel="Buka pengaturan"
+          >
+            <View style={styles.navIconContainer}>
+              <Text style={[styles.navIcon, activeItem === 'settings' && styles.navIconActive]}>⚙️</Text>
+            </View>
+            <Text style={[styles.navLabel, activeItem === 'settings' && styles.navLabelActive]}>Pengaturan</Text>
+            {activeItem === 'settings' && <View style={styles.activeIndicator} />}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.navItem, activeItem === 'help' && styles.navItemActive]}
+            onPress={() => handleItemPress('Category', { categoryId: 'bantuan', categoryName: 'Bantuan' }, 'help')}
+            accessibilityRole="button"
+            accessibilityLabel="Buka bantuan"
+          >
+            <View style={styles.navIconContainer}>
+              <Text style={[styles.navIcon, activeItem === 'help' && styles.navIconActive]}>❓</Text>
+            </View>
+            <Text style={[styles.navLabel, activeItem === 'help' && styles.navLabelActive]}>Bantuan</Text>
+            {activeItem === 'help' && <View style={styles.activeIndicator} />}
+          </TouchableOpacity>
+
+          <View style={styles.divider} />
+
+          {/* Gallery Section */}
+          <View style={styles.galleryContainer}>
+            <Text style={styles.galleryTitle}>Galeri</Text>
+            <View style={styles.imagesColumn}>
+              {GalleryImages.map((imageSource, index) => (
+                <View key={index} style={styles.imageWrapper}>
+                  <Image 
+                    source={imageSource} 
+                    style={styles.galleryImage}
+                    resizeMode="cover"
+                  />
+                  <View style={styles.imageOverlay} />
+                </View>
+              ))}
+            </View>
+          </View>
+          
+          <View style={{ height: 10 }} />
+        </DrawerContentScrollView>
+
+        {/* Footer */}
+        <Image 
+          source={CuriousShevaImage} 
+          style={styles.footerImage} 
+          resizeMode="contain" // Gunakan 'contain' agar gambar tidak terpotong
+        />
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  drawer: {
+    flex: 1,
+    width: DRAWER_WIDTH,
+    backgroundColor: colors.background,
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 0 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    // Subtle batik-inspired background pattern
+    backgroundImage: 'linear-gradient(45deg, transparent 90%, rgba(44, 85, 48, 0.03) 90%)',
+  },
+  drawerHeader: {
+    padding: 20,
+    paddingTop: 40,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    backgroundColor: '#192B39',
+    // Add subtle shadow to header
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  headerContent: {
+    flex: 1,
+    marginRight: 10,
+  },
+  logoContainer: {
+    backgroundColor: '#192B39',
+    borderRadius: 8,
+    padding: 4,
+    marginBottom: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  drawerLogo: {
+    width: 260,
+    alignItems:'center',
+    height: 170,
+  },
+  drawerSubtitle: {
+    fontSize: 21,
+    color: colors.lightText,
+    fontStyle: 'italic',
+  },
+  closeButton: {
+    padding: 6,
+    marginTop: -10,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 15,
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeIcon: {
+    fontSize: 16,
+    color: colors.lightText,
+    fontWeight: 'bold',
+  },
+  drawerContent: {
+    flex: 1,
+    paddingVertical: 10,
+  },
+  navItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+    marginVertical: 2,
+    borderRadius: 8,
+    position: 'relative',
+    backgroundColor: 'transparent',
+  },
+  navItemActive: {
+    backgroundColor: colors.primary,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  nestedItem: {
+    paddingLeft: 40,
+    marginLeft: 10,
+  },
+  navIconContainer: {
+    width: 24,
+    alignItems: 'center',
+  },
+  navIcon: {
+    fontSize: 14,
+    color: colors.text,
+    fontWeight:'bold',
+  },
+  navIconActive: {
+    color: '#FFFFFF',
+  },
+  navLabel: {
+    fontSize: 16,
+    color: colors.text,
+    fontWeight: '500',
+    flex: 1,
+  },
+  nestedLabel: {
+    fontSize: 14,
+    fontWeight: '400',
+  },
+  navLabelActive: {
+    color: '#FFFFFF',
+    fontWeight: '600',
+  },
+  activeIndicator: {
+    position: 'absolute',
+    right: 12,
+    width: 4,
+    height: 20,
+    backgroundColor: colors.accent,
+    borderRadius: 2,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: colors.border,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    opacity: 0.6,
+  },
+  section: {
+    marginBottom: 4,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+    borderRadius: 8,
+    backgroundColor: colors.sectionBg,
+    borderLeftWidth: 3,
+    borderLeftColor: 'transparent',
+  },
+  sectionHeaderExpanded: {
+    backgroundColor: 'rgba(44, 85, 48, 0.1)',
+    borderLeftColor: colors.accent,
+  },
+  sectionHeaderContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  sectionIconContainer: {
+    width: 24,
+    alignItems: 'center',
+  },
+  sectionIcon: {
+    fontSize: 16,
+    color: colors.primary,
+  },
+  sectionTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: colors.primary,
+    flex: 1,
+  },
+  expandIconContainer: {
+    width: 20,
+    alignItems: 'center',
+  },
+  expandIcon: {
+    fontSize: 12,
+    color: colors.secondary,
+    fontWeight: 'bold',
+  },
+  expandIconExpanded: {
+    color: colors.accent,
+  },
+  sectionItems: {
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 6,
+    marginHorizontal: 10,
+    marginBottom: 4,
+    borderLeftWidth: 2,
+    borderLeftColor: colors.border,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  galleryContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    marginTop: 10,
+    backgroundColor: colors.sectionBg,
+    borderRadius: 8,
+    marginHorizontal: 10,
+  },
+  galleryTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.primary,
+    marginBottom: 10,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  imagesColumn: {
+    // Default column direction
+  },
+  imageWrapper: {
+    position: 'relative',
+    marginBottom: 10,
+    borderRadius: 8,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  galleryImage: {
+    width: 230,
+height:210,
+    borderRadius: 8,
+  },
+  imageOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(44, 85, 48, 0.03)',
+  },
+    // FOOTER BARU: Gambar Curious Sheva
+  footerImage: {
+    width: '100%', // Lebar penuh dari drawer
+    height: 100,    // Tinggi gambar (sesuaikan jika perlu)
+    // backgroundColor: '#E0E0E0', // Latar belakang abu-abu untuk area gambar jika perlu
+    borderTopWidth: 1,
+    borderTopColor: '#D4C9BC',
+  },
+  // Gaya footer lama tidak lagi digunakan
+  // footer: {
+  //   padding: 16,
+  //   borderTopWidth: 1,
+  //   borderTopColor: '#D4C9BC',
+  //   backgroundColor: '#E0E0E0', 
+  // },
+  // footerText: {
+  //   fontSize: 12,
+  //   color: '#2C5530',
+  //   textAlign: 'center',
+  //   fontStyle: 'italic',
+  //   marginBottom: 4,
+  // },
+  // footerSubtext: {
+  //   fontSize: 10,
+  //   color: '#8D6E63',
+  //   textAlign: 'center',
+  // },
+});
+
+export default Drawer;

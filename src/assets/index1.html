@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loaded Content</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+        }
+        h1 {
+            color: #3498db;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            line-height: 1.7;
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .badge {
+            display: inline-block;
+            background-color: #e7e7e7;
+            color: #555;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="badge">External Content</p>
+        <h1>Content from <code>index.html</code></h1>
+        <p>This HTML file is loaded from the <code>/public/assets</code> directory into an iframe. It demonstrates loading external static content into the Next.js application, with simulated AdMob ads displayed around it.</p>
+        <img src="https://picsum.photos/800/400" alt="Random placeholder image" data-ai-hint="landscape" />
+        <p>This approach isolates the styles and scripts of the loaded content from the main application, which is a good practice for security and stability.</p>
+    </div>
+</body>
+</html>

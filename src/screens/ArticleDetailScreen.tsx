@@ -1,109 +1,137 @@
 // src/screens/ArticleDetailScreen.tsx
-import React, { useRef } from 'react';
-import { View, StyleSheet, Text, Alert, Linking } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { StackScreenProps } from '@react-navigation/stack';
-import { ArticleStackParamList } from '../types';
-import { articles } from '../data/articles';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import {
+  View,
+  StyleSheet,
+  Alert,
+  StatusBar,
+  Text,
+} from 'react-native';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
+import SafeWebView from '../components/SafeWebView';
+import { articles, Article } from '../data/articles';
+import { RootStackParamList } from '../navigation/AppNavigator';
+import { useBookmark } from '../context/BookmarkContext';
 
-type Props = StackScreenProps<ArticleStackParamList, 'ArticleDetail'>;
+type ArticleDetailScreenProps = {
+  route: RouteProp<RootStackParamList, 'ArticleDetail'>;
+  navigation: StackNavigationProp<RootStackParamList, 'ArticleDetail'>;
+};
 
-const ArticleDetailScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { articleId } = route.params;
-  const webViewRef = useRef<WebView>(null);
-  
-  const article = articles.find(a => a.id === articleId);
+const ArticleDetailScreen: React.FC<ArticleDetailScreenProps> = ({
+  route,
+  navigation,
+}) => {
+  const { articleId, articleTitle } = route.params;
+  const [article, setArticle] = useState<Article | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleNavigation = (url: string) => {
-    if (url.startsWith('article://')) {
-      const targetArticleId = url.replace('article://', '');
-      const targetArticle = articles.find(a => a.id === targetArticleId);
-      if (targetArticle) {
-        navigation.push('ArticleDetail', { articleId: targetArticleId });
-      } else {
-        Alert.alert('Artikel Tidak Ditemukan', 'Artikel yang dituju tidak tersedia.');
-      }
-      return false;
-    } else if (url.startsWith('http')) {
-      Linking.openURL(url).catch(err => 
-        Alert.alert('Error', 'Tidak dapat membuka link: ' + err.message)
-      );
-      return false;
-    }
-    return true;
-  };
+  // 🔖 Context
+  const { addBookmark, removeBookmark, isBookmarked } = useBookmark();
 
-  const getArticleStyles = (theme = 'default') => {
-    const themes = {
-      cultural: `:root { --primary-color: #8B4513; --secondary-color: #D2691E; --accent-color: #CD853F; --bg-color: #FFF8DC; }`,
-      grammar: `:root { --primary-color: #2E8B57; --secondary-color: #3CB371; --accent-color: #90EE90; --bg-color: #F0FFF0; }`,
-      default: `:root { --primary-color: #2c3e50; --secondary-color: #3498db; --accent-color: #e74c3c; --bg-color: #ffffff; }`
-    };
+  useEffect(() => {
+    loadArticle();
+  }, [articleId]);
 
-    return `
-      ${themes[theme as keyof typeof themes] || themes.default}
-      <style>
-        body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; color: #333; background: var(--bg-color); }
-        h1 { color: var(--primary-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; }
-        h2 { color: var(--secondary-color); margin-top: 25px; }
-        .conversation-example { background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; }
-      </style>
-    `;
-  };
-
-  const getFullHTMLContent = (articleContent: string, theme: string = 'default') => {
-    return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        ${getArticleStyles(theme)}
-      </head>
-      <body>
-        ${articleContent}
-      </body>
-      </html>
-    `;
-  };
-
-  const handleWebViewMessage = (event: any) => {
+  const loadArticle = () => {
     try {
-      const data = JSON.parse(event.nativeEvent.data);
-      if (data.type === 'navigation') {
-        handleNavigation(data.url);
+      setLoading(true);
+      const foundArticle = articles.find((a) => a.id === articleId);
+
+      if (foundArticle) {
+        setArticle(foundArticle);
+      } else {
+        Alert.alert('Error', 'Artikel tidak ditemukan');
+        navigation.goBack();
       }
     } catch (error) {
-      console.log('Error parsing message:', error);
+      console.error('Error loading article:', error);
+      Alert.alert('Error', 'Gagal memuat artikel');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 🧭 Update header title & tombol bookmark di header
+  useLayoutEffect(() => {
+    if (!article) return;
+
+    const bookmarked = isBookmarked(article.id);
+
+    navigation.setOptions({
+      title:
+        article.title.length > 20
+          ? article.title.substring(0, 20) + '...'
+          : article.title,
+      headerRight: () => (
+        <Ionicons
+          name={bookmarked ? 'star' : 'star-outline'}
+          size={24}
+          color={bookmarked ? '#FFD700' : '#F0F0F0'}
+          style={{ marginRight: 16 }}
+          onPress={handleBookmarkToggle}
+        />
+      ),
+    });
+  }, [navigation, article, isBookmarked(article?.id)]);
+
+  const handleBookmarkToggle = () => {
+    if (!article) return;
+
+    if (isBookmarked(article.id)) {
+      removeBookmark(article.id);
+      Alert.alert('Bookmark dihapus', `"${article.title}" telah dihapus dari daftar.`);
+    } else {
+      addBookmark({
+        id: article.id,
+        title: article.title,
+        category: article.category,
+        content: article.content,
+      });
+      Alert.alert('Berhasil disimpan', `"${article.title}" telah ditambahkan ke Bookmark.`);
     }
   };
 
   if (!article) {
     return (
-      <View style={styles.container}>
-        <Text>Artikel tidak ditemukan</Text>
+      <View style={styles.center}>
+        <Text style={styles.errorText}>Artikel tidak ditemukan</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <WebView 
-        ref={webViewRef}
-        originWhitelist={['*']}
-        source={{ html: getFullHTMLContent(article.content, article.theme) }}
-        style={styles.webview}
-        onMessage={handleWebViewMessage}
-        onShouldStartLoadWithRequest={(request) => handleNavigation(request.url)}
-        javaScriptEnabled={true}
-        domStorageEnabled={true}
+      <StatusBar backgroundColor="#2C5530" barStyle="light-content" />
+      <SafeWebView
+        html={article.content}
+        title={article.title}
+        onLoadEnd={() => console.log('Loaded')}
+        onError={(e) => console.error('WebView error:', e)}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  webview: { flex: 1 },
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    padding: 20,
+  },
+  errorText: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+  },
 });
 
 export default ArticleDetailScreen;

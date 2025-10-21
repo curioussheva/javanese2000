@@ -1,61 +1,149 @@
 // src/screens/HomeScreen.tsx
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { MainDrawerScreenProps } from '../types';
-import { categories, articles } from '../data/articles';
+import React, { useState } from 'react';
+import { 
+  View, 
+  StyleSheet, 
+  SafeAreaView,
+  ScrollView 
+} from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { DrawerActions } from '@react-navigation/native';
+import { RootStackParamList } from '../../App';
+import NavBar from '../components/common/NavBar/NavBar';
+import HeroSection from '../components/sections/HeroSection/HeroSection';
+import CategoryGrid from '../components/sections/CategoryGrid/CategoryGrid';
+import SearchResultsView from '../components/sections/SearchResultsView/SearchResultsView';
+import { articles } from '../data/articles';
 
-type Props = MainDrawerScreenProps<'Home'>;
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+interface Props {
+  navigation: HomeScreenNavigationProp;
+}
+
+// Di HomeScreen.tsx
+const handleSubcategoryPress = (category: string, subcategory: string) => {
+  const subcategoryArticles = articles.filter(article => 
+    article.category === category && article.subcategory === subcategory
+  );
+  
+  if (subcategoryArticles.length > 0) {
+    setSearchQuery(`${category} - ${subcategory}`);
+    setSearchResults(subcategoryArticles);
+    setIsSearching(true);
+  }
+};
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+
+  const handleSearch = (query: string): void => {
+    setSearchQuery(query);
+
+    if (query.trim() === '') {
+      setSearchResults([]);
+      setIsSearching(false);
+      return;
+    }
+
+    setIsSearching(true);
+
+    const lowerQuery = query.toLowerCase();
+
+    const results = (articles || []).filter(article =>
+      article.title?.toLowerCase().includes(lowerQuery) ||
+      article.content?.toLowerCase().includes(lowerQuery) ||
+      article.category?.toLowerCase().includes(lowerQuery)
+    );
+
+    setSearchResults(results);
+  };
+
+  const handlePrint = (): void => {
+    if (searchResults.length > 0) {
+      alert(`Print ${searchResults.length} hasil pencarian untuk: "${searchQuery}"`);
+    } else if (searchQuery) {
+      alert(`Tidak ada hasil untuk: "${searchQuery}"`);
+    } else {
+      alert('Fitur Print/Export akan datang!');
+    }
+  };
+
+  const handleMenuClick = (): void => {
+    navigation.dispatch(DrawerActions.openDrawer());
+  };
+
+  const handleArticlePress = (article: any): void => {
+    navigation.navigate('ArticleDetail', { 
+      articleId: article.id,
+      articleTitle: article.title 
+    });
+  };
+
+  const handleCategoryPress = (categoryId: string, categoryName: string): void => {
+    // Jika Anda memiliki screen Category, uncomment line berikut
+     navigation.navigate('Category', { categoryId, categoryName });
+    
+    // Untuk sementara, tampilkan alert
+   // alert(`Kategori: ${categoryName} (ID: ${categoryId})`);
+  };
+
+  const handleExplorePress = (): void => {
+    // Navigate ke kategori tertentu atau tampilkan semua kategori
+    handleCategoryPress('all', 'Semua Kategori');
+  };
+
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>ꦲꦭꦩꦤ꧀ꦲꦸꦠꦩ</Text>
-      <Text style={styles.subtitle}>Aplikasi Pembelajaran Bahasa Jawa</Text>
+    <SafeAreaView style={styles.container}>
+      <NavBar 
+        onMenuClick={handleMenuClick}
+        onSearch={handleSearch}
+        onPrint={handlePrint}
+      />
       
-      <View style={styles.stats}>
-        <View style={styles.stat}><Text style={styles.statNumber}>{articles.length}+</Text><Text style={styles.statLabel}>Artikel</Text></View>
-        <View style={styles.stat}><Text style={styles.statNumber}>{categories.length}+</Text><Text style={styles.statLabel}>Kategori</Text></View>
-        <View style={styles.stat}><Text style={styles.statNumber}>{categories.reduce((total, cat) => total + (cat.subcategories?.length || 0), 0)}+</Text><Text style={styles.statLabel}>Subkategori</Text></View>
+      <View style={styles.mainContent}>
+        {isSearching || searchQuery ? (
+          <SearchResultsView 
+            results={searchResults}
+            query={searchQuery}
+            onArticlePress={handleArticlePress}
+          />
+        ) : (
+          <ScrollView style={styles.homeContent} showsVerticalScrollIndicator={false}>
+            <View style={styles.heroContainer}>
+              <HeroSection onExplorePress={handleExplorePress} />
+            </View>
+            
+            <View style={styles.categoryContainer}>
+              <CategoryGrid onCategoryPress={handleCategoryPress} />
+            </View>
+          </ScrollView>
+        )}
       </View>
-
-      <Text style={styles.sectionTitle}>Kategori Pembelajaran</Text>
-      
-      {categories.map((category) => (
-        <TouchableOpacity
-          key={category.id}
-          style={styles.categoryCard}
-          onPress={() => navigation.navigate('Categories', { categoryId: category.id })}
-        >
-          <Text style={styles.categoryName}>{category.name}</Text>
-          <Text style={styles.articleCount}>
-            {category.subcategories?.reduce((total, sub) => total + sub.articleCount, 0)} artikel
-          </Text>
-        </TouchableOpacity>
-      ))}
-
-      <TouchableOpacity
-        style={[styles.categoryCard, { backgroundColor: '#e8f4fd' }]}
-        onPress={() => navigation.navigate('Articles')}
-      >
-        <Text style={[styles.categoryName, { color: '#1976d2' }]}>Semua Artikel</Text>
-        <Text style={styles.articleCount}>Lihat semua artikel tersedia</Text>
-      </TouchableOpacity>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#1a1a2e' },
-  title: { fontSize: 32, fontWeight: 'bold', textAlign: 'center', color: '#ffffff', marginBottom: 10 },
-  subtitle: { fontSize: 18, textAlign: 'center', color: '#8b9bb4', marginBottom: 30 },
-  stats: { flexDirection: 'row', justifyContent: 'space-around', marginBottom: 30 },
-  stat: { alignItems: 'center' },
-  statNumber: { fontSize: 24, fontWeight: 'bold', color: '#e94560' },
-  statLabel: { fontSize: 12, color: '#8b9bb4', marginTop: 5 },
-  sectionTitle: { fontSize: 20, fontWeight: 'bold', color: '#ffffff', marginBottom: 15 },
-  categoryCard: { backgroundColor: '#16213e', padding: 20, borderRadius: 10, marginBottom: 15 },
-  categoryName: { fontSize: 18, fontWeight: '600', color: '#ffffff', marginBottom: 5 },
-  articleCount: { fontSize: 14, color: '#8b9bb4' },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  mainContent: {
+    flex: 1,
+  },
+  homeContent: {
+    flex: 1,
+  },
+  heroContainer: {
+    minHeight: 450,
+  },
+  categoryContainer: {
+    paddingHorizontal: 16,
+    paddingBottom: 20,
+  },
 });
 
 export default HomeScreen;

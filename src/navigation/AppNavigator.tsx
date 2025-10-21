@@ -1,97 +1,172 @@
 // src/navigation/AppNavigator.tsx
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+
+// Screens
 import HomeScreen from '../screens/HomeScreen';
-import CategoriesScreen from '../screens/CategoriesScreen';
-import ArticleListScreen from '../screens/ArticleListScreen';
-import ArticleDetailScreen from '../screens/ArticleDetailScreen';
 import BookmarksScreen from '../screens/BookmarksScreen';
-import CustomDrawerContent from '../components/CustomDrawerContent';
-import { RootDrawerParamList, ArticleStackParamList, CategoryStackParamList } from '../types';
+import ArticleDetailScreen from '../screens/ArticleDetailScreen';
+import CategoryScreen from '../screens/CategoryScreen';
 
-const Drawer = createDrawerNavigator<RootDrawerParamList>();
-const Stack = createStackNavigator<ArticleStackParamList>();
-const CategoryStack = createStackNavigator<CategoryStackParamList>();
+// Custom Drawer
+import DrawerContent from '../components/common/Drawer/Drawer';
 
-const ArticleStackNavigator = () => {
+// --- Stack untuk halaman dalam Home
+const Stack = createStackNavigator();
+
+function HomeStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: '#16213e' },
+        headerStyle: { backgroundColor: '#2C5530' },
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold', fontFamily: 'System' },
-        cardStyle: { backgroundColor: '#1a1a2e' },
+        headerTitleStyle: { fontWeight: 'bold' },
+        headerBackTitle: 'Kembali',
       }}
     >
-      <Stack.Screen 
-        name="ArticleList" 
-        component={ArticleListScreen}
-        options={({ route }) => ({ 
-          title: route.params?.categoryId ? 'Daftar Artikel' : 'Semua Artikel'
+      <Stack.Screen
+        name="HomeMain"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          title: 'Beranda',
+        }}
+      />
+      <Stack.Screen
+        name="ArticleDetail"
+        component={ArticleDetailScreen}
+        options={({ route }) => ({
+          title: 'Detail Artikel',
+          headerTitle: route.params?.articleTitle
+            ? route.params.articleTitle.length > 20
+              ? route.params.articleTitle.substring(0, 20) + '...'
+              : route.params.articleTitle
+            : 'Detail Artikel',
         })}
       />
-      <Stack.Screen 
-        name="ArticleDetail" 
-        component={ArticleDetailScreen}
-        options={({ route }) => ({ title: 'Detail Artikel' })}
+      {/* Add Category screen to HomeStack for navigation */}
+      <Stack.Screen
+        name="Category"
+        component={CategoryScreen}
+        options={({ route }) => ({
+          title: route.params?.title || 'Kategori',
+        })}
       />
     </Stack.Navigator>
   );
-};
+}
 
-const CategoryStackNavigator = () => {
+// --- Stack untuk Bookmarks
+function BookmarksStack() {
   return (
-    <CategoryStack.Navigator
+    <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: '#16213e' },
+        headerStyle: { backgroundColor: '#2C5530' },
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold', fontFamily: 'System' },
-        cardStyle: { backgroundColor: '#1a1a2e' },
+        headerTitleStyle: { fontWeight: 'bold' },
       }}
     >
-      <CategoryStack.Screen 
-        name="CategoriesMain" 
-        component={CategoriesScreen}
-        options={{ title: 'Kategori' }}
-      />
-      <CategoryStack.Screen 
-        name="CategoryArticles" 
-        component={ArticleListScreen}
-        options={({ route }) => ({ title: 'Daftar Artikel' })}
-      />
-    </CategoryStack.Navigator>
-  );
-};
-
-const AppNavigator: React.FC = () => {
-  return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="Home"
-        drawerContent={(props) => <CustomDrawerContent {...props} />}
-        screenOptions={{
-          headerStyle: { backgroundColor: '#16213e' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: 'bold', fontFamily: 'System' },
-          drawerStyle: { width: 340, backgroundColor: '#1a1a2e' },
-          drawerLabelStyle: { color: '#ffffff', fontFamily: 'System' },
-          drawerActiveBackgroundColor: '#e94560',
-          drawerActiveTintColor: '#ffffff',
-          drawerInactiveTintColor: '#8b9bb4',
+      <Stack.Screen
+        name="BookmarksMain"
+        component={BookmarksScreen}
+        options={{
+          title: 'Artikel Disimpan',
         }}
-      >
-        <Drawer.Screen name="Home" component={HomeScreen} options={{ title: 'Halaman Utama', drawerLabel: '🏠 Halaman Utama' }} />
-        <Drawer.Screen name="Categories" component={CategoryStackNavigator} options={{ title: 'Kategori', drawerLabel: '📂 Kategori', headerShown: false }} />
-        <Drawer.Screen name="Articles" component={ArticleStackNavigator} options={{ title: 'Artikel', drawerLabel: '📚 Semua Artikel', headerShown: false }} />
-        <Drawer.Screen name="Bookmarks" component={BookmarksScreen} options={{ title: 'Artikel Favorit', drawerLabel: '⭐ Favorit' }} />
-        <Drawer.Screen name="ArticleDetail" component={ArticleDetailScreen} options={{ drawerItemStyle: { display: 'none' } }} />
-        <Drawer.Screen name="Category" component={ArticleListScreen} options={{ drawerItemStyle: { display: 'none' } }} />
-        <Drawer.Screen name="AllArticles" component={ArticleListScreen} options={{ drawerItemStyle: { display: 'none' } }} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+      />
+      <Stack.Screen
+        name="ArticleDetail"
+        component={ArticleDetailScreen}
+        options={({ route }) => ({
+          title: 'Detail Artikel',
+          headerTitle: route.params?.articleTitle
+            ? route.params.articleTitle.length > 20
+              ? route.params.articleTitle.substring(0, 20) + '...'
+              : route.params.articleTitle
+            : 'Detail Artikel',
+        })}
+      />
+    </Stack.Navigator>
   );
-};
+}
 
-export default AppNavigator;
+// --- Stack untuk Categories
+function CategoryStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#2C5530' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
+      <Stack.Screen
+        name="CategoryMain"
+        component={CategoryScreen}
+        options={({ route }) => ({
+          title: route.params?.title || 'Kategori',
+        })}
+      />
+      <Stack.Screen
+        name="ArticleDetail"
+        component={ArticleDetailScreen}
+        options={({ route }) => ({
+          title: 'Detail Artikel',
+          headerTitle: route.params?.articleTitle
+            ? route.params.articleTitle.length > 20
+              ? route.params.articleTitle.substring(0, 20) + '...'
+              : route.params.articleTitle
+            : 'Detail Artikel',
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
+// --- Drawer utama
+const Drawer = createDrawerNavigator();
+
+export default function AppNavigator() {
+  return (
+    <Drawer.Navigator
+      initialRouteName="Home"
+      drawerContent={(props) => <DrawerContent {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerType: 'front',
+        drawerPosition: 'left',
+        drawerActiveBackgroundColor: '#2C5530',
+        drawerActiveTintColor: '#fff',
+        drawerInactiveTintColor: '#333',
+        drawerLabelStyle: {
+          fontSize: 16,
+          fontWeight: '500',
+        },
+      }}
+    >
+      <Drawer.Screen
+        name="Home"
+        component={HomeStack}
+        options={{
+          drawerLabel: 'Beranda',
+        }}
+      />
+      <Drawer.Screen
+        name="Bookmarks"
+        component={BookmarksStack}
+        options={{
+          drawerLabel: 'Artikel Disimpan',
+        }}
+      />
+      <Drawer.Screen
+        name="Category"
+        component={CategoryStack}
+        options={{
+          drawerLabel: () => null, // Hide from drawer menu
+          title: 'Kategori',
+          swipeEnabled: false, // Prevent swipe gesture to open
+        }}
+      />
+    </Drawer.Navigator>
+  );
+}

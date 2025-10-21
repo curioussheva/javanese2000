@@ -1,0 +1,29 @@
+// src/types/navigation.ts
+export type RootStackParamList = {
+  // Standardized names
+  Home: undefined;
+  Category: { 
+    categoryId: string; 
+    categoryName: string;
+    articleTitle?: string;
+  };
+  Categories: undefined; // If you need a categories overview screen
+  Article: { 
+    articleId: string; 
+    articleTitle: string;
+  };
+  Bookmarks: undefined;
+  Settings: undefined;
+  Profile: undefined;
+  
+  // Deprecated names - keep for backward compatibility if needed
+  CategoryScreen?: { 
+    categoryId: string; 
+    categoryName: string;
+  };
+  CategoriesScreen?: undefined;
+  BookmarkScreen?: undefined;
+  BookmarksScreen?: undefined;
+};
+
+// Add this to your existing navigation types

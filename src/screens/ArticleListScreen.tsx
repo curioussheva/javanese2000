@@ -1,70 +1,85 @@
 // src/screens/ArticleListScreen.tsx
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { ArticleStackScreenProps } from '../types';
-import { articles, categories } from '../data/articles';
+import React, { useState } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../App';
+import { articles } from '../data/articles';
 
-type Props = ArticleStackScreenProps<'ArticleList'>;
+type ArticleListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ArticleList'>;
 
-const ArticleListScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { categoryId, subcategoryId } = route.params || {};
-  
-  const filteredArticles = categoryId 
-    ? articles.filter(article => 
-        article.category === categoryId && 
-        (!subcategoryId || article.subcategory === subcategoryId)
-      )
-    : articles;
+interface Props {
+  navigation: ArticleListScreenNavigationProp;
+}
 
-  const category = categoryId ? categories.find(cat => cat.id === categoryId) : null;
-  const subcategory = category?.subcategories?.find(sub => sub.id === subcategoryId);
+const ArticleListScreen: React.FC<Props> = ({ navigation }) => {
+  const [sortBy, setSortBy] = useState<'title' | 'readTime'>('title');
 
-  const getScreenTitle = () => {
-    if (subcategory) return subcategory.name;
-    if (category) return category.name;
-    return 'Semua Artikel';
+  const sortedArticles = [...articles].sort((a, b) => {
+    if (sortBy === 'title') return a.title.localeCompare(b.title);
+    return a.readTime - b.readTime;
+  });
+
+  const handleArticlePress = (article: any) => {
+    navigation.navigate('ArticleDetail', { article });
   };
+
+  const renderItem = ({ item }: { item: any }) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => handleArticlePress(item)}
+      activeOpacity={0.8}
+    >
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.excerpt}>{item.excerpt}</Text>
+      <Text style={styles.meta}>
+        🕒 {item.readTime} menit · 📂 {item.category}
+      </Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{getScreenTitle()}</Text>
-      <Text style={styles.count}>{filteredArticles.length} artikel ditemukan</Text>
-      
-      {filteredArticles.length === 0 ? (
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyText}>Tidak ada artikel ditemukan</Text>
-        </View>
-      ) : (
-        <FlatList
-          data={filteredArticles}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.articleCard}
-              onPress={() => navigation.navigate('ArticleDetail', { articleId: item.id })}
-            >
-              <Text style={styles.articleTitle}>{item.title}</Text>
-              <Text style={styles.articleCategory}>
-                {categories.find(cat => cat.id === item.category)?.name}
-                {item.subcategory && ` • ${category?.subcategories?.find(sub => sub.id === item.subcategory)?.name}`}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-      )}
+      <View style={styles.headerRow}>
+        <Text style={styles.header}>Daftar Artikel</Text>
+        <TouchableOpacity
+          onPress={() => setSortBy(sortBy === 'title' ? 'readTime' : 'title')}
+        >
+          <Text style={styles.sortBtn}>
+            Urutkan: {sortBy === 'title' ? 'Judul' : 'Durasi'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <FlatList
+        data={sortedArticles}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#1a1a2e' },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#ffffff', marginBottom: 5 },
-  count: { fontSize: 14, color: '#8b9bb4', marginBottom: 20 },
-  articleCard: { backgroundColor: '#16213e', padding: 15, borderRadius: 8, marginBottom: 10 },
-  articleTitle: { fontSize: 16, color: '#ffffff', marginBottom: 5 },
-  articleCategory: { fontSize: 12, color: '#8b9bb4' },
-  emptyState: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 40 },
-  emptyText: { fontSize: 16, color: '#8b9bb4', textAlign: 'center' },
+  container: { flex: 1, backgroundColor: '#fff', padding: 16 },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  header: { fontSize: 20, fontWeight: '700', color: '#222' },
+  sortBtn: { fontSize: 14, color: '#007AFF', fontWeight: '500' },
+  card: {
+    backgroundColor: '#f9f9f9',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 12,
+    elevation: 2,
+  },
+  title: { fontSize: 17, fontWeight: '600', color: '#333' },
+  excerpt: { fontSize: 14, color: '#555', marginTop: 6 },
+  meta: { fontSize: 12, color: '#777', marginTop: 4 },
 });
 
 export default ArticleListScreen;

@@ -1,9 +1,15 @@
-// App.tsx
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { BookmarkProvider } from './src/context/BookmarkContext';
 import AppNavigator from './src/navigation/AppNavigator';
 
-const App: React.FC = () => {
-  return <AppNavigator />;
-};
 
-export default App;
+export default function App() {
+  return (
+    <BookmarkProvider>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </BookmarkProvider>
+  );
+}
