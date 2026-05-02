@@ -266,14 +266,17 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <WebView
+                <WebView
           ref={webViewRef}
           source={require('./assets/reader/index.html')}
+          originWhitelist={['*']} // <-- Ditambahkan untuk mencegah error CORS/Cleartext
           injectedJavaScript={customJS}
           onNavigationStateChange={(navState) => {
             setCanGoBack(navState.canGoBack);
-            // Tambah hitungan setiap kali halaman baru mulai dimuat
-            if (navState.loading) {
+            
+            // Perbaikan: Tambah hitungan HANYA JIKA halaman SELESAI dimuat 
+            // dan bukan navigasi sekadar hashtag/anchor
+            if (!navState.loading && !navState.url.includes('#')) {
               setPageViews(prev => prev + 1);
             }
           }}

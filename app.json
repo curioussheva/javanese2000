@@ -8,7 +8,7 @@
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/logo.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#486344"
     },
     "assetBundlePatterns": [
@@ -19,15 +19,7 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#486344"
       },
-      "package": "com.curioussheva.javanese2000",
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-2718792162592521~8055554493"
-      },
-      "androidManifest": {
-        "application": {
-          "android:usesCleartextTraffic": true
-        }
-      }
+      "package": "com.curioussheva.javanese2000"
     },
     "plugins": [
       [
@@ -39,7 +31,15 @@
           "delayAppMeasurementInit": false
         }
       ],
-      "expo-asset"
+      "expo-asset",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {

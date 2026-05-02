@@ -1,0 +1,8 @@
+{
+  "tag-pair": true,
+  "tag-self-close": false,
+  "spec-char-escape": false,
+  "doctype-first": false,
+  "id-unique": false,
+  "attr-value-double-quote": false
+}
