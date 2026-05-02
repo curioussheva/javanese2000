@@ -14,6 +14,18 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 
+// === IMPORT ADMOB ===
+import { 
+  BannerAd, 
+  BannerAdSize, 
+  TestIds, 
+  useInterstitialAd 
+} from 'react-native-google-mobile-ads';
+
+// Tentukan ID Iklan (Ganti dengan ID Asli kamu nanti sebelum rilis)
+const adUnitIdBanner = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2718792162592521/1039823651';
+const adUnitIdInterstitial = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-2718792162592521/2240406446';
+ 
 const customJS = `
 (function() {
   // Dropdown & Sidebar functions
@@ -54,28 +66,23 @@ window.printPage = async function() {
     const bodyClone = document.body.cloneNode(true);
 
     // === CLEANING ===
-    // Hapus sidebar dengan cara yang aman
     let sidebar = bodyClone.querySelector("#mySidebar");
     if (sidebar) sidebar.remove();
 
     let dropdown = bodyClone.querySelector("#myDropdown");
     if (dropdown) dropdown.remove();
 
-    // Hapus elemen tidak diinginkan
     const unwanted = bodyClone.querySelectorAll('button, nav, header, footer, .no-print, [onclick*="w3_open"], [onclick*="w3_close"]');
     unwanted.forEach(el => el.remove());
 
-    // Hapus semua gambar di sidebar (jika masih ada)
     bodyClone.querySelectorAll('img').forEach(img => {
       if (img.closest('#mySidebar, .w3-sidebar, .dropdown, nav')) {
         img.remove();
       }
     });
     
-    // Hapus icon printer
     bodyClone.querySelector('img[src*="print-icon"]')?.remove();
 
-    // Proses gambar artikel
     const images = bodyClone.querySelectorAll('img');
     for (let img of images) {
       if (!img.src || img.src.startsWith('data:')) continue;
@@ -99,7 +106,6 @@ window.printPage = async function() {
       }
     }
 
-    // Kirim ke React Native
     window.ReactNativeWebView.postMessage(JSON.stringify({
       type: 'PRINT',
       payload: bodyClone.innerHTML
@@ -114,10 +120,8 @@ window.printPage = async function() {
   }
 };
 
-// Supaya tombol print di HTML juga jalan
 window.print = window.printPage; 
 
-// Accordion functionality
   function initAccordion() {
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {
@@ -131,31 +135,24 @@ window.print = window.printPage;
     }
   }
 
-  // Initialize accordion
   if (document.readyState === "complete" || document.readyState === "interactive") {
     initAccordion();
   } else {
     document.addEventListener("DOMContentLoaded", initAccordion);
   }
 
-  // ==================== FORCE INTERNAL LINKS ====================
-  // Paksa semua link internal tetap di dalam WebView
   function handleInternalLinks() {
     document.addEventListener('click', function(e) {
       const link = e.target.closest('a');
       if (!link) return;
 
       const href = link.getAttribute('href') || link.href;
-
-      // Jika link internal (bukan http/https)
       if (href && !href.startsWith('http') && !href.startsWith('#')) {
-        link.target = '_self';     // pastikan tidak blank
-        // link.removeAttribute('target'); // alternatif: hapus target
+        link.target = '_self';    
       }
-    }, true); // capture phase
+    }, true); 
   }
 
-  // Jalankan setelah DOM siap
   if (document.readyState === "complete" || document.readyState === "interactive") {
     handleInternalLinks();
   } else {
@@ -169,6 +166,32 @@ export default function App() {
   const webViewRef = useRef<WebView>(null);
   const [canGoBack, setCanGoBack] = useState(false);
   const [isPrinting, setIsPrinting] = useState(false); 
+  const [pageViews, setPageViews] = useState(0); // Menghitung navigasi halaman
+
+  // === SETUP INTERSTITIAL AD ===
+  const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitIdInterstitial, {
+    requestNonPersonalizedAdsOnly: true,
+  });
+
+  // Load Iklan saat aplikasi pertama dibuka
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  // Load Iklan BARU setiap kali iklan lama ditutup
+  useEffect(() => {
+    if (isClosed) {
+      load();
+    }
+  }, [isClosed, load]);
+
+  // Tampilkan iklan setiap kelipatan 3 kali buka halaman
+  useEffect(() => {
+    if (pageViews > 0 && pageViews % 3 === 0 && isLoaded) {
+      show();
+    }
+  }, [pageViews, isLoaded, show]);
+
 
   const handlePrint = async (htmlPayload: string) => {
     if (!htmlPayload) {
@@ -227,7 +250,6 @@ export default function App() {
     }
   };
 
-  // Back button handler
   useEffect(() => {
     const backAction = () => {
       if (canGoBack && webViewRef.current) {
@@ -248,7 +270,13 @@ export default function App() {
           ref={webViewRef}
           source={require('./assets/reader/index.html')}
           injectedJavaScript={customJS}
-          onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)}
+          onNavigationStateChange={(navState) => {
+            setCanGoBack(navState.canGoBack);
+            // Tambah hitungan setiap kali halaman baru mulai dimuat
+            if (navState.loading) {
+              setPageViews(prev => prev + 1);
+            }
+          }}
           onMessage={(event) => {
             try {
               const data = JSON.parse(event.nativeEvent.data);
@@ -269,13 +297,25 @@ export default function App() {
           style={styles.webview}
         />
 
-        {/* Loading Overlay - SINGLE INDICATOR (Clean) */}
+        {/* LOADING OVERLAY */}
         {isPrinting && (
           <View style={styles.loadingOverlay}>
             <ActivityIndicator size="large" color="#ffffff" />
             <Text style={styles.loadingText}>Membuat PDF...</Text>
           </View>
         )}
+
+        {/* Bawah: BANNER AD */}
+        <View style={styles.adContainer}>
+          <BannerAd
+            unitId={adUnitIdBanner}
+            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </View>
+
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -306,5 +346,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
+  adContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1a1a1a', 
+    paddingBottom: 5, // Sedikit padding bawah agar tidak menempel border HP
+  }
 });
- 
