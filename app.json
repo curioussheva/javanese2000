@@ -19,7 +19,15 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#486344"
       },
-      "package": "com.curioussheva.javanese2000"
+      "package": "com.curioussheva.javanese2000",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2718792162592521~8055554493"
+      },
+      "androidManifest": {
+        "application": {
+          "android:usesCleartextTraffic": true
+        }
+      }
     },
     "plugins": [
       [
@@ -27,6 +35,7 @@
         {
           "androidAppId": "ca-app-pub-2718792162592521~8055554493",
           "iosAppId": "ca-app-pub-2718792162592521~8055554493",
+          "userTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you.",
           "delayAppMeasurementInit": false
         }
       ],
