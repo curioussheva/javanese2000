@@ -1,20 +1,310 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useRef, useEffect, useState } from 'react';
+import { 
+  StyleSheet, 
+  BackHandler, 
+  Alert, 
+  ActivityIndicator, 
+  View,
+  Text
+} from 'react-native';
+
+import { WebView } from 'react-native-webview';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+import * as Print from 'expo-print';
+import * as Sharing from 'expo-sharing';
+
+const customJS = `
+(function() {
+  // Dropdown & Sidebar functions
+  window.myFunction = function() {
+    const dropdown = document.getElementById("myDropdown");
+    if (dropdown) dropdown.classList.toggle("show");
+  };
+
+  window.filterFunction = function() {
+    const input = document.getElementById("myInput");
+    const filter = input ? input.value.toUpperCase() : "";
+    const div = document.getElementById("myDropdown");
+    const a = div ? div.getElementsByTagName("a") : [];
+    for (let i = 0; i < a.length; i++) {
+      const txtValue = a[i].textContent || a[i].innerText;
+      a[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+    }
+  };
+
+  window.w3_open = function() {
+    const sidebar = document.getElementById("mySidebar");
+    if (sidebar) sidebar.style.display = "block";
+  };
+
+  window.w3_close = function() {
+    const sidebar = document.getElementById("mySidebar");
+    if (sidebar) sidebar.style.display = "none";
+  };
+
+// ==================== IMPROVED PRINT FUNCTION ====================
+window.printPage = async function() {
+  if (!window.ReactNativeWebView) {
+    console.warn("ReactNativeWebView not available");
+    return;
+  }
+
+  try {
+    const bodyClone = document.body.cloneNode(true);
+
+    // === CLEANING ===
+    // Hapus sidebar dengan cara yang aman
+    let sidebar = bodyClone.querySelector("#mySidebar");
+    if (sidebar) sidebar.remove();
+
+    let dropdown = bodyClone.querySelector("#myDropdown");
+    if (dropdown) dropdown.remove();
+
+    // Hapus elemen tidak diinginkan
+    const unwanted = bodyClone.querySelectorAll('button, nav, header, footer, .no-print, [onclick*="w3_open"], [onclick*="w3_close"]');
+    unwanted.forEach(el => el.remove());
+
+    // Hapus semua gambar di sidebar (jika masih ada)
+    bodyClone.querySelectorAll('img').forEach(img => {
+      if (img.closest('#mySidebar, .w3-sidebar, .dropdown, nav')) {
+        img.remove();
+      }
+    });
+    
+    // Hapus icon printer
+    bodyClone.querySelector('img[src*="print-icon"]')?.remove();
+
+    // Proses gambar artikel
+    const images = bodyClone.querySelectorAll('img');
+    for (let img of images) {
+      if (!img.src || img.src.startsWith('data:')) continue;
+
+      try {
+        const canvas = document.createElement('canvas');
+        const maxWidth = 1000;
+        const ratio = maxWidth / (img.naturalWidth || img.width || 800);
+
+        canvas.width = (img.naturalWidth || img.width || 800) * ratio;
+        canvas.height = (img.naturalHeight || img.height || 600) * ratio;
+
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+          if (dataUrl.length > 50) img.src = dataUrl;
+        }
+      } catch (e) {
+        console.warn('Canvas failed');
+      }
+    }
+
+    // Kirim ke React Native
+    window.ReactNativeWebView.postMessage(JSON.stringify({
+      type: 'PRINT',
+      payload: bodyClone.innerHTML
+    }));
+
+  } catch (err) {
+    console.error('PrintPage error:', err);
+    window.ReactNativeWebView.postMessage(JSON.stringify({
+      type: 'PRINT_ERROR',
+      message: err.message || 'Failed to prepare content'
+    }));
+  }
+};
+
+// Supaya tombol print di HTML juga jalan
+window.print = window.printPage; 
+
+// Accordion functionality
+  function initAccordion() {
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+      acc[i].onclick = function() {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        if (panel) {
+          panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+        }
+      };
+    }
+  }
+
+  // Initialize accordion
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    initAccordion();
+  } else {
+    document.addEventListener("DOMContentLoaded", initAccordion);
+  }
+
+  // ==================== FORCE INTERNAL LINKS ====================
+  // Paksa semua link internal tetap di dalam WebView
+  function handleInternalLinks() {
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if (!link) return;
+
+      const href = link.getAttribute('href') || link.href;
+
+      // Jika link internal (bukan http/https)
+      if (href && !href.startsWith('http') && !href.startsWith('#')) {
+        link.target = '_self';     // pastikan tidak blank
+        // link.removeAttribute('target'); // alternatif: hapus target
+      }
+    }, true); // capture phase
+  }
+
+  // Jalankan setelah DOM siap
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    handleInternalLinks();
+  } else {
+    document.addEventListener("DOMContentLoaded", handleInternalLinks);
+  }
+
+})();
+`;
 
 export default function App() {
+  const webViewRef = useRef<WebView>(null);
+  const [canGoBack, setCanGoBack] = useState(false);
+  const [isPrinting, setIsPrinting] = useState(false); 
+
+  const handlePrint = async (htmlPayload: string) => {
+    if (!htmlPayload) {
+      Alert.alert("Error", "Tidak ada konten untuk dicetak");
+      return;
+    }
+
+    setIsPrinting(true);
+
+    try {
+      const finalHtml = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+              @page { margin: 15mm; size: A4; }
+              body { 
+                font-family: Arial, Helvetica, sans-serif; 
+                line-height: 1.6; 
+                color: #000; 
+                padding: 20px;
+              }
+              h1, h2, h3 { text-align: center; }
+              p { text-align: justify; font-size: 12pt; margin-bottom: 12pt; }
+              img { 
+                max-width: 100% !important; 
+                height: auto !important; 
+                display: block; 
+                margin: 15px auto; 
+                page-break-inside: avoid; 
+              }
+            </style>
+          </head>
+          <body>
+            <div id="pdf-content">${htmlPayload}</div>
+          </body>
+        </html>
+      `;
+
+      const { uri } = await Print.printToFileAsync({ html: finalHtml });
+
+      console.log('PDF generated at:', uri);
+
+      await Sharing.shareAsync(uri, {
+        mimeType: 'application/pdf',
+        dialogTitle: 'Simpan PDF Artikel',
+        UTI: 'com.adobe.pdf',
+      });
+
+    } catch (error: any) {
+      console.error('PDF Generation Error:', error);
+      Alert.alert("Gagal Membuat PDF", error.message || "Silakan coba lagi.");
+    } finally {
+      setIsPrinting(false);
+    }
+  };
+
+  // Back button handler
+  useEffect(() => {
+    const backAction = () => {
+      if (canGoBack && webViewRef.current) {
+        webViewRef.current.goBack();
+        return true;
+      }
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+    return () => backHandler.remove();
+  }, [canGoBack]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <WebView
+          ref={webViewRef}
+          source={require('./assets/reader/index.html')}
+          injectedJavaScript={customJS}
+          onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)}
+          onMessage={(event) => {
+            try {
+              const data = JSON.parse(event.nativeEvent.data);
+              if (data.type === 'PRINT') {
+                handlePrint(data.payload || "");
+              } else if (data.type === 'PRINT_ERROR') {
+                Alert.alert("Print Error", data.message || "Terjadi kesalahan");
+              }
+            } catch (e) {
+              console.log("WebView raw message:", event.nativeEvent.data);
+            }
+          }}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          allowFileAccess={true}
+          allowUniversalAccessFromFileURLs={true}
+          mixedContentMode="always"
+          style={styles.webview}
+        />
+
+        {/* Loading Overlay - SINGLE INDICATOR (Clean) */}
+        {isPrinting && (
+          <View style={styles.loadingOverlay}>
+            <ActivityIndicator size="large" color="#ffffff" />
+            <Text style={styles.loadingText}>Membuat PDF...</Text>
+          </View>
+        )}
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+  container: { 
+    flex: 1, 
+    backgroundColor: '#1a1a1a' 
+  },
+  webview: { 
+    flex: 1 
+  },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
     justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 999,
+  },
+  loadingText: {
+    color: '#ffffff',
+    marginTop: 16,
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
+ 
