@@ -1,1193 +1,2328 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<title>Mengoptimalkan Fungsi Keris 1.html</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" href="../css/w3.css">
-<link rel="stylesheet" href="../css/custom.css">
-
-<body>
-
-<div class="w3-sidebar w3-bar-block w3-dark-grey w3-card w3-animate-left" style="
-display: none;"
-id="mySidebar">
-  
-<center>
-  <img src="../images/Keris-1.jpg"   onclick="w3_close()">
-</center>
-
-<b class="w3-bar-item w3-button w3-green" style="text-align:center"><h5>Javanese2000. Filosofi Kebatinan, Spiritual, dan Kegaiban</h5></b>
-
-<a href="../home.html"><img src="../images/home.png" style=" height: 24px;
-  width: 24px"> <h6 style="color:rgb(161,236,167);"  class="w3-button "> WELLCOME to Javanese2000</h6></a>
-
-<button class="accordion" class="w3-bar-item w3-button">Seputar Budaya Kebatinan Jawa</button>
-<div class="panel">
-    
-    <a href="../budaya-kebatinan-jawa-kejawen/Seputar Budaya Kebatinan Jawa.html" class="w3-bar-item w3-button">Seputar Budaya Kebatinan Jawa</a>
-
-    <a href="../budaya-kebatinan-jawa-kejawen/Kebatinan dan Agama.html" class="w3-bar-item w3-button">Kebatinan dan Agama</a>
-
-    <a href="../budaya-kebatinan-jawa-kejawen/Mistisisme dan Klenik.html" class="w3-bar-item w3-button">Mistisisme dan Klenik</a>
-
-    <a href="../budaya-kebatinan-jawa-kejawen/Pencarian Kebatinan Baru.html" class="w3-bar-item w3-button">Pencarian ‘Kebatinan’ Baru</a>
-
-    <a href="../budaya-kebatinan-jawa-kejawen/Laku Prihatin dan Tirakat.html" class="w3-bar-item w3-button">Laku Prihatin dan Tirakat</a>
-
-    <a href="../budaya-kebatinan-jawa-kejawen/Hari Baik - Hari Buruk.html" class="w3-bar-item w3-button">Hari Baik - Hari Buruk</a>
-
-    <a href="../budaya-kebatinan-jawa-kejawen/Ngobrol JODOH.html" class="w3-bar-item w3-button">Ngobrol JODOH</a>
-   
-    <a href="../budaya-kebatinan-jawa-kejawen/Ngobrol 1 Permasalahan Hidup.html" class="w3-bar-item w3-button">Ngobrol 1 Permasalahan Hidup</a>
-
-    <a href="../budaya-kebatinan-jawa-kejawen/Ngobrol 2 Permasalahan Hidup.html" class="w3-bar-item w3-button">Ngobrol 2 Permasalahan Hidup</a>
-
-    <a href="../budaya-kebatinan-jawa-kejawen/Ngobrol 3 Permasalahan Hidup.html" class="w3-bar-item w3-button">Ngobrol 3 Permasalahan Hidup</a>
-  
-    <a href="../budaya-kebatinan-jawa-kejawen/Ngobrol 4 Permasalahan Hidup.html" class="w3-bar-item w3-button">Ngobrol 4 Permasalahan Hidup</a>
-
-</div>  
-
-<button class="accordion" class="w3-bar-item w3-button">Kebatinan dan Spiritual</button>
-<div class="panel">
-
-  <a href="../Kebatinan-dan-Spiritual/Kebatinan dan Spiritual.html" class="w3-bar-item w3-button">Kebatinan dan Spiritual</a>
- 
-  <a href="../Kebatinan-dan-Spiritual/Kanuragan & Tenaga Dalam.html" class="w3-bar-item w3-button">Kanuragan & Tenaga Dalam</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Olah Rasa dan Kebatinan.html" class="w3-bar-item w3-button">Olah Rasa dan Kebatinan</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Olah Batin dan Kebatinan.html" class="w3-bar-item w3-button">Olah Batin dan Kebatinan</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ilmu Gaib dan Ilmu Khodam.html" class="w3-bar-item w3-button">Ilmu Gaib dan Ilmu Khodam</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Olah Sukma dan Kebatinan.html" class="w3-bar-item w3-button">Olah Sukma dan Kebatinan</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Terawangan Melihat Gaib.html" class="w3-bar-item w3-button">Terawangan / Melihat Gaib</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Olah Spiritual dan Kebatinan.html" class="w3-bar-item w3-button">Olah Spiritual dan Kebatinan</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Olah Roh, Manunggaling Kawula Lan Gusti.html" class="w3-bar-item w3-button">Olah Roh, Manunggaling Kawula Lan Gusti</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Kebatinan Dalam Keagamaan.html" class="w3-bar-item w3-button">Kebatinan Dalam Keagamaan</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Sedulur Papat Kalima Pancer.html" class="w3-bar-item w3-button">Sedulur Papat Kalima Pancer</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Sedulur Papat Yang Terpisah.html" class="w3-bar-item w3-button">Sedulur Papat Yang Terpisah</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Sejatinya Manusia.html" class="w3-bar-item w3-button">Sejatinya Manusia</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Sukma Sejati.html" class="w3-bar-item w3-button">Sukma Sejati</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Aku dan Guru Sejati.html" class="w3-bar-item w3-button">Aku dan Guru Sejati</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Aku, Sejatinya Aku, dan Sukma Sejati.html" class="w3-bar-item w3-button">Aku, Sejatinya Aku, dan Sukma Sejati</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Kebatinan dan Kanuragan.html" class="w3-bar-item w3-button">Kebatinan dan Kanuragan</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Kesaktian Manusia.html" class="w3-bar-item w3-button">Kesaktian Manusia</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Belajar Keilmuan Batin.html" class="w3-bar-item w3-button">Belajar Keilmuan Batin</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Kekhawatiran Melihat Gaib.html" class="w3-bar-item w3-button">Kekhawatiran Melihat Gaib</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Efek Negatif Ilmu Kebatinan.html" class="w3-bar-item w3-button">Efek Negatif Ilmu Kebatinan ?</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Gila Karena Ilmu Kebatinan.html" class="w3-bar-item w3-button">Gila Karena Ilmu Kebatinan ?</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ilmu Rajah Kalacakra.html" class="w3-bar-item w3-button">Ilmu / Rajah Kalacakra</a>
- 
-    <button class="accordion" class="w3-bar-item w3-button">MEDITASI ENERGI</button>
-        <div class="panel">
-
-        <a href="../Kebatinan-dan-Spiritual/MEDITASI ENERGI.html" class="w3-bar-item w3-button">
-          MEDITASI ENERGI</a>
-  
-        <a href="../Kebatinan-dan-Spiritual/Meditasi Inti.html" class="w3-bar-item w3-button">
-          Meditasi Inti</a>
-          
-        <a href="../Kebatinan-dan-Spiritual/Meditasi Ringan.html" class="w3-bar-item w3-button">
-          Meditasi Ringan</a>
-
-       <a href="../Kebatinan-dan-Spiritual/Meditasi Dasar.html" class="w3-bar-item w3-button">
-          Meditasi Dasar</a>
-
-       <a href="../Kebatinan-dan-Spiritual/Meditasi Olah Rasa dan Energi.html" class="w3-bar-item w3-button">
-          Meditasi Olah Rasa dan Energi</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Meditasi Tingkat Lanjut 1.html" class="w3-bar-item w3-button">
-          Meditasi Tingkat Lanjut 1</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Meditasi Tingkat Lanjut 2.html" class="w3-bar-item w3-button">
-          Meditasi Tingkat Lanjut 2</a>
-
-       <a href="../Kebatinan-dan-Spiritual/Meditasi Tingkat Lanjut 3.html" class="w3-bar-item w3-button">
-          Meditasi Tingkat Lanjut 3</a>
+  <head>
+    <title>Mengoptimalkan Fungsi Keris 1.html</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/w3.css" />
+    <link rel="stylesheet" href="../css/custom.css" />
+  </head>
+  <body>
+    <div
+      class="w3-sidebar w3-bar-block w3-dark-grey w3-card w3-animate-left"
+      style="display: none"
+      id="mySidebar"
+    >
+      <center><img src="../images/Keris-1.jpg" onclick="w3_close()" /></center>
+      <h5>
+        <b class="w3-bar-item w3-button w3-green" style="text-align: center"
+          >Javanese2000. Filosofi Kebatinan, Spiritual, dan Kegaiban</b
+        >
+      </h5>
+      <a href="../home.html"
+        ><img src="../images/home.png" style="height: 24px; width: 24px" />
+        <h6 style="color: rgb(161, 236, 167)" class="w3-button">
+          WELLCOME to Javanese2000
+        </h6>
+      </a>
+      <button class="w3-bar-item w3-button">
+        Seputar Budaya Kebatinan Jawa
+      </button>
+      <div class="panel">
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Seputar%20Budaya%20Kebatinan%20Jawa.html"
+          class="w3-bar-item w3-button"
+          >Seputar Budaya Kebatinan Jawa</a
+        >
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Kebatinan%20dan%20Agama.html"
+          class="w3-bar-item w3-button"
+          >Kebatinan dan Agama</a
+        >
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Mistisisme%20dan%20Klenik.html"
+          class="w3-bar-item w3-button"
+          >Mistisisme dan Klenik</a
+        >
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Pencarian%20Kebatinan%20Baru.html"
+          class="w3-bar-item w3-button"
+          >Pencarian ‘Kebatinan’ Baru</a
+        >
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Laku%20Prihatin%20dan%20Tirakat.html"
+          class="w3-bar-item w3-button"
+          >Laku Prihatin dan Tirakat</a
+        >
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Hari%20Baik%20-%20Hari%20Buruk.html"
+          class="w3-bar-item w3-button"
+          >Hari Baik - Hari Buruk</a
+        >
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Ngobrol%20JODOH.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol JODOH</a
+        >
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Ngobrol%201%20Permasalahan%20Hidup.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 1 Permasalahan Hidup</a
+        >
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Ngobrol%202%20Permasalahan%20Hidup.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 2 Permasalahan Hidup</a
+        >
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Ngobrol%203%20Permasalahan%20Hidup.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 3 Permasalahan Hidup</a
+        >
+        <a
+          href="../budaya-kebatinan-jawa-kejawen/Ngobrol%204%20Permasalahan%20Hidup.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 4 Permasalahan Hidup</a
+        >
       </div>
-
-  <a href="../Kebatinan-dan-Spiritual/Energi Alam dan Meditasi.html" class="w3-bar-item w3-button">Energi Alam dan Meditasi</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Tempat-tempat Mistis.html" class="w3-bar-item w3-button">Tempat-tempat Mistis</a>
-  
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 1.html" class="w3-bar-item w3-button">Ngobrol 1</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 2.html" class="w3-bar-item w3-button">Ngobrol 2</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 3.html" class="w3-bar-item w3-button">Ngobrol 3</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 4.html" class="w3-bar-item w3-button">Ngobrol 4</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 5.html" class="w3-bar-item w3-button">Ngobrol 5</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 6.html" class="w3-bar-item w3-button">Ngobrol 6</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol Pantangan Ilmu.html" class="w3-bar-item w3-button">Ngobrol Pantangan Ilmu</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol Belajar Keilmuan Gaib.html" class="w3-bar-item w3-button">Ngobrol Belajar Keilmuan Gaib</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 1 Melihat Gaib.html" class="w3-bar-item w3-button">Ngobrol 1 Melihat Gaib</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 2 Melihat Gaib.html" class="w3-bar-item w3-button">Ngobrol 2 Melihat Gaib</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 3 Melihat Gaib.html" class="w3-bar-item w3-button">Ngobrol 3 Melihat Gaib</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 4 Melihat Gaib.html" class="w3-bar-item w3-button">Ngobrol 4 Melihat Gaib</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 1 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 1 Kebatinan-Kegaiban</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 2 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 2 Kebatinan-Kegaiban</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 3 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 3 Kebatinan-Kegaiban</a>
-   
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 4 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 4 Kebatinan-Kegaiban</a>
-
-    <button class="accordion" class="w3-bar-item w3-button">Ngobrol 5 Kebatinan-Kegaiban</button>
-        <div class="panel"> 
-
-         <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 5 Kebatinan-Kegaiban</a>
- 
-         <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 2.html" class="w3-bar-item w3-button">Ngobrol 5 - 2</a>
-
-          <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 3.html" class="w3-bar-item w3-button">Ngobrol 5 - 3</a>
-
-          <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 4.html" class="w3-bar-item w3-button">Ngobrol 5 - 4</a>
-
-          <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 5.html" class="w3-bar-item w3-button">Ngobrol 5 - 5</a>
-
-          <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 6.html" class="w3-bar-item w3-button">Ngobrol 5 - 6</a>
-
-          <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 7.html" class="w3-bar-item w3-button">Ngobrol 5 - 7</a>
-
-          <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 8.html" class="w3-bar-item w3-button">Ngobrol 5 - 8</a>
-
-          <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 9.html" class="w3-bar-item w3-button">Ngobrol 5 - 9</a>
-
-          <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 10.html" class="w3-bar-item w3-button">Ngobrol 5 - 10</a>
-
-          <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 11.html" class="w3-bar-item w3-button">Ngobrol 5 - 11</a>
-
-          <a href="../Kebatinan-dan-Spiritual/Ngobrol 5 - 12.html" class="w3-bar-item w3-button">Ngobrol 5 - 12</a>
+      <button class="w3-bar-item w3-button">Kebatinan dan Spiritual</button>
+      <div class="panel">
+        <a
+          href="../Kebatinan-dan-Spiritual/Kebatinan%20dan%20Spiritual.html"
+          class="w3-bar-item w3-button"
+          >Kebatinan dan Spiritual</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Kanuragan%20&amp;%20Tenaga%20Dalam.html"
+          class="w3-bar-item w3-button"
+          >Kanuragan & Tenaga Dalam</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Olah%20Rasa%20dan%20Kebatinan.html"
+          class="w3-bar-item w3-button"
+          >Olah Rasa dan Kebatinan</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Olah%20Batin%20dan%20Kebatinan.html"
+          class="w3-bar-item w3-button"
+          >Olah Batin dan Kebatinan</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ilmu%20Gaib%20dan%20Ilmu%20Khodam.html"
+          class="w3-bar-item w3-button"
+          >Ilmu Gaib dan Ilmu Khodam</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Olah%20Sukma%20dan%20Kebatinan.html"
+          class="w3-bar-item w3-button"
+          >Olah Sukma dan Kebatinan</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Terawangan%20Melihat%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Terawangan / Melihat Gaib</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Olah%20Spiritual%20dan%20Kebatinan.html"
+          class="w3-bar-item w3-button"
+          >Olah Spiritual dan Kebatinan</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Olah%20Roh,%20Manunggaling%20Kawula%20Lan%20Gusti.html"
+          class="w3-bar-item w3-button"
+          >Olah Roh, Manunggaling Kawula Lan Gusti</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Kebatinan%20Dalam%20Keagamaan.html"
+          class="w3-bar-item w3-button"
+          >Kebatinan Dalam Keagamaan</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Sedulur%20Papat%20Kalima%20Pancer.html"
+          class="w3-bar-item w3-button"
+          >Sedulur Papat Kalima Pancer</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Sedulur%20Papat%20Yang%20Terpisah.html"
+          class="w3-bar-item w3-button"
+          >Sedulur Papat Yang Terpisah</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Sejatinya%20Manusia.html"
+          class="w3-bar-item w3-button"
+          >Sejatinya Manusia</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Sukma%20Sejati.html"
+          class="w3-bar-item w3-button"
+          >Sukma Sejati</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Aku%20dan%20Guru%20Sejati.html"
+          class="w3-bar-item w3-button"
+          >Aku dan Guru Sejati</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Aku,%20Sejatinya%20Aku,%20dan%20Sukma%20Sejati.html"
+          class="w3-bar-item w3-button"
+          >Aku, Sejatinya Aku, dan Sukma Sejati</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Kebatinan%20dan%20Kanuragan.html"
+          class="w3-bar-item w3-button"
+          >Kebatinan dan Kanuragan</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Kesaktian%20Manusia.html"
+          class="w3-bar-item w3-button"
+          >Kesaktian Manusia</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Belajar%20Keilmuan%20Batin.html"
+          class="w3-bar-item w3-button"
+          >Belajar Keilmuan Batin</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Kekhawatiran%20Melihat%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Kekhawatiran Melihat Gaib</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Efek%20Negatif%20Ilmu%20Kebatinan.html"
+          class="w3-bar-item w3-button"
+          >Efek Negatif Ilmu Kebatinan ?</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Gila%20Karena%20Ilmu%20Kebatinan.html"
+          class="w3-bar-item w3-button"
+          >Gila Karena Ilmu Kebatinan ?</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ilmu%20Rajah%20Kalacakra.html"
+          class="w3-bar-item w3-button"
+          >Ilmu / Rajah Kalacakra</a
+        >
+        <button class="w3-bar-item w3-button">MEDITASI ENERGI</button>
+        <div class="panel">
+          <a
+            href="../Kebatinan-dan-Spiritual/MEDITASI%20ENERGI.html"
+            class="w3-bar-item w3-button"
+            >MEDITASI ENERGI</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Meditasi%20Inti.html"
+            class="w3-bar-item w3-button"
+            >Meditasi Inti</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Meditasi%20Ringan.html"
+            class="w3-bar-item w3-button"
+            >Meditasi Ringan</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Meditasi%20Dasar.html"
+            class="w3-bar-item w3-button"
+            >Meditasi Dasar</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Meditasi%20Olah%20Rasa%20dan%20Energi.html"
+            class="w3-bar-item w3-button"
+            >Meditasi Olah Rasa dan Energi</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Meditasi%20Tingkat%20Lanjut%201.html"
+            class="w3-bar-item w3-button"
+            >Meditasi Tingkat Lanjut 1</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Meditasi%20Tingkat%20Lanjut%202.html"
+            class="w3-bar-item w3-button"
+            >Meditasi Tingkat Lanjut 2</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Meditasi%20Tingkat%20Lanjut%203.html"
+            class="w3-bar-item w3-button"
+            >Meditasi Tingkat Lanjut 3</a
+          >
+        </div>
+        <a
+          href="../Kebatinan-dan-Spiritual/Energi%20Alam%20dan%20Meditasi.html"
+          class="w3-bar-item w3-button"
+          >Energi Alam dan Meditasi</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Tempat-tempat%20Mistis.html"
+          class="w3-bar-item w3-button"
+          >Tempat-tempat Mistis</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%201.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 1</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%202.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 2</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%203.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 3</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%204.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 4</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%205.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 5</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%206.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 6</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%20Pantangan%20Ilmu.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol Pantangan Ilmu</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%20Belajar%20Keilmuan%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol Belajar Keilmuan Gaib</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%201%20Melihat%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 1 Melihat Gaib</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%202%20Melihat%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 2 Melihat Gaib</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%203%20Melihat%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 3 Melihat Gaib</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%204%20Melihat%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 4 Melihat Gaib</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%201%20Kebatinan-Kegaiban.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 1 Kebatinan-Kegaiban</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%202%20Kebatinan-Kegaiban.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 2 Kebatinan-Kegaiban</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%203%20Kebatinan-Kegaiban.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 3 Kebatinan-Kegaiban</a
+        >
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%204%20Kebatinan-Kegaiban.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 4 Kebatinan-Kegaiban</a
+        >
+        <button class="w3-bar-item w3-button">
+          Ngobrol 5 Kebatinan-Kegaiban
+        </button>
+        <div class="panel">
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20Kebatinan-Kegaiban.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 Kebatinan-Kegaiban</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%202.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 2</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%203.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 3</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%204.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 4</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%205.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 5</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%206.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 6</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%207.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 7</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%208.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 8</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%209.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 9</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%2010.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 10</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%2011.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 11</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%205%20-%2012.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 5 - 12</a
+          >
+        </div>
+        <button class="w3-bar-item w3-button">
+          Ngobrol 6 Kebatinan-Kegaiban
+        </button>
+        <div class="panel">
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%206%20Kebatinan-Kegaiban.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 6 Kebatinan-Kegaiban</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%206%20-%202.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 6 - 2</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%206%20-%203.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 6 - 3</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%206%20-%204.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 6 - 4</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%206%20-%205.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 6 - 5</a
+          >
+        </div>
+        <a
+          href="../Kebatinan-dan-Spiritual/Ngobrol%207%20Kebatinan-Kegaiban.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 7 Kebatinan-Kegaiban</a
+        >
+        <button class="w3-bar-item w3-button">
+          Ngobrol 8 Kebatinan-Kegaiban
+        </button>
+        <div class="panel">
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%208%20Kebatinan-Kegaiban.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 8 Kebatinan-Kegaiban</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%208%20-%202.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 8 - 2</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%208%20-%203.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 8 - 3</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%208%20-%204.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 8 - 4</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%208%20-%205.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 8 - 5</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%208%20-%206.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 8 - 6</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%208%20-%207.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 8 - 7</a
+          >
+        </div>
+        <button class="w3-bar-item w3-button">
+          Ngobrol 9 Kebatinan-Kegaiban
+        </button>
+        <div class="panel">
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20Kebatinan-Kegaiban.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 Kebatinan-Kegaiban</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%202.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 2</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%203.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 3</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%204.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 4</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%205.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 5</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%206.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 6</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%207.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 7</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%208.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 8</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%209.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 9</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%2010.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 10</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%2011.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 11</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%2012.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 12</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%2013.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 13</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%2014.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 14</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%209%20-%2015.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 9 - 15</a
+          >
+        </div>
+        <button class="w3-bar-item w3-button">
+          Ngobrol 10 Kebatinan-Kegaiban
+        </button>
+        <div class="panel">
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2010%20Kebatinan-Kegaiban.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 10 Kebatinan-Kegaiban</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2010%20-%202.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 10 - 2</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2010%20-%203.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 10 - 3</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2010%20-%204.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 10 - 4</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2010%20-%205.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 10 - 5</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2010%20-%206.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 10 - 6</a
+          >
+        </div>
+        <button class="w3-bar-item w3-button">
+          Ngobrol 11 Kebatinan-Kegaiban
+        </button>
+        <div class="panel">
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2011%20Kebatinan-Kegaiban.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 11 Kebatinan-Kegaiban</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2011%20-%202.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 11 - 2</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2011%20-%203.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 11 - 3</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2011%20-%204.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 11 - 4</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2011%20-%205.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 11 - 5</a
+          >
+          <a
+            href="../Kebatinan-dan-Spiritual/Ngobrol%2011%20-%206.html"
+            class="w3-bar-item w3-button"
+            >Ngobrol 11 - 6</a
+          >
+        </div>
+      </div>
+      <button class="w3-bar-item w3-button">
+        Kebatinan & Spiritual Ketuhanan
+      </button>
+      <div class="panel">
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Kebatinan%20&amp;%20Spiritual%20Ketuhanan.html"
+          class="w3-bar-item w3-button"
+          >Kebatinan & Spiritual Ketuhanan</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Spiritualitas%20Ketuhanan%201.html"
+          class="w3-bar-item w3-button"
+          >Spiritualitas Ketuhanan 1</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Spiritualitas%20Ketuhanan%202.html"
+          class="w3-bar-item w3-button"
+          >Spiritualitas Ketuhanan 2</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Jiwa%20Yang%20Sepuh%201.html"
+          class="w3-bar-item w3-button"
+          >Jiwa Yang Sepuh 1</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Jiwa%20Yang%20Sepuh%202.html"
+          class="w3-bar-item w3-button"
+          >Jiwa Yang Sepuh 2</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Ngobrol%201%20Spiritual%20Ketuhanan.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 1 Spiritual Ketuhanan</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Ngobrol%202%20Spiritual%20Ketuhanan.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 2 Spiritual Ketuhanan</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Ngobrol%203%20Spiritual%20Ketuhanan.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 3 Spiritual Ketuhanan</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Ngobrol%204%20Spiritual%20Ketuhanan.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 4 Spiritual Ketuhanan</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Ngobrol%205%20Spiritual%20Ketuhanan.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 5 Spiritual Ketuhanan</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Ngobrol%206%20Spiritual%20Ketuhanan.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 6 Spiritual Ketuhanan</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Ngobrol%207%20Spiritual%20Ketuhanan.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 7 spiritual ketuhanan</a
+        >
+        <a
+          href="../Kebatinan%20&amp;%20Spiritual%20Ketuhanan/Ngobrol%208%20Spiritual%20Ketuhanan.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 8 Spiritual Ketuhanan</a
+        >
+      </div>
+      <button class="w3-bar-item w3-button">
+        Spiritual & Kebatinan Keris Jawa
+      </button>
+      <div class="panel">
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa.html"
+          class="w3-bar-item w3-button"
+          >Spiritual & Kebatinan Keris Jawa</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Gaib%20Di%20Dalam%20Keris%20Jawa.html"
+          class="w3-bar-item w3-button"
+          >Gaib Di Dalam Keris Jawa</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Jawa%20dan%20Empu%20Keris.html"
+          class="w3-bar-item w3-button"
+          >Keris Jawa dan Empu Keris</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Perawatan%20Keris%20Jawa.html"
+          class="w3-bar-item w3-button"
+          >Perawatan Keris Jawa</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Tata%20Cara%20Dalam%20Perkerisan.html"
+          class="w3-bar-item w3-button"
+          >Tata Cara Dalam Perkerisan</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ilmu%20Tayuh%20Menayuh%20Keris.html"
+          class="w3-bar-item w3-button"
+          >Ilmu Tayuh / Menayuh Keris</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Masalah%20Keakuratan%20Menayuh.html"
+          class="w3-bar-item w3-button"
+          >Masalah Keakuratan Menayuh</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Arti%20Mimpi%20Menayuh%20Keris.html"
+          class="w3-bar-item w3-button"
+          >Arti Mimpi Menayuh Keris</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Karakter-Karakter%20Keris%20Jawa.html"
+          class="w3-bar-item w3-button"
+          >Karakter-Karakter Keris Jawa</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Status%20Keris%20dan%20Kelas%20Keris.html"
+          class="w3-bar-item w3-button"
+          >Status Keris dan Kelas Keris</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Wahyu%20Keraton%20Di%20Dalam%20Keris%20Jawa.html"
+          class="w3-bar-item w3-button"
+          >Wahyu Keraton Di Dalam Keris Jawa</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Keningratan.html"
+          class="w3-bar-item w3-button"
+          >Keris Keningratan</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Lurus%20dan%20Keris%20Luk.html"
+          class="w3-bar-item w3-button"
+          >Keris Lurus dan Keris Luk</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Tuah%20Keris.html"
+          class="w3-bar-item w3-button"
+          >Tuah Keris</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Tuah%20Keris%20-%20Filosofi%20Dasar.html"
+          class="w3-bar-item w3-button"
+          >Tuah Keris - Filosofi Dasar</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Tuah%20Keris%20-%20Jaman%20Sekarang.html"
+          class="w3-bar-item w3-button"
+          >Tuah Keris - Jaman Sekarang</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Tuah%20Keris%20-%20Jaman%20Sekarang-2.html"
+          class="w3-bar-item w3-button"
+          >Tuah Keris - Jaman Sekarang-2</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Filosofi%20Tuah%20Keris%20Jawa.html"
+          class="w3-bar-item w3-button"
+          >Filosofi Tuah Keris Jawa</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Menyatunya%20Keris%20dgn%20Pemilik.html"
+          class="w3-bar-item w3-button"
+          >Menyatunya Keris dgn Pemilik</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Mengoptimalkan%20Fungsi%20Keris%201.html"
+          class="w3-bar-item w3-button"
+          >Mengoptimalkan Fungsi Keris 1</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Mengoptimalkan%20Fungsi%20Keris%202.html"
+          class="w3-bar-item w3-button"
+          >Mengoptimalkan Fungsi Keris 2</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Mengoptimalkan%20Fungsi%20Keris%203.html"
+          class="w3-bar-item w3-button"
+          >Mengoptimalkan Fungsi Keris 3</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Pemilik%20Keris%20Sebenarnya.html"
+          class="w3-bar-item w3-button"
+          >Pemilik Keris Sebenarnya</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Pusaka%20Orang%20Tua.html"
+          class="w3-bar-item w3-button"
+          >Keris Pusaka Orang Tua</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Tayuhan%20&amp;%20Keris%20Ageman.html"
+          class="w3-bar-item w3-button"
+          >Keris Tayuhan & Keris Ageman</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Berhawa%20Aura%20Panas.html"
+          class="w3-bar-item w3-button"
+          >Keris Berhawa Aura Panas</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Tindih.html"
+          class="w3-bar-item w3-button"
+          >Keris Tindih</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Kamardikan.html"
+          class="w3-bar-item w3-button"
+          >Keris Kamardikan</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Junjung%20Derajat.html"
+          class="w3-bar-item w3-button"
+          >Keris Junjung Derajat</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Combong%20dan%20Keris%20Pamengkang%20Jagad.html"
+          class="w3-bar-item w3-button"
+          >Keris Combong dan Keris Pamengkang Jagad</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Berpamor%20Pemilih.html"
+          class="w3-bar-item w3-button"
+          >Keris Berpamor Pemilih</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20yang%20Dikosongkan%20Isinya.html"
+          class="w3-bar-item w3-button"
+          >Keris yang Dikosongkan Isinya</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20dan%20Kesaktian.html"
+          class="w3-bar-item w3-button"
+          >Keris dan Kesaktian</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Kyai%20Condong%20Campur.html"
+          class="w3-bar-item w3-button"
+          >Keris Kyai Condong Campur</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Museum%20Pusaka%20Taman%20Mini.html"
+          class="w3-bar-item w3-button"
+          >Museum Pusaka Taman Mini</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Pembuatan%20Keris%20Bali.html"
+          class="w3-bar-item w3-button"
+          >Pembuatan Keris Bali</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%20dan%20Kebatinan.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Keris dan Kebatinan</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%201.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Keris 1</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%202.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Keris 2</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%203.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Keris 3</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%204.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Keris 4</a
+        >
+        <a
+          href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%205.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Keris 5</a
+        >
+      </div>
+      <button class="w3-bar-item w3-button">
+        Benda-Benda Gaib dan Bertuah
+      </button>
+      <div class="panel">
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Benda-Benda%20Gaib%20dan%20Bertuah.html"
+          class="w3-bar-item w3-button"
+          >Benda-Benda Gaib dan Bertuah</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Batu%20Akik.html"
+          class="w3-bar-item w3-button"
+          >Batu Akik</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Mustika.html"
+          class="w3-bar-item w3-button"
+          >Mustika</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Kesaktian%20Mustika.html"
+          class="w3-bar-item w3-button"
+          >Kesaktian Mustika</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Benda-benda%20Bertuah%20Lain.html"
+          class="w3-bar-item w3-button"
+          >Benda-benda Bertuah Lain</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Sesaji.html"
+          class="w3-bar-item w3-button"
+          >Sesaji</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Jimat%20Rajahan%20&amp;%20Khodam%20Isian.html"
+          class="w3-bar-item w3-button"
+          >Jimat Rajahan & Khodam Isian</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Mengisi%20Khodam.html"
+          class="w3-bar-item w3-button"
+          >Mengisi Khodam</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Pasar%20Batu%20Akik%20Rawa%20Bening.html"
+          class="w3-bar-item w3-button"
+          >Pasar Batu Akik Rawa Bening</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Ngobrol%201%20Benda%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 1 Benda Gaib</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Ngobrol%202%20Benda%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 2 Benda Gaib</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Ngobrol%203%20Benda%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 3 Benda Gaib</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Ngobrol%204%20Benda%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 4 Benda Gaib</a
+        >
+        <a
+          href="../Benda-Benda%20Gaib%20dan%20Bertuah/Ngobrol%205%20Benda%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 5 Benda Gaib</a
+        >
+      </div>
+      <button class="w3-bar-item w3-button">Dunia Gaib dan Mahluk Halus</button>
+      <div class="panel">
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dunia%20Gaib%20dan%20Mahluk%20Halus.html"
+          class="w3-bar-item w3-button"
+          >Dunia Gaib dan Mahluk Halus</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Hakekat%20Wujud%20Mahluk%20Halus.html"
+          class="w3-bar-item w3-button"
+          >Hakekat Wujud Mahluk Halus</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Interaksi%20Mahluk%20Halus.html"
+          class="w3-bar-item w3-button"
+          >Interaksi Mahluk Halus</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Rumah%20Angker%20Wingit.html"
+          class="w3-bar-item w3-button"
+          >Rumah Angker / Wingit</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pantangan%20dan%20Larangan.html"
+          class="w3-bar-item w3-button"
+          >Pantangan dan Larangan</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Kesaktian%20Mahluk%20Halus.html"
+          class="w3-bar-item w3-button"
+          >Kesaktian Mahluk Halus</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Penggolongan%20Mahluk%20Halus.html"
+          class="w3-bar-item w3-button"
+          >Penggolongan Mahluk Halus</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pengaruh%20Gaib%20Thd%20Manusia%201.html"
+          class="w3-bar-item w3-button"
+          >Pengaruh Gaib Thd Manusia 1</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pengaruh%20Gaib%20Thd%20Manusia%202.html"
+          class="w3-bar-item w3-button"
+          >Pengaruh Gaib Thd Manusia 2</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ketempatan%20Mahluk%20Halus%201.html"
+          class="w3-bar-item w3-button"
+          >Ketempatan Mahluk Halus 1</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ketempatan%20Mahluk%20Halus%202.html"
+          class="w3-bar-item w3-button"
+          >Ketempatan Mahluk Halus 2</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ketempatan%20Mahluk%20Halus%203.html"
+          class="w3-bar-item w3-button"
+          >Ketempatan Mahluk Halus 3</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ketempatan%20Mahluk%20Halus%204.html"
+          class="w3-bar-item w3-button"
+          >Ketempatan Mahluk Halus 4</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ketempatan%20Mahluk%20Halus%205.html"
+          class="w3-bar-item w3-button"
+          >Ketempatan Mahluk Halus 5</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pagaran%20Gaib%20Proteksi%20Diri%201.html"
+          class="w3-bar-item w3-button"
+          >Pagaran Gaib / Proteksi Diri 1</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pagaran%20Gaib%20Proteksi%20Diri%202.html"
+          class="w3-bar-item w3-button"
+          >Pagaran Gaib / Proteksi Diri 2</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pembersihan%20Gaib%201.html"
+          class="w3-bar-item w3-button"
+          >Pembersihan Gaib 1</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pembersihan%20Gaib%202.html"
+          class="w3-bar-item w3-button"
+          >Pembersihan Gaib 2</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pembersihan%20Gaib%203.html"
+          class="w3-bar-item w3-button"
+          >Pembersihan Gaib 3</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pembersihan%20Gaib%204.html"
+          class="w3-bar-item w3-button"
+          >Pembersihan Gaib 4</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pembersihan%20Gaib%205.html"
+          class="w3-bar-item w3-button"
+          >Pembersihan Gaib 5</a
+        >
+        <button class="w3-bar-item w3-button">KHODAM</button>
+        <div class="panel">
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/KHODAM.html"
+            class="w3-bar-item w3-button"
+            >KHODAM</a
+          >
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Jenis-jenis%20Khodam.html"
+            class="w3-bar-item w3-button"
+            >Jenis-jenis Khodam</a
+          >
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Status%20&amp;%20Hierarki%20Khodam.html"
+            class="w3-bar-item w3-button"
+            >Status & Hierarki Khodam</a
+          >
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Khodam%20dan%20Kualitas%20Tuah.html"
+            class="w3-bar-item w3-button"
+            >Khodam dan Kualitas Tuah</a
+          >
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Karakter%20Khodam%20dan%20Tuah.html"
+            class="w3-bar-item w3-button"
+            >Karakter Khodam dan Tuah</a
+          >
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Khodam%20dan%20Kekuatan%20Tuah.html"
+            class="w3-bar-item w3-button"
+            >Khodam dan Kekuatan Tuah</a
+          >
+        </div>
+        <button class="w3-bar-item w3-button">
+          Roh Manusia / Sukma / Arwah
+        </button>
+        <div class="panel">
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Roh%20Manusia%20Sukma%20Arwah.html"
+            class="w3-bar-item w3-button"
+            >Roh Manusia / Sukma / Arwah</a
+          >
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Penghambat%20Kematian.html"
+            class="w3-bar-item w3-button"
+            >Penghambat Kematian</a
+          >
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Sukma%20Arwah%20di%20Alam%20Roh.html"
+            class="w3-bar-item w3-button"
+            >Sukma / Arwah di Alam Roh</a
+          >
+        </div>
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Bangsa%20Siluman.html"
+          class="w3-bar-item w3-button"
+          >Bangsa Siluman</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Bangsa%20Dedemit.html"
+          class="w3-bar-item w3-button"
+          >Bangsa Dedemit</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Bangsa%20Halus%20Lain-lain.html"
+          class="w3-bar-item w3-button"
+          >Bangsa Halus Lain-lain</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Bangsa%20Jin.html"
+          class="w3-bar-item w3-button"
+          >Bangsa Jin</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Bangsa%20Jin%20Daratan.html"
+          class="w3-bar-item w3-button"
+          >Bangsa Jin Daratan</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Bangsa%20Jin%20Air%20dan%20Jin%20Udara.html"
+          class="w3-bar-item w3-button"
+          >Bangsa Jin Air dan Jin Udara</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Bangsa%20Buto.html"
+          class="w3-bar-item w3-button"
+          >Bangsa Buto</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ibu%20Kanjeng%20Ratu%20Kidul.html"
+          class="w3-bar-item w3-button"
+          >Ibu Kanjeng Ratu Kidul</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Pusaka%20&amp;%20Mustika%20di%20Alam%20Gaib.html"
+          class="w3-bar-item w3-button"
+          >Pusaka & Mustika di Alam Gaib</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Setan%20-%20Iblis%20dan%20Roh%20Penyesat.html"
+          class="w3-bar-item w3-button"
+          >Setan - Iblis dan Roh Penyesat</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa.html"
+          class="w3-bar-item w3-button"
+          >Dewa</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20dan%20Wahyu%20Dewa.html"
+          class="w3-bar-item w3-button"
+          >Dewa dan Wahyu Dewa</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20Wisnu%20&amp;%20Wahyu%20Dewa.html"
+          class="w3-bar-item w3-button"
+          >Dewa Wisnu & Wahyu Dewa</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20dan%20Tanah%20Jawa.html"
+          class="w3-bar-item w3-button"
+          >Dewa dan Tanah Jawa</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20dan%20Satria%20Piningit%20-%201.html"
+          class="w3-bar-item w3-button"
+          >Dewa dan Satria Piningit - 1</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20dan%20Satria%20Piningit%20-%202.html"
+          class="w3-bar-item w3-button"
+          >Dewa dan Satria Piningit - 2</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20dan%20Satria%20Piningit%20-%203.html"
+          class="w3-bar-item w3-button"
+          >Dewa dan Satria Piningit - 3</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20dan%20Satria%20Piningit%20-%204.html"
+          class="w3-bar-item w3-button"
+          >Dewa dan Satria Piningit - 4</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20dan%20Satria%20Piningit%20-%205.html"
+          class="w3-bar-item w3-button"
+          >Dewa dan Satria Piningit - 5</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20dan%20Satria%20Piningit%20-%206.html"
+          class="w3-bar-item w3-button"
+          >Dewa dan Satria Piningit - 6</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20dan%20Satria%20Piningit%20Ratu%20Adil.html"
+          class="w3-bar-item w3-button"
+          >Dewa dan Satria Piningit / Ratu Adil</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Dewa%20dan%20Ramalan,%20Benarkah%20Manusia%20Dapat%20Mendahului%20Kehendak%20Tuhan.html"
+          class="w3-bar-item w3-button"
+          >Dewa dan Ramalan, Benarkah Manusia Dapat Mendahului Kehendak Tuhan
+          ?</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%201.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 1</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%202.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 2</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%203.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 3</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%204.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 4</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%201%20-%20Khodam.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 1 - Khodam</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%202%20-%20Khodam.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol 2 - Khodam</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%20-%20Ikatan%20Sukma.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Ikatan Sukma</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%20-%20Ramalan.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Ramalan</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%20-%20Putaran%20Jaman.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Putaran Jaman</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%20-%20Satria%20Piningit.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Satria Piningit</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%20-%20Indigo.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Indigo</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%20-%20Cerita%20Kegaiban%201.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Cerita Kegaiban 1</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Ngobrol%20-%20Cerita%20Kegaiban%202.html"
+          class="w3-bar-item w3-button"
+          >Ngobrol - Cerita Kegaiban 2</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Turunnya%20Wahyu%20Dewa.html"
+          class="w3-bar-item w3-button"
+          >Turunnya Wahyu Dewa</a
+        >
+        <a
+          href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Kerajaan%20Galuh%20Di%20Cianjur.html"
+          class="w3-bar-item w3-button"
+          >Kerajaan Galuh Di Cianjur</a
+        >
+        <button class="w3-bar-item w3-button">BHARATAYUDHA Di Alam Gaib</button>
+        <div class="panel">
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/BHARATAYUDHA%20Di%20Alam%20Gaib.html"
+            class="w3-bar-item w3-button"
+            >BHARATAYUDHA Di Alam Gaib</a
+          >
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/BHARATAYUDHA%20II.html"
+            class="w3-bar-item w3-button"
+            >BHARATAYUDHA II</a
+          >
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/INFO%20TERKINI.html"
+            class="w3-bar-item w3-button"
+            >INFO TERKINI</a
+          >
+          <a
+            href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Invasi%20Antar%20Galaxy.html"
+            class="w3-bar-item w3-button"
+            >Invasi Antar Galaxy ?</a
+          >
+        </div>
+      </div>
+      <button class="w3-bar-item w3-button">Dongeng Tanah Jawa</button>
+      <div class="panel">
+        <a
+          href="../Dongeng%20Tanah%20Jawa/Dongeng%20Tanah%20Jawa.html"
+          class="w3-bar-item w3-button"
+          >Dongeng Tanah Jawa</a
+        >
+        <a
+          href="../Dongeng%20Tanah%20Jawa/Gajah%20Mada%20dan%20Majapahit.html"
+          class="w3-bar-item w3-button"
+          >Gajah Mada dan Majapahit</a
+        >
+        <a
+          href="../Dongeng%20Tanah%20Jawa/Gajah%20Mada%20dan%20Perang%20Bubat.html"
+          class="w3-bar-item w3-button"
+          >Gajah Mada dan Perang Bubat</a
+        >
+        <a
+          href="../Dongeng%20Tanah%20Jawa/Syech%20Siti%20Jenar.html"
+          class="w3-bar-item w3-button"
+          >Syech Siti Jenar</a
+        >
+        <a
+          href="../Dongeng%20Tanah%20Jawa/Jaka%20Tingkir.html"
+          class="w3-bar-item w3-button"
+          >Jaka Tingkir</a
+        >
+        <a
+          href="../Dongeng%20Tanah%20Jawa/Jaka%20Tingkir%20-%20Arya%20Penangsang.html"
+          class="w3-bar-item w3-button"
+          >Jaka Tingkir - Arya Penangsang</a
+        >
+        <a
+          href="../Dongeng%20Tanah%20Jawa/Arya%20Penangsang%20-%20Sutawijaya.html"
+          class="w3-bar-item w3-button"
+          >Arya Penangsang - Sutawijaya</a
+        >
+        <a
+          href="../Dongeng%20Tanah%20Jawa/Wafatnya%20Sultan%20Adiwijaya.html"
+          class="w3-bar-item w3-button"
+          >Wafatnya Sultan Adiwijaya</a
+        >
+        <a
+          href="../Dongeng%20Tanah%20Jawa/Panembahan%20Senopati.html"
+          class="w3-bar-item w3-button"
+          >Panembahan Senopati</a
+        >
+      </div>
+      <button class="w3-bar-item w3-button">Artikel Lain-Lain</button>
+      <div class="panel">
+        <a
+          href="../Artikel%20Lain-Lain/Artikel%20Lain-Lain.html"
+          class="w3-bar-item w3-button"
+          >Artikel Lain-Lain</a
+        >
+        <a
+          href="../Artikel%20Lain-Lain/Penyebab%20Awal%20Sakit-Penyakit.html"
+          class="w3-bar-item w3-button"
+          >Penyebab Awal Sakit-Penyakit</a
+        >
+        <a
+          href="../Artikel%20Lain-Lain/Sistem%20Kasta%20Di%20Masyarakat.html"
+          class="w3-bar-item w3-button"
+          >Sistem Kasta Di Masyarakat</a
+        >
+        <a
+          href="../Artikel%20Lain-Lain/Imperialisme%20-%20Kolonialisme.html"
+          class="w3-bar-item w3-button"
+          >Imperialisme - Kolonialisme</a
+        >
+        <a
+          href="../Artikel%20Lain-Lain/Liberalisme.html"
+          class="w3-bar-item w3-button"
+          >Liberalisme</a
+        >
+        <a
+          href="../Artikel%20Lain-Lain/Kapitalisme%20-%20Sosialisme%20-%20Komunisme.html"
+          class="w3-bar-item w3-button"
+          >Kapitalisme - Sosialisme - Komunisme</a
+        >
+        <a
+          href="../Artikel%20Lain-Lain/Negara%20Agama%20-%20Sekularisme.html"
+          class="w3-bar-item w3-button"
+          >Negara Agama - Sekularisme</a
+        >
+      </div>
+      <button class="w3-bar-item w3-button">Artikel Oleh Penulis Lain</button>
+      <div class="panel">
+        <a
+          href="../Artikel%20Oleh%20Penulis%20Lain/Artikel%20Oleh%20Penulis%20Lain.html"
+          class="w3-bar-item w3-button"
+          >Artikel Oleh Penulis Lain</a
+        >
+        <a
+          href="../Artikel%20Oleh%20Penulis%20Lain/Pengalaman%20Memiliki%20Keris.html"
+          class="w3-bar-item w3-button"
+          >Pengalaman Memiliki Keris</a
+        >
+        <a
+          href="../Artikel%20Oleh%20Penulis%20Lain/Keris%20Tayuhan%20&amp;%20Keris%20Ageman.html"
+          class="w3-bar-item w3-button"
+          >Keris Tayuhan & Keris Ageman</a
+        >
+        <a
+          href="../Artikel%20Oleh%20Penulis%20Lain/Nguri-Uri%20Budaya.html"
+          class="w3-bar-item w3-button"
+          >Nguri-Uri Budaya</a
+        >
+        <a
+          href="../Artikel%20Oleh%20Penulis%20Lain/Keris%20Kamardikan.html"
+          class="w3-bar-item w3-button"
+          >Keris Kamardikan</a
+        >
+        <a
+          href="../Artikel%20Oleh%20Penulis%20Lain/Bahan%20Material%20Keris.html"
+          class="w3-bar-item w3-button"
+          >Bahan Material Keris</a
+        >
+        <a
+          href="../Artikel%20Oleh%20Penulis%20Lain/Pemindahtanganan%20&amp;%20Mahar%20Keris.html"
+          class="w3-bar-item w3-button"
+          >Pemindahtanganan & Mahar Keris</a
+        >
+      </div>
+      <br />
+      <div onclick="w3_close()">
+        <center>
+          <img src="../images/Keris%20Jawa-24.jpg" /><br />
+          <br />
+        </center>
+        <center>
+          <img src="../images/Tombak-2.JPG" /><br />
+          <br />
+        </center>
+        <center>
+          <img src="../images/Batu%20Biduri%20Bulan-4.jpg" /><br />
+          <br />
+        </center>
+        <center>
+          <img src="../images/Mustika%20Merah%20Delima%201-1-2.jpg" /><br />
+          <br />
+        </center>
+        <center><img src="../images/Jin%20Kunti%201.JPG" /></center>
+      </div>
+      <br />
+      <hr />
+      <a href="../bio.html"
+        ><img
+          src="../images/curioussheva.png"
+          style="height: 60px; width: 100%"
+      /></a>
+      <hr />
+    </div>
+    <div>
+      <button
+        class="w3-button w3-white w3-xxlarge"
+        style="position: fixed"
+        onclick="w3_open()"
+      >
+        ☰
+      </button>
+      <section>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <div class="dropdown">
+          <button onclick="myFunction()" class="dropbtn">
+            Artikel lainnya
+          </button>
+          <div id="myDropdown" class="dropdown-content">
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa.html"
+              class="w3-bar-item w3-button"
+              >Spiritual & Kebatinan Keris Jawa</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Gaib%20Di%20Dalam%20Keris%20Jawa.html"
+              class="w3-bar-item w3-button"
+              >Gaib Di Dalam Keris Jawa</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Jawa%20dan%20Empu%20Keris.html"
+              class="w3-bar-item w3-button"
+              >Keris Jawa dan Empu Keris</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Perawatan%20Keris%20Jawa.html"
+              class="w3-bar-item w3-button"
+              >Perawatan Keris Jawa</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Tata%20Cara%20Dalam%20Perkerisan.html"
+              class="w3-bar-item w3-button"
+              >Tata Cara Dalam Perkerisan</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ilmu%20Tayuh%20Menayuh%20Keris.html"
+              class="w3-bar-item w3-button"
+              >Ilmu Tayuh / Menayuh Keris</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Masalah%20Keakuratan%20Menayuh.html"
+              class="w3-bar-item w3-button"
+              >Masalah Keakuratan Menayuh</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Arti%20Mimpi%20Menayuh%20Keris.html"
+              class="w3-bar-item w3-button"
+              >Arti Mimpi Menayuh Keris</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Karakter-Karakter%20Keris%20Jawa.html"
+              class="w3-bar-item w3-button"
+              >Karakter-Karakter Keris Jawa</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Status%20Keris%20dan%20Kelas%20Keris.html"
+              class="w3-bar-item w3-button"
+              >Status Keris dan Kelas Keris</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Wahyu%20Keraton%20Di%20Dalam%20Keris%20Jawa.html"
+              class="w3-bar-item w3-button"
+              >Wahyu Keraton Di Dalam Keris Jawa</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Keningratan.html"
+              class="w3-bar-item w3-button"
+              >Keris Keningratan</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Lurus%20dan%20Keris%20Luk.html"
+              class="w3-bar-item w3-button"
+              >Keris Lurus dan Keris Luk</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Tuah%20Keris.html"
+              class="w3-bar-item w3-button"
+              >Tuah Keris</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Tuah%20Keris%20-%20Filosofi%20Dasar.html"
+              class="w3-bar-item w3-button"
+              >Tuah Keris - Filosofi Dasar</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Tuah%20Keris%20-%20Jaman%20Sekarang.html"
+              class="w3-bar-item w3-button"
+              >Tuah Keris - Jaman Sekarang</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Tuah%20Keris%20-%20Jaman%20Sekarang-2.html"
+              class="w3-bar-item w3-button"
+              >Tuah Keris - Jaman Sekarang-2</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Filosofi%20Tuah%20Keris%20Jawa.html"
+              class="w3-bar-item w3-button"
+              >Filosofi Tuah Keris Jawa</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Menyatunya%20Keris%20dgn%20Pemilik.html"
+              class="w3-bar-item w3-button"
+              >Menyatunya Keris dgn Pemilik</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Mengoptimalkan%20Fungsi%20Keris%201.html"
+              class="w3-bar-item w3-button"
+              >Mengoptimalkan Fungsi Keris 1</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Mengoptimalkan%20Fungsi%20Keris%202.html"
+              class="w3-bar-item w3-button"
+              >Mengoptimalkan Fungsi Keris 2</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Mengoptimalkan%20Fungsi%20Keris%203.html"
+              class="w3-bar-item w3-button"
+              >Mengoptimalkan Fungsi Keris 3</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Pemilik%20Keris%20Sebenarnya.html"
+              class="w3-bar-item w3-button"
+              >Pemilik Keris Sebenarnya</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Pusaka%20Orang%20Tua.html"
+              class="w3-bar-item w3-button"
+              >Keris Pusaka Orang Tua</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Tayuhan%20&amp;%20Keris%20Ageman.html"
+              class="w3-bar-item w3-button"
+              >Keris Tayuhan & Keris Ageman</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Berhawa%20Aura%20Panas.html"
+              class="w3-bar-item w3-button"
+              >Keris Berhawa Aura Panas</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Tindih.html"
+              class="w3-bar-item w3-button"
+              >Keris Tindih</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Kamardikan.html"
+              class="w3-bar-item w3-button"
+              >Keris Kamardikan</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Junjung%20Derajat.html"
+              class="w3-bar-item w3-button"
+              >Keris Junjung Derajat</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Combong%20dan%20Keris%20Pamengkang%20Jagad.html"
+              class="w3-bar-item w3-button"
+              >Keris Combong dan Keris Pamengkang Jagad</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Berpamor%20Pemilih.html"
+              class="w3-bar-item w3-button"
+              >Keris Berpamor Pemilih</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20yang%20Dikosongkan%20Isinya.html"
+              class="w3-bar-item w3-button"
+              >Keris yang Dikosongkan Isinya</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20dan%20Kesaktian.html"
+              class="w3-bar-item w3-button"
+              >Keris dan Kesaktian</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Keris%20Kyai%20Condong%20Campur.html"
+              class="w3-bar-item w3-button"
+              >Keris Kyai Condong Campur</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Museum%20Pusaka%20Taman%20Mini.html"
+              class="w3-bar-item w3-button"
+              >Museum Pusaka Taman Mini</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Pembuatan%20Keris%20Bali.html"
+              class="w3-bar-item w3-button"
+              >Pembuatan Keris Bali</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%20dan%20Kebatinan.html"
+              class="w3-bar-item w3-button"
+              >Ngobrol - Keris dan Kebatinan</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%201.html"
+              class="w3-bar-item w3-button"
+              >Ngobrol - Keris 1</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%202.html"
+              class="w3-bar-item w3-button"
+              >Ngobrol - Keris 2</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%203.html"
+              class="w3-bar-item w3-button"
+              >Ngobrol - Keris 3</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%204.html"
+              class="w3-bar-item w3-button"
+              >Ngobrol - Keris 4</a
+            >
+            <a
+              href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ngobrol%20-%20Keris%205.html"
+              class="w3-bar-item w3-button"
+              >Ngobrol - Keris 5</a
+            >
           </div>
-
-    <button class="accordion" class="w3-bar-item w3-button">Ngobrol 6 Kebatinan-Kegaiban</button>
-          <div class="panel">
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 6 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 6 Kebatinan-Kegaiban</a>
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 6 - 2.html" class="w3-bar-item w3-button">Ngobrol 6 - 2</a>
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 6 - 3.html" class="w3-bar-item w3-button">Ngobrol 6 - 3</a>
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 6 - 4.html" class="w3-bar-item w3-button">Ngobrol 6 - 4</a>
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 6 - 5.html" class="w3-bar-item w3-button">Ngobrol 6 - 5</a>
+        </div>
+        <img src="../images/print-icon.png" onclick="printPage()" />
+        <article>
+          <div id="sites-canvas-main" class="sites-canvas-main">
+            <div id="sites-canvas-main-content">
+              <table
+                xmlns="https://www.w3.org/1999/xhtml"
+                cellspacing="0"
+                class="sites-layout-name-one-column sites-layout-hbox"
+              >
+                <tbody>
+                  <tr>
+                    <td class="sites-layout-tile sites-tile-name-content-1">
+                      <div dir="ltr">
+                        <table
+                          border="1"
+                          cellspacing="0"
+                          style="
+                            border-collapse: collapse;
+                            border-color: rgb(136, 136, 136);
+                            border-width: 1px;
+                          "
+                        >
+                          <tbody>
+                            <tr>
+                              <td style="width: 652px; height: 1564px">
+                                <br />
+                                <br />
+                                <br />
+                                Tulisan dalam halaman ini merupakan kelanjutan
+                                dari tulisan pada halaman sebelumnya :
+                                <u>Menyatunya Keris dengan Pemilik</u>. Sebagian
+                                cara-cara menyatukan sebuah keris dengan manusia
+                                pemiliknya dan cara-cara menjadikan sebuah keris
+                                bermanfaat bagi pemiliknya sudah terkandung
+                                dalam tulisan-tulisan di halaman lain.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br />
+                                Pada jaman sekarang banyak keris yang hawa aura
+                                mistisnya sudah redup, sudah dingin / adem /
+                                anyeb, mirip seperti keris kosong tak
+                                berpenghuni gaib.&nbsp; Hawa aura gaibnya sudah
+                                menurun atau kerisnya pasif tidak memberikan
+                                tuahnya, terpengaruh perkembangan jaman dimana
+                                keberadaan keris sudah mulai diabaikan, tetapi
+                                kekuatan aura keris-keris tersebut akan terasa
+                                kembali ketika sudah menyatu dengan seorang
+                                pemilik yang sesuai.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Selama masih ada jarak kebatinan antara si
+                                manusia dengan kerisnya, maka keberadaan keris
+                                itu tidak akan banyak berarti. Tuah-nya pun
+                                mungkin tidak akan dirasakannya. Bagi anda yang
+                                memiliki atau menyimpan keris, sebaiknya juga
+                                memiliki pengetahuan tentang tatacara pemakaian
+                                keris, pemeliharaan keris, dsb, jangan hanya
+                                sekedar asal memiliki, menyimpan atau
+                                memakainya, supaya tidak terbawa-bawa cerita
+                                tentang mistis keris atau pun mengkultuskan
+                                kegaiban keris, supaya keris tidak dimusuhi
+                                orang karena cerita mistisnya, atau justru keris
+                                dijadikan sebagai suatu bentuk pemujaan.<br />
+                                <br />
+                                <br />
+                                <br />
+                                &nbsp;<u
+                                  ><b>Menyatukan Keris dengan Pemiliknya</b></u
+                                ><br />
+                                <br />
+                                Karena sisi gaib sebuah keris jawa adalah
+                                <u>bersifat wahyu</u>, maka kegaiban keris jawa
+                                akan bekerja sendiri sesudah ada penyatuan
+                                kebatinan dengan manusia pemiliknya dan akan
+                                melipatgandakan pengaruh aktivitas dan perbuatan
+                                si manusia pemiliknya yang sejalan dengan sifat
+                                kegaiban kerisnya, sehingga
+                                perbuatan-perbuatannya itu memberikan pengaruh
+                                yang lebih besar dibandingkan tanpa keris. Keris
+                                jawa yang sudah dimiliki oleh seseorang akan
+                                pasif peranan dan pengaruhnya jika belum ada
+                                penyatuan kebatinan dengan orang si pemilik
+                                keris dan orangnya tidak melakukan aktivitas dan
+                                perbuatan yang sejalan dengan sisi kegaiban
+                                kerisnya.<br />
+                                <br />
+                                Karena itu kegaiban keris jawa tidak akan bisa
+                                langsung dirasakan oleh orang-orang pemilik
+                                keris dan banyak pemilik keris yang tidak bisa
+                                merasakan manfaat kerisnya, karena kegaibannya
+                                akan bekerja <u>hanya</u> sesudah ada penyatuan
+                                kebatinan pemiliknya dengan kerisnya dan
+                                kegaiban keris tidak sama dengan benda-benda
+                                bertuah lain yang otomatis memberikan tuahnya
+                                sesudah bendanya dimiliki, apalagi
+                                mengharapkannya bekerja sendiri mendatangkan
+                                rejeki dan kekayaan sama seperti bertuah
+                                pesugihan, karena sifat kegaiban keris adalah
+                                melipatgandakan pengaruh aktivitas dan perbuatan
+                                si pemilik keris yang sejalan dengan sifat
+                                kegaiban kerisnya. Jadi, orangnya sendiri yang
+                                harus sakti, orangnya harus bekerja, dsb, dan
+                                sesudah ada penyatuan kebatinan kerisnya dengan
+                                pemiliknya, aktivitas dan perbuatan yang sejalan
+                                dengan sisi kegaiban kerisnya pengaruhnya akan
+                                dilipatgandakan oleh kerisnya.<br />
+                                <br />
+                                Pada masa sekarang ini jarang ada manusia
+                                pemilik keris yang dapat merasakan kegaiban
+                                kerisnya dan juga jarang ada yang dapat
+                                merasakan tuah gaib keris yang diberikan kepada
+                                manusia, mungkin karena kondisi kerisnya yang
+                                tidak berhawa angker / berwibawa, sehingga tidak
+                                terasa hawa auranya, atau mungkin sifat tuahnya
+                                yang tidak menonjol sehingga tidak dapat
+                                dibedakan rasanya, atau mungkin memang si
+                                manusianya sendiri yang kurang peka, tidak dapat
+                                merasakan adanya kegaiban pada pusakanya,
+                                dirinya atau orang lain.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Bila anda memiliki sebuah keris sebaiknya anda
+                                berusaha untuk menyatukan rasa kebatinan anda
+                                dengan keris anda, supaya keris itu benar
+                                menjadi sebuah
+                                <i style="color: rgb(68, 68, 68)"
+                                  >sipat kandel</i
+                                >
+                                dan tuahnya akan lebih dapat anda rasakan. Dalam
+                                segala sesuatu yang anda lakukan terhadap keris
+                                anda, sebaiknya anda bisa mengetahui apakah
+                                perbuatan anda itu berkenan bagi si keris,
+                                jangan sampai walaupun anda bermaksud baik,
+                                tetapi ternyata si keris merasa tidak cocok
+                                dengan perbuatan anda itu. Beberapa tips
+                                perawatan keris dapat dibaca di :
+                                <a
+                                  href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Perawatan%20Keris%20Jawa.html"
+                                  style="color: rgb(68, 68, 68)"
+                                  target="_blank"
+                                  >Penyimpanan dan Perawatan Keris</a
+                                >.<br />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Pertama-tama cobalah keris itu ditayuh (misalnya
+                                dengan cara
+                                <a
+                                  href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Ilmu%20Tayuh%20Menayuh%20Keris.html"
+                                  style="color: rgb(68, 68, 68)"
+                                  target="_blank"
+                                  >Ilmu Tayuh / Menayuh Keris</a
+                                >), atau menanyakan kepada orang yang benar
+                                mengerti, mengenai kecocokkannya dengan anda dan
+                                sifat dari tuahnya.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Kemudian cobalah menyatukan rasa batin anda
+                                dengan si keris. Misalnya sambil anda
+                                membersihkan keris atau meminyaki keris, anda
+                                coba peka rasa, merasakan kegaiban keris itu.
+                                Setelah anda dapat merasakan suatu rasa hati
+                                yang menyatu dengan si keris, selaraskan rasa
+                                batin anda dengan 'rasa' tuah si keris, supaya
+                                tuah si keris menyatu dengan kebatinan anda.
+                                Dalam tulisan tentang ilmu tayuh keris di atas
+                                juga diberikan contoh cara mendekatkan hati dan
+                                rasa dengan keris. Panduan lain untuk melatih
+                                kepekaan rasa silakan dibaca :
+                                <a
+                                  href="../Kebatinan-dan-Spiritual/Olah%20Rasa%20dan%20Kebatinan.html"
+                                  style="color: rgb(68, 68, 68)"
+                                  target="_blank"
+                                  >Olah Rasa dan Kebatinan</a
+                                >.<br style="color: rgb(68, 68, 68)" />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Contoh cara lainnya, setelah keris dikeluarkan
+                                dari sarungnya, keris diangkat tegak ke atas
+                                kepala di depan wajah, dan sambil menunduk
+                                keris&nbsp;tersebut disentuhkan ke dahi. Cara
+                                ini baik untuk menyatukan
+                                <u style="color: rgb(68, 68, 68)"
+                                  ><i>rasa</i></u
+                                >
+                                dengan si keris, atau untuk menyampaikan sugesti
+                                / perintah / keinginan kita terhadap si keris.
+                                Dengan cara ini anda akan bisa merasakan energi
+                                si keris di dahi / kepala anda (atau di
+                                ubun-ubun kepala anda). Ada keris-keris yang
+                                energinya tajam, ada juga yang energinya tidak
+                                tajam, tetapi terasa berat di kepala anda. Cara
+                                ini juga bisa digunakan untuk mendeteksi apakah
+                                sebuah keris benar berpenghuni gaib, ataukah
+                                kosong isi gaibnya.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Dengan cara tersebut, sambil kita berusaha untuk
+                                merasakan "rasa" keris supaya kita bisa
+                                menyatukan rasa hati dengan si keris,
+                                mendekatkan batin kita dengan si keris, cara itu
+                                baik untuk menyampaikan sesuatu kepada si keris,
+                                misalnya untuk menayuh keris supaya hadir di
+                                dalam mimpi atau untuk mengsugesti si keris
+                                untuk menyatu dengan kehidupan kita, dengan cara
+                                berkonsentrasi berbicara di dalam hati, tetapi
+                                ditujukan kepada si keris.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br />
+                                Bila sebelumnya keris tersebut belum pernah
+                                memberikan sinyal kecocokkannya dengan anda
+                                (misalnya lewat mimpi), maka setelah upaya anda
+                                menyatukan rasa dengan keris tersebut (seperti
+                                cara di atas), biasanya si keris akan memberikan
+                                mimpi tertentu kepada anda sebagai tanda jawaban
+                                dari pertanyaan / sugesti anda.<br />
+                                <br />
+                                Setelah anda dapat merasakan menyatunya rasa
+                                batin dengan si keris, kemudian dalam keseharian
+                                aktivitas anda, sugestikan kepada si keris agar
+                                menyatu dengan anda, menyertai anda bersama
+                                dengan tuahnya. Sugestikan bahwa tuah-tuah yang
+                                menyatu dengan anda hanyalah tuah yang
+                                <u style="color: rgb(68, 68, 68)">cocok</u> dan
+                                <u style="color: rgb(68, 68, 68)">bermanfaat</u>
+                                untuk anda sesuai aktivitas keseharian anda
+                                (baca lagi tulisan-tulisan tentang kecocokkan
+                                sebuah keris dengan pemiliknya).<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br />
+                                Dalam tulisan
+                                <a
+                                  href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Khodam%20dan%20Kualitas%20Tuah.html"
+                                  target="_blank"
+                                  >Khodam dan Kualitas Tuah</a
+                                >
+                                Penulis sudah menuliskan beberapa panduan
+                                tentang prinsip-prinsip dasar memberikan sugesti
+                                tuah terhadap khodam gaib (termasuk keris) yang
+                                dihubungkan dengan jenis sifat karakter
+                                gaibnya.<br />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Bila anda berhasil melakukan sugestinya, maka
+                                sesuai masing-masing sifat tuah keris :<br />
+                                <br style="color: rgb(68, 68, 68)" />
+                                &nbsp;- Bila tuah karisma / wibawa yang anda
+                                sugestikan menyatu dengan anda, maka suatu aura
+                                karisma dan<br style="color: rgb(68, 68, 68)" />
+                                &nbsp;&nbsp; wibawa akan memancar dari diri anda
+                                yang bisa dirasakan oleh orang-orang lain di
+                                sekitar anda.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                &nbsp;- Bila tuah kesaktian yang anda
+                                sugestikan, maka anda akan bisa merasakan tubuh
+                                anda lebih kuat bertenaga<br />
+                                &nbsp;&nbsp; dan padat berenergi dan feeling
+                                anda akan lebih tajam bila akan terjadi suatu
+                                marabahaya.<br style="color: rgb(68, 68, 68)" />
+                                &nbsp;- Bila tuah penjagaan gaib yang anda
+                                sugestikan, maka gaib si keris akan mendampingi
+                                dan menjaga<br />
+                                &nbsp;&nbsp; anda dari gangguan gaib, sebatas
+                                kemampuan si gaib keris, atau ada selubung
+                                energi gaib yang<br />
+                                &nbsp;&nbsp; menyelimuti diri anda yang
+                                menjauhkan anda dari gangguan gaib.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                &nbsp;- Bila tuah kerejekian yang anda
+                                sugestikan, maka akan ada suatu aura pengasihan
+                                dan ketentraman<br />
+                                &nbsp;&nbsp; yang memancar dari diri anda yang
+                                bisa dirasakan oleh orang-orang di sekitar anda.
+                                Urusan dagang /<br />
+                                &nbsp;&nbsp; bisnis, pertemanan dan sosial
+                                menjadi lebih baik. Tanaman menjadi lebih baik
+                                pertumbuhannya dan<br />
+                                &nbsp;&nbsp; ternak menjadi lebih baik
+                                perkembangannya. Ide-ide dan ilham mengalir
+                                lancar untuk memecahkan<br />
+                                &nbsp;&nbsp; persoalan.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Seberapa kuat kegaiban yang meliputi diri anda
+                                selain tergantung pada kekuatan kegaiban si
+                                keris itu sendiri, terutama adalah tergantung
+                                pada kekuatan sugesti penyatuan anda dengan
+                                keris anda itu. Dengan demikian anda sudah
+                                menjadikan keris anda sebagai sebuah
+                                <i style="color: rgb(68, 68, 68)">piyandel</i>,
+                                bukan hanya menjadi sebuah keris koleksi atau
+                                keris simpanan saja, apalagi hanya menjadi keris
+                                pajangan.<br style="color: rgb(68, 68, 68)" />
+                                <br style="color: rgb(68, 68, 68)" />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Contoh sugesti penyatuan dengan gaib keris
+                                sesuai manfaat tuahnya masing-masing :<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Setelah keris dikeluarkan dari sarungnya, keris
+                                diangkat tegak ke atas kepala di depan wajah,
+                                dan sambil menunduk keris&nbsp;tersebut
+                                disentuhkan ke dahi. Dalam posisi itu kita
+                                berkata-kata kepada si keris (berkata-kata di
+                                dalam hati, tetapi ditujukan kepada si keris)
+                                :<br style="color: rgb(68, 68, 68)" />
+                                <br style="color: rgb(68, 68, 68)" />
+                                &nbsp;- Dampingilah keseharian saya, pancarkan
+                                aura yang baik supaya dagangan saya laris banyak
+                                pembelinya.<br style="color: rgb(68, 68, 68)" />
+                                &nbsp;- Dampingilah keseharian saya, pancarkan
+                                aura yang baik supaya teman-teman sekerja,
+                                atasan dan<br />
+                                &nbsp;&nbsp; bawahan, semua orang suka dan
+                                bersahabat dengan saya, supaya urusan sosial dan
+                                pekerjaan saya<br />
+                                &nbsp;&nbsp; menjadi lebih baik.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                &nbsp;- Dampingilah keseharian saya, lindungi
+                                saya dan jauhkan orang-orang dan mahluk halus
+                                yang berniat<br />
+                                &nbsp;&nbsp; mengganggu dan&nbsp;bersikap jahat
+                                kepada saya.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                &nbsp;- Lindungilah rumah saya dan para
+                                penghuninya dari gaib-gaib dan energi negatif
+                                dan yang mengganggu,<br />
+                                &nbsp;&nbsp; berikanlah pagaran gaib yang
+                                melindungi saya dan semua anggota keluarga saya
+                                dan berikan juga<br />
+                                &nbsp;&nbsp; pagaran gaib yang melindungi rumah
+                                saya dan halamannya. Jadikanlah pagaran gaib itu
+                                beraura baik untuk<br />
+                                &nbsp;&nbsp; kerejekian dan hubungan sosial
+                                kami.<br style="color: rgb(68, 68, 68)" />
+                                &nbsp;&nbsp; Pindahkan gaib-gaib tidak baik ke
+                                tempat yang jauh dari permukiman supaya tidak
+                                mengganggu manusia.<br />
+                                &nbsp;&nbsp; Beritahukan juga hasilnya kepada
+                                saya lewat mimpi.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br style="color: rgb(68, 68, 68)" />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Sebaiknya kita juga rajin membersihkan
+                                keris-keris kita dan sesekali meminyakinya
+                                dengan minyak cendana merah (sebulan sekali),
+                                selain untuk menjaga kedekatan hati dengan si
+                                keris, juga sebagai tanda terima kasih atas
+                                bantuan dan kebersamaannya dengan kita.<br
+                                  style="color: rgb(68, 68, 68)"
+                                />
+                                <br style="color: rgb(68, 68, 68)" />
+                                Bila anda memiliki keris, jika sudah berhasil
+                                melakukan penyatuan dengan keris-keris anda,
+                                sekaranglah saatnya anda mencoba untuk
+                                mengoptimalkan fungsi keris-keris itu supaya
+                                keberadaannya lebih berguna bagi anda.<br />
+                                <br />
+                                <br style="color: rgb(68, 68, 68)" />
+                                <div style="text-align: center">
+                                  -------------<br />
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                &nbsp;<u
+                                  >Tips dalam sugesti untuk pagaran gaib</u
+                                >
+                                :<br />
+                                <br />
+                                Cara-cara sugesti seperti menayuh keris bisa
+                                digunakan untuk mengsugesti pembuatan pagaran
+                                gaib. Semua jenis khodam dan benda-benda gaib,
+                                selain sukma manusia, dapat disugestikan untuk
+                                memberikan pagaran gaib.<br />
+                                <br />
+                                Kalau anda membuat pagaran gaib sebaiknya ada
+                                pemahaman sbb : gunakanlah khodam atau benda
+                                gaib yang kekuatan gaibnya paling tinggi, tetapi
+                                disugestikan supaya kekuatan pagarannya hanya
+                                setengahnya atau sepertiganya saja dari
+                                kekuatannya yang tertinggi, dan disugestikan
+                                energinya bersifat teduh, baik untuk kesehatan
+                                dan kerejekian / pergaulan.<br />
+                                <br />
+                                Kekuatan pagaran gaib yang hanya setengah
+                                kekuatannya itu penggunaannya sbb :<br />
+                                1. Pagaran gaib untuk manusia, disugestikan
+                                supaya kekuatan pagaran yang hanya setengah itu
+                                kuat tak dapat<br />
+                                &nbsp;&nbsp; &nbsp;ditembus mahluk halus.<br />
+                                2. Pagaran gaib untuk rumah, bangunan atau
+                                benda-benda lain, disugestikan supaya energi
+                                pagarannya bersifat<br />
+                                &nbsp;&nbsp; &nbsp;positif, hanya untuk menolak
+                                energi negatif dan mahluk halus yang dari
+                                golongan hitam, yang berenergi<br />
+                                &nbsp;&nbsp; &nbsp;negatif&nbsp;dan yang
+                                bertendensi / berpengaruh&nbsp;negatif.
+                                Karakteristik mahluk halus dari golongan hitam
+                                dan yang<br />
+                                &nbsp;&nbsp; &nbsp;berenergi&nbsp;negatif
+                                terhadap manusia dapat dibaca di :&nbsp;
+                                <a
+                                  href="../Dunia%20Gaib%20dan%20Mahluk%20Halus/Penggolongan%20Mahluk%20Halus.html"
+                                  target="_blank"
+                                  >Penggolongan Mahluk Halus</a
+                                >.<br />
+                                <br />
+                                Pagaran gaib untuk rumah disugestikan supaya
+                                energi pagarannya bersifat positif, hanya untuk
+                                menolak yang golongan hitam, yang berenergi
+                                negatif dan yang bertendensi / berpengaruh
+                                negatif. Jadi mahluk halus yang bersifat baik
+                                dan tidak berpengaruh jelek akan tetap bisa
+                                masuk atau lewat. Jadi khodam-khodam anda yang
+                                lain, khodam cincin, jimat, keris, atau khodam
+                                teman-teman anda, roh sedulur papat, sukma
+                                leluhur, dsb, yang kekuatannya lebih rendah
+                                daripada pagarannya tetap bisa masuk ke dalam
+                                rumah, selama tidak termasuk dalam kriteria yang
+                                harus ditolak.<br />
+                                <br />
+                                Pagaran gaib untuk manusia, walaupun kekuatannya
+                                hanya setengahnya, tetapi harus kuat supaya tak
+                                dapat ditembus mahluk halus. Sehingga walaupun
+                                di rumahnya atau di manapun dia berada ada
+                                banyak sosok-sosok halus, dia tetap aman, selama
+                                tidak ada yang bisa menembus pagarannya.<br />
+                                <br />
+                                Uraian di atas didasarkan pada pemahaman sbb
+                                :<br />
+                                - Kondisi lemahnya pertahanan gaib seseorang dpt
+                                memudahkan mahluk halus mana saja untuk
+                                menyerang,<br />
+                                &nbsp; merasuk, menempel atau bersemayam di
+                                tubuh seseorang.<br />
+                                - Adanya pagaran gaib dapat membantu menjaga
+                                keselamatan dari gangguan gaib.<br />
+                                - Tetapi semakin tingginya kegaiban (termasuk
+                                pagaran gaib) yang ada pada sebuah rumah,
+                                bangunan atau<br />
+                                &nbsp; lokasi tertentu atau pada diri seseorang
+                                juga dapat mengundang datangnya sosok-sosok
+                                halus yang lebih<br />
+                                &nbsp; tinggi kekuatannya daripada kekuatan
+                                pagarannya, yang tidak jelas apakah yang datang
+                                itu bersifat baik atau<br />
+                                &nbsp; tidak.<br />
+                                <br />
+                                Jadi adanya pagaran gaib yang kuat juga dapat
+                                berefek negatif, yaitu akan dapat mengundang
+                                datangnya sosok-sosok halus untuk bersemayam di
+                                dalamnya. Jadi kalau kekuatan pagaran gaib yang
+                                kita buat hanya setengah kekuatannya, seandainya
+                                ada datang sosok halus yang lebih kuat daripada
+                                pagarannya, dan dicurigai berpengaruh negatif,
+                                diharapkan kekuatan gaibnya yang tertinggi bisa
+                                digunakan untuk mengusirnya.<br />
+                                <br />
+                                Kalau dalam membuat pagaran gaibnya sudah
+                                digunakan kekuatan yang tertinggi, jika ada
+                                sesosok halus yang datang, yang lebih kuat
+                                daripada pagarannya, anda tidak akan dapat
+                                berbuat apa-apa, karena kekuatan tertinggi yang
+                                sudah anda gunakan ternyata ada yang mampu
+                                menembusnya.<br />
+                                <br />
+                                Mudah-mudahan pemahaman di atas dapat menambah
+                                kebijaksanaan spiritual anda.<br />
+                                <br />
+                                Benda-benda gaib anda yang bisa untuk kekebalan
+                                (bisa dites untuk kekebalan) sebaiknya jangan
+                                disugestikan untuk memberikan tuah / fungsi
+                                lain, supaya tuah kekebalannya tidak berubah /
+                                luntur.<br />
+                                <br />
+                                <p style="text-align: left">
+                                  Sebagai catatan tambahan, jika anda ingin
+                                  mengupayakan laku permbersihan gaib, anda bisa
+                                  mengkombinasikan cara-cara pembersihan gaib
+                                  seperti contoh-contoh yang sudah dituliskan
+                                  dalam halaman-halaman bertemakan
+                                  <u>Pembersihan Gaib</u>.<br />
+                                </p>
+                                <p style="text-align: left">
+                                  Jika anda ingin melakukan suatu laku ritual
+                                  untuk mencoba mencari kesembuhan dan upaya
+                                  pembersihan gaib, anda bisa datang ke
+                                  tempat-tempat mistis seperti yang dicontohkan
+                                  dalam tulisan berjudul
+                                  <a
+                                    href="../Kebatinan-dan-Spiritual/Tempat-tempat%20Mistis.html"
+                                    target="_blank"
+                                    >Tempat-tempat Mistis</a
+                                  >&nbsp; karena aura positifnya dan para
+                                  penghuni gaibnya akan menjauhkan mahluk halus
+                                  yang beraura dan bertendensi negatif.
+                                </p>
+                                <br />
+                                <br />
+                                <br />
+                                <div style="text-align: center">
+                                  ---------------------<br
+                                    style="color: rgb(68, 68, 68)"
+                                  />
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                &nbsp;&gt;&gt;&nbsp;
+                                <a
+                                  href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/Mengoptimalkan%20Fungsi%20Keris%202.html"
+                                  >Mengoptimalkan Fungsi Keris 2</a
+                                >.<br />
+                                <br />
+                                <div style="text-align: center">
+                                  <br />
+                                  <br />
+                                  <br />
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                &nbsp;
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-
-  <a href="../Kebatinan-dan-Spiritual/Ngobrol 7 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 7 Kebatinan-Kegaiban</a>
-
-    <button class="accordion" class="w3-bar-item w3-button">Ngobrol 8 Kebatinan-Kegaiban</button>
-      <div class="panel">
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 8 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 8 Kebatinan-Kegaiban</a>
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 8 - 2.html" class="w3-bar-item w3-button">Ngobrol 8 - 2</a>
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 8 - 3.html" class="w3-bar-item w3-button">Ngobrol 8 - 3</a>
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 8 - 4.html" class="w3-bar-item w3-button">Ngobrol 8 - 4</a>
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 8 - 5.html" class="w3-bar-item w3-button">Ngobrol 8 - 5</a>
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 8 - 6.html" class="w3-bar-item w3-button">Ngobrol 8 - 6</a>
-
-            <a href="../Kebatinan-dan-Spiritual/Ngobrol 8 - 7.html" class="w3-bar-item w3-button">Ngobrol 8 - 7</a>
-          </div>
-
-    <button class="accordion" class="w3-bar-item w3-button">Ngobrol 9 Kebatinan-Kegaiban</button>
-      <div class="panel">
-  
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 9 Kebatinan-Kegaiban</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 2.html" class="w3-bar-item w3-button">Ngobrol 9 - 2</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 3.html" class="w3-bar-item w3-button">Ngobrol 9 - 3</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 4.html" class="w3-bar-item w3-button">Ngobrol 9 - 4</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 5.html" class="w3-bar-item w3-button">Ngobrol 9 - 5</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 6.html" class="w3-bar-item w3-button">Ngobrol 9 - 6</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 7.html" class="w3-bar-item w3-button">Ngobrol 9 - 7</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 8.html" class="w3-bar-item w3-button">Ngobrol 9 - 8</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 9.html" class="w3-bar-item w3-button">Ngobrol 9 - 9</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 10.html" class="w3-bar-item w3-button">Ngobrol 9 - 10</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 11.html" class="w3-bar-item w3-button">Ngobrol 9 - 11</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 12.html" class="w3-bar-item w3-button">Ngobrol 9 - 12</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 13.html" class="w3-bar-item w3-button">Ngobrol 9 - 13</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 14.html" class="w3-bar-item w3-button">Ngobrol 9 - 14</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 9 - 15.html" class="w3-bar-item w3-button">Ngobrol 9 - 15</a>
-      </div>
-
-    <button class="accordion" class="w3-bar-item w3-button">Ngobrol 10 Kebatinan-Kegaiban</button>
-      <div class="panel">
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 10 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 10 Kebatinan-Kegaiban</a>
-   
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 10 - 2.html" class="w3-bar-item w3-button">Ngobrol 10 - 2</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 10 - 3.html" class="w3-bar-item w3-button">Ngobrol 10 - 3</a>
-
-       <a href="../Kebatinan-dan-Spiritual/Ngobrol 10 - 4.html" class="w3-bar-item w3-button">Ngobrol 10 - 4</a>
-
-       <a href="../Kebatinan-dan-Spiritual/Ngobrol 10 - 5.html" class="w3-bar-item w3-button">Ngobrol 10 - 5</a>
-
-       <a href="../Kebatinan-dan-Spiritual/Ngobrol 10 - 6.html" class="w3-bar-item w3-button">Ngobrol 10 - 6</a>
-      </div>
-
-     <button class="accordion" class="w3-bar-item w3-button">Ngobrol 11 Kebatinan-Kegaiban</button>
-      <div class="panel">
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 11 Kebatinan-Kegaiban.html" class="w3-bar-item w3-button">Ngobrol 11 Kebatinan-Kegaiban</a>
-   
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 11 - 2.html" class="w3-bar-item w3-button">Ngobrol 11 - 2</a>
-
-        <a href="../Kebatinan-dan-Spiritual/Ngobrol 11 - 3.html" class="w3-bar-item w3-button">Ngobrol 11 - 3</a>
-
-       <a href="../Kebatinan-dan-Spiritual/Ngobrol 11 - 4.html" class="w3-bar-item w3-button">Ngobrol 11 - 4</a>
-
-       <a href="../Kebatinan-dan-Spiritual/Ngobrol 11 - 5.html" class="w3-bar-item w3-button">Ngobrol 11 - 5</a>
-
-       <a href="../Kebatinan-dan-Spiritual/Ngobrol 11 - 6.html" class="w3-bar-item w3-button">Ngobrol 11 - 6</a>
-      </div>
-
- 
-
-</div>
-
-<button class="accordion" class="w3-bar-item w3-button">Kebatinan & Spiritual Ketuhanan</button>
-<div class="panel">
-
-  <a href="../Kebatinan & Spiritual Ketuhanan/Kebatinan & Spiritual Ketuhanan.html" class="w3-bar-item w3-button">
-Kebatinan & Spiritual Ketuhanan</a>
-
-  <a href="../Kebatinan & Spiritual Ketuhanan/Spiritualitas Ketuhanan 1.html" class="w3-bar-item w3-button">
-Spiritualitas Ketuhanan 1</a>
-
-   <a href="../Kebatinan & Spiritual Ketuhanan/Spiritualitas Ketuhanan 2.html" class="w3-bar-item w3-button">
-Spiritualitas Ketuhanan 2</a>
-
-   <a href="../Kebatinan & Spiritual Ketuhanan/Jiwa Yang Sepuh 1.html" class="w3-bar-item w3-button">
-Jiwa Yang Sepuh 1</a>
-
-   <a href="../Kebatinan & Spiritual Ketuhanan/Jiwa Yang Sepuh 2.html" class="w3-bar-item w3-button">
-Jiwa Yang Sepuh 2</a>
-
-   <a href="../Kebatinan & Spiritual Ketuhanan/Ngobrol 1 Spiritual Ketuhanan.html" class="w3-bar-item w3-button">
-Ngobrol 1 Spiritual Ketuhanan</a>
- 
-   <a href="../Kebatinan & Spiritual Ketuhanan/Ngobrol 2 Spiritual Ketuhanan.html" class="w3-bar-item w3-button">
-Ngobrol 2 Spiritual Ketuhanan</a>
-
-   <a href="../Kebatinan & Spiritual Ketuhanan/Ngobrol 3 Spiritual Ketuhanan.html" class="w3-bar-item w3-button">
-Ngobrol 3 Spiritual Ketuhanan</a>
-  
-   <a href="../Kebatinan & Spiritual Ketuhanan/Ngobrol 4 Spiritual Ketuhanan.html" class="w3-bar-item w3-button">
-Ngobrol 4 Spiritual Ketuhanan</a>
-  
-   <a href="../Kebatinan & Spiritual Ketuhanan/Ngobrol 5 Spiritual Ketuhanan.html" class="w3-bar-item w3-button">
-     
-Ngobrol 5 Spiritual Ketuhanan</a>
-   <a href="../Kebatinan & Spiritual Ketuhanan/Ngobrol 6 Spiritual Ketuhanan.html" class="w3-bar-item w3-button">
-Ngobrol 6 Spiritual Ketuhanan</a>
-  
-   <a href="../Kebatinan & Spiritual Ketuhanan/Ngobrol 7 Spiritual Ketuhanan.html" class="w3-bar-item w3-button">
-Ngobrol 7 spiritual ketuhanan</a>
-
-   <a href="../Kebatinan & Spiritual Ketuhanan/Ngobrol 8 Spiritual Ketuhanan.html" class="w3-bar-item w3-button">
-Ngobrol 8 Spiritual Ketuhanan</a>
-
-
-</div>
-
-<button class="accordion" class="w3-bar-item w3-button">Spiritual & Kebatinan Keris Jawa</button>
-
-<div class="panel">
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Spiritual & Kebatinan Keris Jawa.html" class="w3-bar-item w3-button">
-Spiritual & Kebatinan Keris Jawa</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Gaib Di Dalam Keris Jawa.html" class="w3-bar-item w3-button">
-Gaib Di Dalam Keris Jawa</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Jawa dan Empu Keris.html" class="w3-bar-item w3-button">
-Keris Jawa dan Empu Keris</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Perawatan Keris Jawa.html" class="w3-bar-item w3-button">
-Perawatan Keris Jawa</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Tata Cara Dalam Perkerisan.html" class="w3-bar-item w3-button">
-Tata Cara Dalam Perkerisan</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Ilmu Tayuh Menayuh Keris.html" class="w3-bar-item w3-button">
-Ilmu Tayuh / Menayuh Keris</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Masalah Keakuratan Menayuh.html" class="w3-bar-item w3-button">
-Masalah Keakuratan Menayuh</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Arti Mimpi Menayuh Keris.html" class="w3-bar-item w3-button">
-Arti Mimpi Menayuh Keris</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Karakter-Karakter Keris Jawa.html" class="w3-bar-item w3-button">
-Karakter-Karakter Keris Jawa</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Status Keris dan Kelas Keris.html" class="w3-bar-item w3-button">
-Status Keris dan Kelas Keris</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Wahyu Keraton Di Dalam Keris Jawa.html" class="w3-bar-item w3-button">
-Wahyu Keraton Di Dalam Keris Jawa
-</a>
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Keningratan.html" class="w3-bar-item w3-button">
-Keris Keningratan</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Lurus dan Keris Luk.html" class="w3-bar-item w3-button">
-Keris Lurus dan Keris Luk</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Tuah Keris.html" class="w3-bar-item w3-button">
-Tuah Keris</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Tuah Keris - Filosofi Dasar.html" class="w3-bar-item w3-button">
-Tuah Keris - Filosofi Dasar</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Tuah Keris - Jaman Sekarang.html" class="w3-bar-item w3-button">
-Tuah Keris - Jaman Sekarang</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Tuah Keris - Jaman Sekarang-2.html" class="w3-bar-item w3-button">
-Tuah Keris - Jaman Sekarang-2</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Filosofi Tuah Keris Jawa.html" class="w3-bar-item w3-button">
-Filosofi Tuah Keris Jawa</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Menyatunya Keris dgn Pemilik.html" class="w3-bar-item w3-button">
-Menyatunya Keris dgn Pemilik</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Mengoptimalkan Fungsi Keris 1.html" class="w3-bar-item w3-button">
-Mengoptimalkan Fungsi Keris 1</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Mengoptimalkan Fungsi Keris 2.html" class="w3-bar-item w3-button">
-Mengoptimalkan Fungsi Keris 2</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Mengoptimalkan Fungsi Keris 3.html" class="w3-bar-item w3-button">
-Mengoptimalkan Fungsi Keris 3</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Pemilik Keris Sebenarnya.html" class="w3-bar-item w3-button">
-Pemilik Keris Sebenarnya</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Pusaka Orang Tua.html" class="w3-bar-item w3-button">
-Keris Pusaka Orang Tua</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Tayuhan & Keris Ageman.html" class="w3-bar-item w3-button">
-Keris Tayuhan & Keris Ageman</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Berhawa Aura Panas.html" class="w3-bar-item w3-button">
-Keris Berhawa Aura Panas</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Tindih.html" class="w3-bar-item w3-button">
-Keris Tindih</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Kamardikan.html" class="w3-bar-item w3-button">
-Keris Kamardikan</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Junjung Derajat.html" class="w3-bar-item w3-button">
-Keris Junjung Derajat</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Combong dan Keris Pamengkang Jagad.html" class="w3-bar-item w3-button">
-Keris Combong dan Keris Pamengkang Jagad</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Berpamor Pemilih.html" class="w3-bar-item w3-button">
-Keris Berpamor Pemilih</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris yang Dikosongkan Isinya.html" class="w3-bar-item w3-button">
-Keris yang Dikosongkan Isinya</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris dan Kesaktian.html" class="w3-bar-item w3-button">
-Keris dan Kesaktian</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Kyai Condong Campur.html" class="w3-bar-item w3-button">
-Keris Kyai Condong Campur</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Museum Pusaka Taman Mini.html" class="w3-bar-item w3-button">
-Museum Pusaka Taman Mini</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Pembuatan Keris Bali.html" class="w3-bar-item w3-button">
-Pembuatan Keris Bali</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris dan Kebatinan.html" class="w3-bar-item w3-button">
-Ngobrol - Keris dan Kebatinan</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris 1.html" class="w3-bar-item w3-button">
-Ngobrol - Keris 1</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris 2.html" class="w3-bar-item w3-button">
-Ngobrol - Keris 2</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris 3.html" class="w3-bar-item w3-button">
-Ngobrol - Keris 3</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris 4.html" class="w3-bar-item w3-button">
-Ngobrol - Keris 4</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris 5.html" class="w3-bar-item w3-button">
-Ngobrol - Keris 5</a>
- 
-
-</div>
-
-<button class="accordion" class="w3-bar-item w3-button">Benda-Benda Gaib dan Bertuah</button>
-<div class="panel">
-
-<a href="../Benda-Benda Gaib dan Bertuah/Benda-Benda Gaib dan Bertuah.html" class="w3-bar-item w3-button">
-Benda-Benda Gaib dan Bertuah</a>
-
-<a href="../Benda-Benda Gaib dan Bertuah/Batu Akik.html" class="w3-bar-item w3-button">
-Batu Akik</a>
- 
-<a href="../Benda-Benda Gaib dan Bertuah/Mustika.html" class="w3-bar-item w3-button">
-Mustika</a>
- 
-<a href="../Benda-Benda Gaib dan Bertuah/Kesaktian Mustika.html" class="w3-bar-item w3-button">
-Kesaktian Mustika</a>
- 
-<a href="../Benda-Benda Gaib dan Bertuah/Benda-benda Bertuah Lain.html" class="w3-bar-item w3-button">
-Benda-benda Bertuah Lain</a>
-
-<a href="../Benda-Benda Gaib dan Bertuah/Sesaji.html" class="w3-bar-item w3-button">
-Sesaji</a>
-
-<a href="../Benda-Benda Gaib dan Bertuah/Jimat Rajahan & Khodam Isian.html" class="w3-bar-item w3-button">
-Jimat Rajahan & Khodam Isian</a>
- 
-<a href="../Benda-Benda Gaib dan Bertuah/Mengisi Khodam.html" class="w3-bar-item w3-button">
-Mengisi Khodam</a>
- 
-<a href="../Benda-Benda Gaib dan Bertuah/Pasar Batu Akik Rawa Bening.html" class="w3-bar-item w3-button">
-Pasar Batu Akik Rawa Bening</a>
- 
-<a href="../Benda-Benda Gaib dan Bertuah/Ngobrol 1 Benda Gaib.html" class="w3-bar-item w3-button">
-Ngobrol 1 Benda Gaib</a>
- 
-<a href="../Benda-Benda Gaib dan Bertuah/Ngobrol 2 Benda Gaib.html" class="w3-bar-item w3-button">
-Ngobrol 2 Benda Gaib</a>
- 
-<a href="../Benda-Benda Gaib dan Bertuah/Ngobrol 3 Benda Gaib.html" class="w3-bar-item w3-button">
-Ngobrol 3 Benda Gaib</a>
- 
-<a href="../Benda-Benda Gaib dan Bertuah/Ngobrol 4 Benda Gaib.html" class="w3-bar-item w3-button">
-Ngobrol 4 Benda Gaib</a>
- 
-<a href="../Benda-Benda Gaib dan Bertuah/Ngobrol   5 Benda Gaib.html" class="w3-bar-item w3-button">
-Ngobrol 5 Benda Gaib</a>
-
-
-</div>
-
-<button class="accordion" class="w3-bar-item w3-button">Dunia Gaib dan Mahluk Halus</button>
-<div class="panel">
-
-<a href="../Dunia Gaib dan Mahluk Halus/Dunia Gaib dan Mahluk Halus.html" class="w3-bar-item w3-button">
-Dunia Gaib dan Mahluk Halus</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Hakekat Wujud Mahluk Halus.html" class="w3-bar-item w3-button">
-Hakekat Wujud Mahluk Halus</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Interaksi Mahluk Halus.html" class="w3-bar-item w3-button">
-Interaksi Mahluk Halus</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Rumah Angker Wingit.html" class="w3-bar-item w3-button">
-Rumah Angker / Wingit</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Pantangan dan Larangan.html" class="w3-bar-item w3-button">
-Pantangan dan Larangan</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Kesaktian Mahluk Halus.html" class="w3-bar-item w3-button">
-Kesaktian Mahluk Halus</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Penggolongan Mahluk Halus.html" class="w3-bar-item w3-button">
-Penggolongan Mahluk Halus</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Pengaruh Gaib Thd Manusia 1.html" class="w3-bar-item w3-button">
-Pengaruh Gaib Thd Manusia 1</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Pengaruh Gaib Thd Manusia 2.html" class="w3-bar-item w3-button">
-Pengaruh Gaib Thd Manusia 2</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Ketempatan Mahluk Halus 1.html" class="w3-bar-item w3-button">
-Ketempatan Mahluk Halus 1</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ketempatan Mahluk Halus 2.html" class="w3-bar-item w3-button">
-Ketempatan Mahluk Halus 2</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ketempatan Mahluk Halus 3.html" class="w3-bar-item w3-button">
-Ketempatan Mahluk Halus 3</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ketempatan Mahluk Halus 4.html" class="w3-bar-item w3-button">
-Ketempatan Mahluk Halus 4</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ketempatan Mahluk Halus 5.html" class="w3-bar-item w3-button">
-Ketempatan Mahluk Halus 5</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Pagaran Gaib Proteksi Diri 1.html" class="w3-bar-item w3-button">
-Pagaran Gaib / Proteksi Diri 1</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Pagaran Gaib Proteksi Diri 2.html" class="w3-bar-item w3-button">
-Pagaran Gaib / Proteksi Diri 2</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Pembersihan Gaib 1.html" class="w3-bar-item w3-button">
-Pembersihan Gaib 1</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Pembersihan Gaib 2.html" class="w3-bar-item w3-button">
-Pembersihan Gaib 2</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Pembersihan Gaib 3.html" class="w3-bar-item w3-button">
-Pembersihan Gaib 3</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Pembersihan Gaib 4.html" class="w3-bar-item w3-button">
-Pembersihan Gaib 4</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Pembersihan Gaib 5.html" class="w3-bar-item w3-button">
-Pembersihan Gaib 5</a>
-
-    <button class="accordion" class="w3-bar-item w3-button">KHODAM</button>
-        <div class="panel">
-
-        <a href="../Dunia Gaib dan Mahluk Halus/KHODAM.html" class="w3-bar-item w3-button">
-          KHODAM</a>
-  
-        <a href="../Dunia Gaib dan Mahluk Halus/Jenis-jenis Khodam.html" class="w3-bar-item w3-button">
-          Jenis-jenis Khodam</a>
-          
-        <a href="../Dunia Gaib dan Mahluk Halus/Status & Hierarki Khodam.html" class="w3-bar-item w3-button">
-          Status & Hierarki Khodam</a>
-      
-        <a href="../Dunia Gaib dan Mahluk Halus/Khodam dan Kualitas Tuah.html" class="w3-bar-item w3-button">
-          Khodam dan Kualitas Tuah</a>    
-        <a href="../Dunia Gaib dan Mahluk Halus/Karakter Khodam dan Tuah.html" class="w3-bar-item w3-button">
-          Karakter Khodam dan Tuah</a> 
-        <a href="../Dunia Gaib dan Mahluk Halus/Khodam dan Kekuatan Tuah.html" class="w3-bar-item w3-button">
-          Khodam dan Kekuatan Tuah</a>
-      </div>
-      
-    <button class="accordion" class="w3-bar-item w3-button">Roh Manusia / Sukma / Arwah</button>
-        <div class="panel">
-       <a href="../Dunia Gaib dan Mahluk Halus/Roh Manusia Sukma Arwah.html" class="w3-bar-item w3-button">
-        Roh Manusia / Sukma / Arwah</a>
-
-        <a href="../Dunia Gaib dan Mahluk Halus/Penghambat Kematian.html" class="w3-bar-item w3-button">
-          Penghambat Kematian</a>
-  
-         <a href="../Dunia Gaib dan Mahluk Halus/Sukma Arwah di Alam Roh.html" class="w3-bar-item w3-button">
-           Sukma / Arwah di Alam Roh</a>
-      
-      </div>
-      
-<a href="../Dunia Gaib dan Mahluk Halus/Bangsa Siluman.html" class="w3-bar-item w3-button">
-Bangsa Siluman</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Bangsa Dedemit.html" class="w3-bar-item w3-button">
-Bangsa Dedemit</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Bangsa Halus Lain-lain.html" class="w3-bar-item w3-button">
-Bangsa Halus Lain-lain</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Bangsa Jin.html" class="w3-bar-item w3-button">
-Bangsa Jin</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Bangsa Jin Daratan.html" class="w3-bar-item w3-button">
-Bangsa Jin Daratan</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Bangsa Jin Air dan Jin Udara.html" class="w3-bar-item w3-button">
-Bangsa Jin Air dan Jin Udara</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Bangsa Buto.html" class="w3-bar-item w3-button">
-Bangsa Buto</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ibu Kanjeng Ratu Kidul.html" class="w3-bar-item w3-button">
-Ibu Kanjeng Ratu Kidul</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Pusaka & Mustika di Alam Gaib.html" class="w3-bar-item w3-button">
-Pusaka & Mustika di Alam Gaib</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Setan - Iblis dan Roh Penyesat.html" class="w3-bar-item w3-button">
-Setan - Iblis dan Roh Penyesat</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa.html" class="w3-bar-item w3-button">
-Dewa</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa dan Wahyu Dewa.html" class="w3-bar-item w3-button">
-Dewa dan Wahyu Dewa</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa Wisnu & Wahyu Dewa.html" class="w3-bar-item w3-button">
-Dewa Wisnu & Wahyu Dewa</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa dan Tanah Jawa.html" class="w3-bar-item w3-button">
-Dewa dan Tanah Jawa</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa dan Satria Piningit - 1.html" class="w3-bar-item w3-button">
-Dewa dan Satria Piningit - 1</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa dan Satria Piningit - 2.html" class="w3-bar-item w3-button">
-Dewa dan Satria Piningit - 2</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa dan Satria Piningit - 3.html" class="w3-bar-item w3-button">
-Dewa dan Satria Piningit - 3</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa dan Satria Piningit - 4.html" class="w3-bar-item w3-button">
-Dewa dan Satria Piningit - 4</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa dan Satria Piningit - 5.html" class="w3-bar-item w3-button">
-Dewa dan Satria Piningit - 5</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa dan Satria Piningit - 6.html" class="w3-bar-item w3-button">
-Dewa dan Satria Piningit - 6</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa dan Satria Piningit Ratu Adil.html" class="w3-bar-item w3-button">
-Dewa dan Satria Piningit / Ratu Adil</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Dewa dan Ramalan, Benarkah Manusia Dapat Mendahului Kehendak Tuhan.html" class="w3-bar-item w3-button">
-Dewa dan Ramalan, Benarkah Manusia Dapat Mendahului Kehendak Tuhan ?</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol 1.html" class="w3-bar-item w3-button">
-Ngobrol 1</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol 2.html" class="w3-bar-item w3-button">
-Ngobrol 2</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol 3.html" class="w3-bar-item w3-button">
-Ngobrol 3</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol 4.html" class="w3-bar-item w3-button">
-Ngobrol 4</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol 1 - Khodam.html" class="w3-bar-item w3-button">
-Ngobrol 1 - Khodam</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol 2 - Khodam.html" class="w3-bar-item w3-button">
-Ngobrol 2 - Khodam</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol - Ikatan Sukma.html" class="w3-bar-item w3-button">
-Ngobrol - Ikatan Sukma</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol - Ramalan.html" class="w3-bar-item w3-button">
-Ngobrol - Ramalan</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol - Putaran Jaman.html" class="w3-bar-item w3-button">
-Ngobrol - Putaran Jaman</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol - Satria Piningit.html" class="w3-bar-item w3-button">
-Ngobrol - Satria Piningit</a>
-
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol - Indigo.html" class="w3-bar-item w3-button">
-Ngobrol - Indigo</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol - Cerita Kegaiban 1.html" class="w3-bar-item w3-button">
-Ngobrol - Cerita Kegaiban 1</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Ngobrol - Cerita Kegaiban 2.html" class="w3-bar-item w3-button">
-Ngobrol - Cerita Kegaiban 2</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Turunnya Wahyu Dewa.html" class="w3-bar-item w3-button">
-Turunnya Wahyu Dewa</a>
- 
-<a href="../Dunia Gaib dan Mahluk Halus/Kerajaan Galuh Di Cianjur.html" class="w3-bar-item w3-button">
-Kerajaan Galuh Di Cianjur</a>
- 
-
-    <button class="accordion" class="w3-bar-item w3-button">BHARATAYUDHA Di Alam Gaib</button>
-    
-        <div class="panel">
-       <a href="../Dunia Gaib dan Mahluk Halus/BHARATAYUDHA Di Alam Gaib.html" class="w3-bar-item w3-button">
-      BHARATAYUDHA Di Alam Gaib</a>
-
-        <a href="../Dunia Gaib dan Mahluk Halus/BHARATAYUDHA II.html" class="w3-bar-item w3-button">
-          BHARATAYUDHA II</a>
-  
-         <a href="../Dunia Gaib dan Mahluk Halus/INFO TERKINI.html" class="w3-bar-item w3-button">
-           INFO TERKINI</a>
-           
-         <a href="../Dunia Gaib dan Mahluk Halus/Invasi Antar Galaxy.html" class="w3-bar-item w3-button">
-           Invasi Antar Galaxy ?</a>
-      
-      </div>
-
-
-</div>
-
-<button class="accordion" class="w3-bar-item w3-button">Dongeng Tanah Jawa</button>
-<div class="panel">
-
-<a href="../Dongeng Tanah Jawa/Dongeng Tanah Jawa.html" class="w3-bar-item w3-button">
-  Dongeng Tanah Jawa</a>
-  
-<a href="../Dongeng Tanah Jawa/Gajah Mada dan Majapahit.html" class="w3-bar-item w3-button">
-Gajah Mada dan Majapahit</a>
- 
-<a href="../Dongeng Tanah Jawa/Gajah Mada dan Perang Bubat.html" class="w3-bar-item w3-button">
-Gajah Mada dan Perang Bubat</a>
-
-<a href="../Dongeng Tanah Jawa/Syech Siti Jenar.html" class="w3-bar-item w3-button">
-Syech Siti Jenar</a>
- 
-<a href="../Dongeng Tanah Jawa/Jaka Tingkir.html" class="w3-bar-item w3-button">
-Jaka Tingkir</a>
-
-<a href="../Dongeng Tanah Jawa/Jaka Tingkir - Arya Penangsang.html" class="w3-bar-item w3-button">
-Jaka Tingkir - Arya Penangsang</a>
-
-<a href="../Dongeng Tanah Jawa/Arya Penangsang - Sutawijaya.html" class="w3-bar-item w3-button">
-Arya Penangsang - Sutawijaya</a>
- 
-<a href="../Dongeng Tanah Jawa/Wafatnya Sultan Adiwijaya.html" class="w3-bar-item w3-button">
-Wafatnya Sultan Adiwijaya</a>
- 
-<a href="../Dongeng Tanah Jawa/Panembahan Senopati.html" class="w3-bar-item w3-button">
-Panembahan Senopati</a>
-
-
-</div>
-
-<button class="accordion" class="w3-bar-item w3-button">Artikel Lain-Lain</button>
-<div class="panel">
-
-<a href="../Artikel Lain-Lain/Artikel Lain-Lain.html" class="w3-bar-item w3-button">
-Artikel Lain-Lain</a>
-
-<a href="../Artikel Lain-Lain/Penyebab Awal Sakit-Penyakit.html" class="w3-bar-item w3-button">
-Penyebab Awal Sakit-Penyakit</a>
- 
-<a href="../Artikel Lain-Lain/Sistem Kasta Di Masyarakat.html" class="w3-bar-item w3-button">
-Sistem Kasta Di Masyarakat</a>
-
-<a href="../Artikel Lain-Lain/Imperialisme - Kolonialisme.html" class="w3-bar-item w3-button">
-Imperialisme - Kolonialisme</a>
-
-<a href="../Artikel Lain-Lain/Liberalisme.html" class="w3-bar-item w3-button">
-Liberalisme</a>
- 
-<a href="../Artikel Lain-Lain/Kapitalisme - Sosialisme - Komunisme.html" class="w3-bar-item w3-button">
-Kapitalisme - Sosialisme - Komunisme</a>
-
-<a href="../Artikel Lain-Lain/Negara Agama - Sekularisme.html" class="w3-bar-item w3-button">
-Negara Agama - Sekularisme</a>
-
-
-</div>
-
-<button class="accordion" class="w3-bar-item w3-button">Artikel Oleh Penulis Lain</button>
-<div class="panel">
-
-<a href="../Artikel Oleh Penulis Lain/Artikel Oleh Penulis Lain.html" class="w3-bar-item w3-button">
-Artikel Oleh Penulis Lain</a>
-
-<a href="../Artikel Oleh Penulis Lain/Pengalaman Memiliki Keris.html" class="w3-bar-item w3-button">
-Pengalaman Memiliki Keris</a>
- 
-<a href="../Artikel Oleh Penulis Lain/Keris Tayuhan & Keris Ageman.html" class="w3-bar-item w3-button">
-Keris Tayuhan & Keris Ageman</a>
- 
-<a href="../Artikel Oleh Penulis Lain/Nguri-Uri Budaya.html" class="w3-bar-item w3-button">
-Nguri-Uri Budaya</a>
-
-<a href="../Artikel Oleh Penulis Lain/Keris Kamardikan.html" class="w3-bar-item w3-button">
-Keris Kamardikan</a>
-
-<a href="../Artikel Oleh Penulis Lain/Bahan Material Keris.html" class="w3-bar-item w3-button">
-Bahan Material Keris</a>
-
-<a href="../Artikel Oleh Penulis Lain/Pemindahtanganan & Mahar Keris.html" class="w3-bar-item w3-button">
-Pemindahtanganan & Mahar Keris</a>
-
-</div>
-
-<br>
-<div onclick="w3_close()">
-<center>
- <img src="../images/Keris Jawa-24.jpg">
- <br><br></center>
- <center>
- <img src="../images/Tombak-2.JPG">
- <br><br></center>
- <center>
- <img src="../images/Batu Biduri Bulan-4.jpg">
- <br><br>
- </center>
- <center>
-  <img src="../images/Mustika Merah Delima 1-1-2.jpg">
-  <br><br>
-  </center>
-  <center>
-   <img src="../images/Jin Kunti 1.JPG"></center>
-</div><br>
- 
-<hr>
-<h4></h4>
-
- <a href="../bio.html"><img src="../images/curioussheva.png" style=" height: 60px;
-  width: 100%"></a>
-<hr>
-</div>
-
-<div>
-  <button class="w3-button w3-white w3-xxlarge" style="
-    position: fixed;" onclick="w3_open()">&#9776;</button>
-<section>
-    <p><span><br/></span></p><p><br/></p>
-  
-    <tr><td style="width:652px;height:209px"><div style="display:inline;float:left;margin:5px 10px 0pt 0pt"><a href="../Spiritual & Kebatinan Keris Jawa/images/Menghormat%20kpd%20keris.jpg?attredirects=0" target="_blank"><img alt="Menghormat kepada Keris" border="0" height="200" src="../Spiritual & Kebatinan Keris Jawa/images/Menghormat%20kpd%20keris.jpg?height=200&amp;width=150" width="150"/></a></div>
-  
-    <h2 style="text-align:center"><a name="TOC-Mengoptimalkan-Fungsi-Keris---1-"></a><u><font size="5"><b>Mengoptimalkan Fungsi Keris - 1</b></font></u><font size="5"><b></b></font><u><font size="5"><b> <br/></b></font></u></h2><p><b><span style="color:rgb(68,68,68)"><font size="2"><br/></font></span></b></p><p style="text-align:center"><b><span style="color:rgb(68,68,68)">Filosofi, </span></b><b>Spiritual dan Kebatinan </b><b><span style="color:rgb(68,68,68)">Keris </span></b><b>Jawa</b><b><span style="color:rgb(68,68,68)">.<br/></span></b></p></td></tr>
-    <p><span><br/></span></p><p></p>
-      
- <div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn">Artikel lainnya</button>
-
- <div id="myDropdown" class="dropdown-content">
-    
-<a href="../Spiritual & Kebatinan Keris Jawa/Spiritual & Kebatinan Keris Jawa.html" class="w3-bar-item w3-button">
-Spiritual & Kebatinan Keris Jawa</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Gaib Di Dalam Keris Jawa.html" class="w3-bar-item w3-button">
-Gaib Di Dalam Keris Jawa</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Jawa dan Empu Keris.html" class="w3-bar-item w3-button">
-Keris Jawa dan Empu Keris</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Perawatan Keris Jawa.html" class="w3-bar-item w3-button">
-Perawatan Keris Jawa</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Tata Cara Dalam Perkerisan.html" class="w3-bar-item w3-button">
-Tata Cara Dalam Perkerisan</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Ilmu Tayuh Menayuh Keris.html" class="w3-bar-item w3-button">
-Ilmu Tayuh / Menayuh Keris</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Masalah Keakuratan Menayuh.html" class="w3-bar-item w3-button">
-Masalah Keakuratan Menayuh</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Arti Mimpi Menayuh Keris.html" class="w3-bar-item w3-button">
-Arti Mimpi Menayuh Keris</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Karakter-Karakter Keris Jawa.html" class="w3-bar-item w3-button">
-Karakter-Karakter Keris Jawa</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Status Keris dan Kelas Keris.html" class="w3-bar-item w3-button">
-Status Keris dan Kelas Keris</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Wahyu Keraton Di Dalam Keris Jawa.html" class="w3-bar-item w3-button">
-Wahyu Keraton Di Dalam Keris Jawa
-</a>
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Keningratan.html" class="w3-bar-item w3-button">
-Keris Keningratan</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Lurus dan Keris Luk.html" class="w3-bar-item w3-button">
-Keris Lurus dan Keris Luk</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Tuah Keris.html" class="w3-bar-item w3-button">
-Tuah Keris</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Tuah Keris - Filosofi Dasar.html" class="w3-bar-item w3-button">
-Tuah Keris - Filosofi Dasar</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Tuah Keris - Jaman Sekarang.html" class="w3-bar-item w3-button">
-Tuah Keris - Jaman Sekarang</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Tuah Keris - Jaman Sekarang-2.html" class="w3-bar-item w3-button">
-Tuah Keris - Jaman Sekarang-2</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Filosofi Tuah Keris Jawa.html" class="w3-bar-item w3-button">
-Filosofi Tuah Keris Jawa</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Menyatunya Keris dgn Pemilik.html" class="w3-bar-item w3-button">
-Menyatunya Keris dgn Pemilik</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Mengoptimalkan Fungsi Keris 1.html" class="w3-bar-item w3-button">
-Mengoptimalkan Fungsi Keris 1</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Mengoptimalkan Fungsi Keris 2.html" class="w3-bar-item w3-button">
-Mengoptimalkan Fungsi Keris 2</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Mengoptimalkan Fungsi Keris 3.html" class="w3-bar-item w3-button">
-Mengoptimalkan Fungsi Keris 3</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Pemilik Keris Sebenarnya.html" class="w3-bar-item w3-button">
-Pemilik Keris Sebenarnya</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Pusaka Orang Tua.html" class="w3-bar-item w3-button">
-Keris Pusaka Orang Tua</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Tayuhan & Keris Ageman.html" class="w3-bar-item w3-button">
-Keris Tayuhan & Keris Ageman</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Berhawa Aura Panas.html" class="w3-bar-item w3-button">
-Keris Berhawa Aura Panas</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Tindih.html" class="w3-bar-item w3-button">
-Keris Tindih</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Kamardikan.html" class="w3-bar-item w3-button">
-Keris Kamardikan</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Junjung Derajat.html" class="w3-bar-item w3-button">
-Keris Junjung Derajat</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Combong dan Keris Pamengkang Jagad.html" class="w3-bar-item w3-button">
-Keris Combong dan Keris Pamengkang Jagad</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Berpamor Pemilih.html" class="w3-bar-item w3-button">
-Keris Berpamor Pemilih</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris yang Dikosongkan Isinya.html" class="w3-bar-item w3-button">
-Keris yang Dikosongkan Isinya</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris dan Kesaktian.html" class="w3-bar-item w3-button">
-Keris dan Kesaktian</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Keris Kyai Condong Campur.html" class="w3-bar-item w3-button">
-Keris Kyai Condong Campur</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Museum Pusaka Taman Mini.html" class="w3-bar-item w3-button">
-Museum Pusaka Taman Mini</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Pembuatan Keris Bali.html" class="w3-bar-item w3-button">
-Pembuatan Keris Bali</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris dan Kebatinan.html" class="w3-bar-item w3-button">
-Ngobrol - Keris dan Kebatinan</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris 1.html" class="w3-bar-item w3-button">
-Ngobrol - Keris 1</a>
-
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris 2.html" class="w3-bar-item w3-button">
-Ngobrol - Keris 2</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris 3.html" class="w3-bar-item w3-button">
-Ngobrol - Keris 3</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris 4.html" class="w3-bar-item w3-button">
-Ngobrol - Keris 4</a>
- 
-<a href="../Spiritual & Kebatinan Keris Jawa/Ngobrol - Keris 5.html" class="w3-bar-item w3-button">
-Ngobrol - Keris 5</a>
- </div>
-
-  </div>
- <img src="../images/print-icon.png"
- onclick="printPage()">  
-
-   
-</section>   
-
-<article>
-
-
-<div id="sites-canvas-main" class="sites-canvas-main">
-<div id="sites-canvas-main-content">
-<table xmlns="https://www.w3.org/1999/xhtml" cellspacing="0" class="sites-layout-name-one-column sites-layout-hbox"><tbody><tr><td class="sites-layout-tile sites-tile-name-content-1"><div dir="ltr"><table border="1" cellspacing="0" style="border-collapse:collapse;border-color:rgb(136,136,136);border-width:1px">
-  <tbody>
-    
-    <tr><td style="width:652px;height:1564px"><br/><br/><font size="2" style="color:rgb(68,68,68)"><br/></font><span style="color:rgb(68,68,68)">Tulisan dalam halaman ini merupakan kelanjutan dari tulisan pada halaman sebelumnya : <u>Menyatunya Keris dengan Pemilik</u>. Sebagian cara-cara menyatukan sebuah keris dengan manusia pemiliknya dan cara-cara menjadikan sebuah keris bermanfaat bagi pemiliknya sudah terkandung dalam tulisan-tulisan di halaman lain.</span><br style="color:rgb(68,68,68)"/><font size="2" style="color:rgb(68,68,68)"><br/></font><span style="color:rgb(68,68,68)">Pada
- jaman sekarang banyak keris yang hawa aura mistisnya sudah redup, 
-sudah dingin / adem / anyeb, mirip seperti keris kosong tak berpenghuni 
-gaib.  Hawa aura gaibnya sudah menurun atau kerisnya pasif tidak 
-memberikan tuahnya, terpengaruh perkembangan jaman dimana keberadaan 
-keris sudah mulai 
-diabaikan, tetapi kekuatan aura keris-keris tersebut akan terasa kembali
- ketika 
-sudah menyatu dengan seorang pemilik yang sesuai.</span><br style="color:rgb(68,68,68)"/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">Selama
- masih ada jarak kebatinan </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">antara </span>si manusia  dengan kerisnya, maka 
-keberadaan keris itu tidak akan banyak berarti. Tuah-nya pun mungkin 
-tidak akan dirasakannya. Bagi anda yang 
-memiliki atau menyimpan keris, sebaiknya juga memiliki pengetahuan 
-tentang tatacara pemakaian keris, pemeliharaan keris, dsb, jangan hanya 
-sekedar asal memiliki, menyimpan atau memakainya, supaya tidak terbawa-bawa cerita 
-tentang mistis keris atau pun mengkultuskan kegaiban keris, supaya keris
- 
-tidak dimusuhi orang karena cerita mistisnya, atau justru keris 
-dijadikan sebagai suatu bentuk pemujaan. </span><br/><br/><br/><span style="color:rgb(68,68,68)"><br/> <font size="4"><u><b>Menyatukan Keris dengan Pemiliknya</b></u></font><br/><br/></span><span style="color:rgb(68,68,68)">Karena sisi gaib sebuah keris jawa adalah <u>bersifat wahyu</u>,
- maka kegaiban keris jawa akan bekerja sendiri sesudah ada penyatuan 
-kebatinan dengan manusia pemiliknya dan akan melipatgandakan pengaruh 
-aktivitas dan perbuatan 
-si manusia pemiliknya yang sejalan dengan sifat kegaiban kerisnya, 
-sehingga perbuatan-perbuatannya itu memberikan pengaruh yang lebih besar
- dibandingkan tanpa keris. Keris jawa yang sudah dimiliki oleh seseorang
- akan
-pasif peranan dan pengaruhnya jika belum ada penyatuan 
-kebatinan dengan orang si pemilik keris dan orangnya tidak 
-melakukan aktivitas dan perbuatan yang sejalan dengan sisi kegaiban 
-kerisnya.<br/><br/>Karena itu kegaiban keris jawa tidak akan bisa langsung
- dirasakan oleh orang-orang pemilik keris dan banyak pemilik keris yang 
-tidak bisa merasakan manfaat kerisnya, karena kegaibannya akan bekerja <u>hanya</u>
- sesudah ada penyatuan 
-kebatinan pemiliknya dengan kerisnya dan kegaiban keris tidak sama 
-dengan benda-benda bertuah lain yang otomatis memberikan tuahnya sesudah
- bendanya dimiliki, apalagi mengharapkannya bekerja sendiri mendatangkan
- rejeki dan kekayaan sama seperti bertuah pesugihan, karena sifat 
-kegaiban keris adalah melipatgandakan pengaruh 
-aktivitas dan perbuatan 
-si pemilik keris yang sejalan dengan sifat kegaiban kerisnya. Jadi, 
-orangnya sendiri yang harus sakti, orangnya harus bekerja, dsb, dan 
-sesudah ada penyatuan kebatinan kerisnya dengan pemiliknya, aktivitas 
-dan perbuatan yang sejalan dengan sisi kegaiban 
-kerisnya pengaruhnya akan dilipatgandakan oleh kerisnya. <br/><br/>Pada
- masa sekarang ini jarang ada manusia pemilik keris yang dapat merasakan
- kegaiban kerisnya dan juga jarang ada yang dapat merasakan tuah gaib 
-keris yang diberikan kepada manusia, mungkin karena kondisi kerisnya 
-yang tidak berhawa angker / berwibawa, sehingga tidak terasa hawa 
-auranya, atau mungkin sifat tuahnya yang tidak menonjol sehingga tidak 
-dapat dibedakan rasanya, atau mungkin memang si manusianya sendiri yang kurang
- peka, tidak dapat merasakan adanya kegaiban pada pusakanya, dirinya atau orang 
-lain.</span><br style="color:rgb(68,68,68)"/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">Bila
- anda memiliki sebuah keris sebaiknya anda berusaha untuk menyatukan 
-rasa kebatinan anda dengan keris anda, supaya keris itu benar menjadi 
-sebuah </span><i style="color:rgb(68,68,68)">sipat kandel </i><span style="color:rgb(68,68,68)">dan
- tuahnya akan lebih dapat anda rasakan. Dalam segala sesuatu yang anda 
-lakukan terhadap keris anda, sebaiknya anda bisa mengetahui apakah 
-perbuatan anda itu berkenan bagi si keris, jangan sampai walaupun  anda 
-bermaksud baik, tetapi ternyata si keris merasa tidak cocok dengan 
-perbuatan  anda itu. Beberapa tips perawatan keris dapat dibaca di : </span><a href="../Spiritual & Kebatinan Keris Jawa/Perawatan Keris Jawa.html" style="color:rgb(68,68,68)" target="_blank">Penyimpanan dan Perawatan Keris</a><span style="color:rgb(68,68,68)">.</span><br/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">Pertama-tama cobalah keris itu ditayuh (misalnya dengan cara </span><a href="../Spiritual & Kebatinan Keris Jawa/Ilmu Tayuh Menayuh Keris.html" style="color:rgb(68,68,68)" target="_blank">Ilmu Tayuh / Menayuh Keris</a><span style="color:rgb(68,68,68)">), atau menanyakan kepada orang yang benar mengerti, mengenai kecocokkannya dengan anda dan sifat dari tuahnya. </span><br style="color:rgb(68,68,68)"/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">Kemudian
-
- cobalah menyatukan rasa batin anda dengan si keris. Misalnya sambil 
-anda membersihkan keris atau meminyaki keris, anda coba peka rasa, 
-merasakan kegaiban keris itu. Setelah anda dapat merasakan suatu rasa 
-hati yang menyatu dengan si keris, selaraskan rasa batin anda dengan 
-'rasa' tuah si keris, supaya tuah si keris menyatu dengan kebatinan 
-anda. Dalam tulisan tentang ilmu tayuh keris di atas juga diberikan 
-contoh cara mendekatkan hati dan rasa dengan keris. Panduan lain untuk 
-melatih kepekaan rasa silakan dibaca : </span><a href="../Kebatinan-dan-Spiritual/Olah Rasa dan Kebatinan.html" style="color:rgb(68,68,68)" target="_blank">Olah Rasa dan Kebatinan</a><span style="color:rgb(68,68,68)">.</span><br style="color:rgb(68,68,68)"/><br style="color:rgb(68,68,68)"/><font size="2" style="color:rgb(68,68,68)"><span style="line-height:15px">Contoh cara lainnya, </span></font><span style="color:rgb(68,68,68)">setelah
- keris dikeluarkan dari sarungnya, keris diangkat tegak ke atas kepala 
-di depan wajah, dan sambil menunduk keris tersebut disentuhkan ke dahi. 
-Cara ini baik untuk menyatukan </span><u style="color:rgb(68,68,68)"><i>rasa</i></u><span style="color:rgb(68,68,68)"> dengan 
-si keris, atau untuk menyampaikan sugesti / perintah / keinginan kita 
-terhadap si keris. Dengan cara ini anda
- akan bisa 
-merasakan energi si keris di dahi / kepala anda (atau di ubun-ubun kepala anda). Ada keris-keris yang energinya 
-tajam, ada juga yang energinya tidak tajam, tetapi terasa berat di 
-kepala anda. Cara ini juga bisa digunakan untuk mendeteksi apakah sebuah
- keris benar berpenghuni gaib, ataukah kosong isi gaibnya.</span><br style="color:rgb(68,68,68)"/>
-<br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">
-Dengan cara tersebut, sambil kita 
-berusaha untuk merasakan "rasa" keris supaya kita bisa menyatukan rasa 
-hati dengan si keris, mendekatkan batin kita dengan si keris, cara itu baik untuk menyampaikan sesuatu kepada si keris, misalnya untuk menayuh 
-keris supaya hadir di dalam mimpi atau untuk mengsugesti si keris untuk 
-menyatu dengan kehidupan kita, dengan cara berkonsentrasi berbicara di dalam hati, tetapi ditujukan kepada si keris.</span><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)"><br/>Bila
- sebelumnya keris tersebut belum pernah memberikan sinyal kecocokkannya 
-dengan anda (misalnya lewat mimpi), maka setelah upaya anda menyatukan 
-rasa dengan keris tersebut (seperti cara di atas), biasanya si keris 
-akan memberikan mimpi tertentu kepada anda sebagai tanda jawaban dari 
-pertanyaan / sugesti anda. <br/></span><span style="color:rgb(68,68,68)"><br/>Setelah
- anda dapat merasakan menyatunya rasa batin dengan si keris, kemudian 
-dalam keseharian aktivitas anda, sugestikan kepada si keris agar menyatu
- dengan anda, menyertai anda bersama dengan tuahnya. Sugestikan bahwa 
-tuah-tuah yang menyatu dengan anda hanyalah tuah yang 
-</span><u style="color:rgb(68,68,68)">cocok</u><span style="color:rgb(68,68,68)"> dan </span><u style="color:rgb(68,68,68)">bermanfaat</u><span style="color:rgb(68,68,68)"> untuk anda sesuai aktivitas keseharian anda (baca lagi tulisan-tulisan tentang 
-kecocokkan sebuah keris dengan pemiliknya). </span><br style="color:rgb(68,68,68)"/><br/>Dalam tulisan <a href="../Dunia Gaib dan Mahluk Halus/Khodam dan Kualitas Tuah.html" target="_blank">Khodam dan Kualitas Tuah</a> Penulis sudah menuliskan beberapa panduan tentang prinsip-prinsip dasar memberikan sugesti tuah terhadap khodam gaib (termasuk keris) yang dihubungkan dengan jenis sifat karakter gaibnya. <br/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">Bila anda berhasil melakukan sugestinya, maka sesuai masing-masing sifat tuah keris :</span><br/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)"> - Bila tuah karisma / wibawa yang anda sugestikan menyatu dengan anda, maka suatu aura karisma dan </span><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">   wibawa akan memancar dari diri anda yang bisa dirasakan oleh orang-orang lain di sekitar anda. </span><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)"> - Bila tuah kesaktian yang anda sugestikan, maka anda akan bisa merasakan tubuh anda lebih kuat bertenaga <br/><span>   </span>dan </span><span style="color:rgb(68,68,68)">padat berenergi dan feeling anda akan lebih tajam bila akan terjadi suatu marabahaya.</span><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)"> - Bila tuah penjagaan gaib yang anda sugestikan, maka gaib si keris akan mendampingi dan menjaga <br/>   anda dari gangguan gaib, sebatas kemampuan si gaib keris, atau ada selubung energi gaib yang <br/>   menyelimuti diri anda yang menjauhkan anda dari gangguan gaib.</span><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)"> - Bila tuah kerejekian yang anda sugestikan, maka akan ada suatu aura pengasihan dan ketentraman <br/>   yang </span><span style="color:rgb(68,68,68)">memancar dari diri anda yang bisa dirasakan oleh orang-orang di sekitar anda. Urusan dagang / <br/>   bisnis, </span><span style="color:rgb(68,68,68)">pertemanan dan sosial menjadi lebih baik. Tanaman menjadi lebih baik pertumbuhannya dan <br/>   ternak menjadi </span><span style="color:rgb(68,68,68)">lebih baik perkembangannya. Ide-ide dan ilham mengalir lancar untuk memecahkan <br/>   persoalan.</span><br style="color:rgb(68,68,68)"/><br/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">Seberapa kuat kegaiban yang meliputi diri anda </span><span style="color:rgb(68,68,68)">selain tergantung pada kekuatan kegaiban si keris itu sendiri, terutama adalah </span><span style="color:rgb(68,68,68)">tergantung
- pada kekuatan sugesti penyatuan anda dengan keris anda itu. Dengan 
-demikian anda sudah menjadikan keris anda sebagai sebuah </span><i style="color:rgb(68,68,68)">piyandel</i><span style="color:rgb(68,68,68)">, bukan hanya menjadi sebuah keris koleksi atau keris simpanan saja, apalagi hanya menjadi keris pajangan.</span><br style="color:rgb(68,68,68)"/><br style="color:rgb(68,68,68)"/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">Contoh sugesti penyatuan dengan gaib keris sesuai manfaat tuahnya masing-masing : </span><br style="color:rgb(68,68,68)"/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">Setelah
-
- keris dikeluarkan dari sarungnya, keris diangkat tegak ke atas kepala 
-di depan wajah, dan sambil menunduk keris tersebut disentuhkan ke dahi. 
-Dalam posisi itu kita berkata-kata kepada si keris (berkata-kata di 
-dalam hati, tetapi ditujukan kepada si keris) :</span><br style="color:rgb(68,68,68)"/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)"> - Dampingilah keseharian saya, pancarkan aura yang baik supaya dagangan saya laris banyak pembelinya.</span><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)"> - Dampingilah keseharian saya, pancarkan aura yang baik supaya teman-teman sekerja, atasan dan <br/><span>   </span>bawahan, </span><span style="color:rgb(68,68,68)">semua orang suka dan bersahabat dengan saya, supaya urusan sosial dan pekerjaan saya <br/><span>   </span>menjadi lebih baik.</span><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)"> - Dampingilah keseharian saya, lindungi saya dan jauhkan orang-orang dan mahluk halus yang berniat <br/><span>   </span>mengganggu dan bersikap </span><span style="color:rgb(68,68,68)">jahat kepada saya.</span><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)"> - Lindungilah rumah 
-saya dan para penghuninya dari gaib-gaib dan energi negatif </span><span style="color:rgb(68,68,68)">dan </span><span style="color:rgb(68,68,68)">yang </span><span style="color:rgb(68,68,68)">mengganggu, <br/>   berikanlah pagaran gaib yang melindungi saya dan semua anggota keluarga saya dan </span><span style="color:rgb(68,68,68)">berikan juga <br/>   pagaran gaib yang melindungi </span><span style="color:rgb(68,68,68)">rumah saya dan halamannya.</span> Jadikanlah pagaran gaib itu beraura baik untuk <br/>   kerejekian dan hubungan sosial kami.<br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">   Pindahkan gaib-gaib tidak baik ke tempat yang jauh dari permukiman supaya tidak mengganggu </span><span style="color:rgb(68,68,68)">manusia. </span><br/><span style="color:rgb(68,68,68)"><span>   </span></span><span style="color:rgb(68,68,68)">Beritahukan juga hasilnya kepada saya lewat mimpi. </span><br style="color:rgb(68,68,68)"/>
-<br style="color:rgb(68,68,68)"/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">Sebaiknya
- kita juga rajin membersihkan keris-keris kita dan sesekali meminyakinya
- dengan minyak cendana merah (sebulan sekali), selain untuk menjaga kedekatan hati dengan
- si keris, juga sebagai tanda 
-terima kasih atas bantuan dan kebersamaannya dengan kita.</span><font size="2" style="color:rgb(68,68,68)"><br style="color:rgb(68,68,68)"/><br style="color:rgb(68,68,68)"/><span style="color:rgb(68,68,68)">Bila
- anda memiliki keris, jika sudah berhasil melakukan penyatuan dengan 
-keris-keris anda, sekaranglah saatnya anda mencoba untuk mengoptimalkan 
-fungsi keris-keris itu supaya keberadaannya lebih berguna bagi anda.</span><br/><br/></font><br style="color:rgb(68,68,68)"/><div style="text-align:center"><font size="2">-------------</font><br/></div><font size="2" style="color:rgb(68,68,68)"><br/><br/></font><br/><font size="2" style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)"> <span style="color:rgb(0,0,0)"><u>Tips dalam sugesti untuk pagaran gaib </u></span>:<br/><br/></span>Cara-cara
- sugesti seperti menayuh keris bisa digunakan untuk mengsugesti pembuatan pagaran 
-gaib. Semua jenis khodam dan benda-benda gaib, selain sukma manusia, 
-dapat disugestikan untuk memberikan pagaran gaib.<br/><br/><span style="color:rgb(68,68,68)">Kalau anda membuat pagaran gaib sebaiknya ada pemahaman sbb : gunakanlah
- khodam atau benda gaib yang kekuatan gaibnya paling tinggi, tetapi disugestikan supaya kekuatan pagarannya
- hanya setengahnya atau sepertiganya saja dari kekuatannya </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>tertinggi,
- dan disugestikan energinya bersifat teduh, baik 
-untuk kesehatan dan kerejekian / pergaulan.<br/><br/>Kekuatan pagaran gaib </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>hanya setengah kekuatannya itu penggunaannya sbb :<br/>1. Pagaran gaib untuk manusia, disugestikan </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">supaya </span>kekuatan pagaran </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>hanya setengah itu kuat tak dapat <br/><span>    </span>ditembus mahluk halus.<br/>
-2. Pagaran gaib untuk rumah, bangunan atau benda-benda lain, disugestikan 
-</span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">supaya </span>energi pagarannya bersifat <br/><span>    </span>positif, hanya untuk menolak energi negatif dan mahluk halus </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>dari golongan 
-hitam, </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>berenergi <br/><span>    </span>negatif dan </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>bertendensi / berpengaruh negatif. </span><span style="color:rgb(68,68,68)"><font size="2" style="font-family:arial,sans-serif;color:rgb(68,68,68)"><span>Karakteristik mahluk halus dari golongan hitam dan yang <br/><span>    </span>berenergi negatif terhadap manusia dapat dibaca di :  <a href="../Dunia Gaib dan Mahluk Halus/Penggolongan Mahluk Halus.html" target="_blank">Penggolongan Mahluk Halus</a>.</span></font><br/><br/>Pagaran
- gaib untuk rumah disugestikan supaya energi pagarannya bersifat positif, hanya untuk menolak </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>golongan 
-hitam, </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>berenergi negatif dan </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>bertendensi / berpengaruh negatif. 
-Jadi mahluk halus </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>bersifat baik dan tidak berpengaruh jelek akan 
-tetap bisa masuk atau lewat. Jadi khodam-khodam anda </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>lain, khodam cincin, 
-jimat, keris, atau khodam teman-teman anda, roh sedulur papat, sukma leluhur,
- dsb, </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>kekuatannya lebih rendah daripada pagarannya tetap bisa masuk 
-ke dalam rumah, selama tidak termasuk dalam kriteria </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>harus ditolak. <br/>
-<br/>Pagaran gaib untuk manusia, walaupun kekuatannya hanya setengahnya, 
-tetapi harus kuat </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">supaya </span>tak dapat ditembus mahluk halus. Sehingga walaupun di 
-rumahnya atau di manapun dia berada ada banyak sosok-sosok halus, dia tetap 
-aman, selama tidak ada </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>bisa menembus pagarannya.<br/>
-<br/>Uraian di atas didasarkan pada pemahaman sbb :</span><span style="color:rgb(68,68,68)"> <br/>- Kondisi 
-lemahnya pertahanan gaib seseorang dpt memudahkan mahluk halus mana saja
- untuk menyerang, <br/>  merasuk, menempel atau bersemayam di tubuh seseorang. <br/>- Adanya pagaran gaib dapat membantu menjaga keselamatan dari gangguan gaib. <br/>
-- Tetapi semakin tingginya kegaiban (termasuk pagaran gaib) yang ada pada sebuah rumah, bangunan atau <br/><span>  </span>lokasi tertentu atau pada diri seseorang juga dapat 
-mengundang datangnya sosok-sosok halus yang lebih <br/><font size="2">  </font>tinggi kekuatannya daripada kekuatan pagarannya, </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>tidak 
-jelas apakah </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>datang itu bersifat baik atau <br/><font size="2">  </font>tidak.<br/><br/>Jadi adanya 
-pagaran gaib </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>kuat juga dapat berefek negatif, yaitu akan dapat 
-mengundang datangnya sosok-sosok halus untuk bersemayam di dalamnya. Jadi 
-kalau kekuatan pagaran gaib </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>kita buat hanya setengah kekuatannya, 
-seandainya ada datang sosok halus </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>lebih kuat daripada pagarannya, dan dicurigai berpengaruh negatif, diharapkan kekuatan gaibnya </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>tertinggi bisa 
-digunakan untuk mengusirnya.<br/>
-<br/>Kalau dalam membuat pagaran gaibnya sudah digunakan kekuatan </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>tertinggi, jika ada 
-sesosok halus </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>datang, </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>lebih kuat daripada pagarannya, anda tidak 
-akan dapat berbuat apa-apa, karena kekuatan tertinggi </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>sudah anda gunakan 
-ternyata ada </span><span style="color:rgb(68,68,68)"><span style="color:rgb(68,68,68)">yang </span>mampu menembusnya.<br/>
-<br/>Mudah-mudahan pemahaman di atas dapat menambah kebijaksanaan spiritual anda.<br/><br/></span>B<span style="color:rgb(68,68,68)"><font style="font-family:arial,sans-serif"><span><font style="font-family:arial,sans-serif"><span>enda-benda gaib anda yang bisa untuk kekebalan (bisa dites untuk kekebalan) sebaiknya jangan <font>di</font>sugesti<font>kan untuk memberikan tuah / fungsi lain, supaya tuah kekebalannya tidak berubah / luntur.</font></span></font></span></font></span><br/><br/></font><p style="text-align:left">Sebagai catatan tambahan, jika anda ingin 
-mengupayakan laku permbersihan gaib, anda bisa mengkombinasikan 
-cara-cara pembersihan gaib seperti contoh-contoh yang sudah dituliskan 
-dalam halaman-halaman bertemakan <u>Pembersihan Gaib</u>.<br/></p><p style="text-align:left"><span style="font-size:10.0pt;font-family:Arial">Jika anda ingin melakukan suatu laku ritual untuk mencoba mencari 
-kesembuhan dan upaya pembersihan gaib, anda bisa datang ke tempat-tempat mistis seperti yang dicontohkan dalam tulisan berjudul </span><span style="font-size:10.0pt;font-family:Arial"><a href="../Kebatinan-dan-Spiritual/Tempat-tempat Mistis.html" target="_blank">Tempat-tempat Mistis</a>  karena aura positifnya dan para penghuni gaibnya akan 
-menjauhkan mahluk halus yang beraura dan bertendensi negatif. </span></p><font size="2" style="color:rgb(68,68,68)"><br/><br/><br/></font><div style="text-align:center">---------------------<br style="color:rgb(68,68,68)"/></div><font size="2" style="color:rgb(68,68,68)"><br/><br/><br/> &gt;&gt;  <a href="../Spiritual & Kebatinan Keris Jawa/Mengoptimalkan Fungsi Keris 2.html">Mengoptimalkan Fungsi Keris 2</a>.<br/><br/></font><div style="text-align:center"><br/><br/><br/></div><font size="2" style="color:rgb(68,68,68)"><br/><br/><br/><br/></font> </td></tr></tbody></table></div></td></tr></tbody></table>
-</div> 
-</div> 
-  
-</article>
-
-  </div>
-</div>
-
-<script src="../js/custom.js"></script>     
- 
-<script src="../android.js"></script>    
-
-</body>
-</html> 
+        </article>
+        <table>
+          <tr>
+            <td style="width: 652px; height: 209px">
+              <div
+                style="display: inline; float: left; margin: 5px 10px 0pt 0pt"
+              >
+                <a
+                  href="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/images/Menghormat%20kpd%20keris.jpg?attredirects=0"
+                  target="_blank"
+                  ><img
+                    alt="Menghormat kepada Keris"
+                    border="0"
+                    height="200"
+                    src="../Spiritual%20&amp;%20Kebatinan%20Keris%20Jawa/images/Menghormat%20kpd%20keris.jpg?height=200&amp;width=150"
+                    width="150"
+                /></a>
+              </div>
+              <h2 style="text-align: center">
+                <a
+                  name="TOC-Mengoptimalkan-Fungsi-Keris---1-"
+                  id="TOC-Mengoptimalkan-Fungsi-Keris---1-"
+                ></a
+                ><u><b>Mengoptimalkan Fungsi Keris - 1</b></u>
+                <u
+                  ><b><br /></b
+                ></u>
+              </h2>
+              <p>
+                <b><br /></b>
+              </p>
+              <p style="text-align: center">
+                <b>Filosofi,</b> <b>Spiritual dan Kebatinan</b> <b>Keris</b>
+                <b>Jawa</b><b>.<br /></b>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </section>
+    </div>
+  </body>
+</html>
