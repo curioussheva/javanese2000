@@ -19,20 +19,24 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#486344"
       },
-      "package": "com.curioussheva.javanese2000",
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-2718792162592521~8055554493"
-      }
+      "package": "com.curioussheva.javanese2000"
     },
     "plugins": [
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-2718792162592521~8055554493"
+          "androidAppId": "ca-app-pub-2718792162592521~8055554493",
+          "iosAppId": "ca-app-pub-2718792162592521~8055554493",
+          "delayAppMeasurementInit": false
         }
       ],
       "expo-asset"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "0ea0f8dc-2e0f-485e-95a7-1cd6e0664dcb"
+      }
+    }
   }
 }
  

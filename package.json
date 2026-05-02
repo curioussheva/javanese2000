@@ -9,10 +9,11 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@babel/runtime": "^7.29.2",
     "expo": "~54.0.33",
     "expo-asset": "~12.0.13",
     "expo-constants": "^18.0.13",
-    "expo-dev-client": "^55.0.30",
+    "expo-dev-client": "^6.0.21",
     "expo-device": "^8.0.10",
     "expo-file-system": "~19.0.22",
     "expo-print": "~15.0.8",
