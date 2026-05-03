@@ -19,7 +19,12 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#486344"
       },
-      "package": "com.curioussheva.javanese2000"
+      "package": "com.curioussheva.javanese2000",
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "ACCESS_WIFI_STATE"
+       ]
     },
     "plugins": [
       [

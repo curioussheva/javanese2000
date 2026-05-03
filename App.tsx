@@ -27,6 +27,7 @@ const adUnitIdInterstitial = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-271879
  
 const customJS = `
 (function() {
+  // Dropdown & Sidebar functions
   window.myFunction = function() {
     const dropdown = document.getElementById("myDropdown");
     if (dropdown) dropdown.classList.toggle("show");
@@ -53,26 +54,72 @@ const customJS = `
     if (sidebar) sidebar.style.display = "none";
   };
 
-  window.printPage = async function() {
-    if (!window.ReactNativeWebView) return;
-    try {
-      const bodyClone = document.body.cloneNode(true);
-      const unwanted = bodyClone.querySelectorAll('button, nav, header, footer, .no-print, #mySidebar, #myDropdown');
-      unwanted.forEach(el => el.remove());
-      
-      window.ReactNativeWebView.postMessage(JSON.stringify({
-        type: 'PRINT',
-        payload: bodyClone.innerHTML
-      }));
-    } catch (err) {
-      window.ReactNativeWebView.postMessage(JSON.stringify({
-        type: 'PRINT_ERROR',
-        message: err.message
-      }));
-    }
-  };
+// ==================== IMPROVED PRINT FUNCTION ====================
+window.printPage = async function() {
+  if (!window.ReactNativeWebView) {
+    console.warn("ReactNativeWebView not available");
+    return;
+  }
 
-  window.print = window.printPage; 
+  try {
+    const bodyClone = document.body.cloneNode(true);
+
+    // === CLEANING ===
+    let sidebar = bodyClone.querySelector("#mySidebar");
+    if (sidebar) sidebar.remove();
+
+    let dropdown = bodyClone.querySelector("#myDropdown");
+    if (dropdown) dropdown.remove();
+
+    const unwanted = bodyClone.querySelectorAll('button, nav, header, footer, .no-print, [onclick*="w3_open"], [onclick*="w3_close"]');
+    unwanted.forEach(el => el.remove());
+
+    bodyClone.querySelectorAll('img').forEach(img => {
+      if (img.closest('#mySidebar, .w3-sidebar, .dropdown, nav')) {
+        img.remove();
+      }
+    });
+    
+    bodyClone.querySelector('img[src*="print-icon"]')?.remove();
+
+    const images = bodyClone.querySelectorAll('img');
+    for (let img of images) {
+      if (!img.src || img.src.startsWith('data:')) continue;
+
+      try {
+        const canvas = document.createElement('canvas');
+        const maxWidth = 1000;
+        const ratio = maxWidth / (img.naturalWidth || img.width || 800);
+
+        canvas.width = (img.naturalWidth || img.width || 800) * ratio;
+        canvas.height = (img.naturalHeight || img.height || 600) * ratio;
+
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+          if (dataUrl.length > 50) img.src = dataUrl;
+        }
+      } catch (e) {
+        console.warn('Canvas failed');
+      }
+    }
+
+    window.ReactNativeWebView.postMessage(JSON.stringify({
+      type: 'PRINT',
+      payload: bodyClone.innerHTML
+    }));
+
+  } catch (err) {
+    console.error('PrintPage error:', err);
+    window.ReactNativeWebView.postMessage(JSON.stringify({
+      type: 'PRINT_ERROR',
+      message: err.message || 'Failed to prepare content'
+    }));
+  }
+};
+
+window.print = window.printPage; 
 
   function initAccordion() {
     const acc = document.getElementsByClassName("accordion");
@@ -87,10 +134,17 @@ const customJS = `
     }
   }
 
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    initAccordion();
+  } else {
+    document.addEventListener("DOMContentLoaded", initAccordion);
+  }
+
   function handleInternalLinks() {
     document.addEventListener('click', function(e) {
       const link = e.target.closest('a');
       if (!link) return;
+
       const href = link.getAttribute('href') || link.href;
       if (href && !href.startsWith('http') && !href.startsWith('#')) {
         link.target = '_self';    
@@ -99,10 +153,11 @@ const customJS = `
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
-    initAccordion(); handleInternalLinks();
+    handleInternalLinks();
   } else {
-    document.addEventListener("DOMContentLoaded", () => { initAccordion(); handleInternalLinks(); });
+    document.addEventListener("DOMContentLoaded", handleInternalLinks);
   }
+
 })();
 `;
 
@@ -136,24 +191,57 @@ export default function App() {
   }, [pageViews, isLoaded, show, lastAdShownTime]);
 
   const handlePrint = async (htmlPayload: string) => {
-    if (!htmlPayload) return;
+    if (!htmlPayload) {
+      Alert.alert("Error", "Tidak ada konten untuk dicetak");
+      return;
+    }
+
     setIsPrinting(true);
+
     try {
       const finalHtml = `
+        <!DOCTYPE html>
         <html>
           <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
-              body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
-              img { max-width: 100%; height: auto; }
-              h1, h2 { text-align: center; }
+              @page { margin: 15mm; size: A4; }
+              body { 
+                font-family: Arial, Helvetica, sans-serif; 
+                line-height: 1.6; 
+                color: #000; 
+                padding: 20px;
+              }
+              h1, h2, h3 { text-align: center; }
+              p { text-align: justify; font-size: 12pt; margin-bottom: 12pt; }
+              img { 
+                max-width: 100% !important; 
+                height: auto !important; 
+                display: block; 
+                margin: 15px auto; 
+                page-break-inside: avoid; 
+              }
             </style>
           </head>
-          <body>${htmlPayload}</body>
-        </html>`;
+          <body>
+            <div id="pdf-content">${htmlPayload}</div>
+          </body>
+        </html>
+      `;
+
       const { uri } = await Print.printToFileAsync({ html: finalHtml });
-      await Sharing.shareAsync(uri);
+
+      console.log('PDF generated at:', uri);
+
+      await Sharing.shareAsync(uri, {
+        mimeType: 'application/pdf',
+        dialogTitle: 'Simpan PDF Artikel',
+        UTI: 'com.adobe.pdf',
+      });
+
     } catch (error: any) {
-      Alert.alert("Gagal Membuat PDF", error.message);
+      console.error('PDF Generation Error:', error);
+      Alert.alert("Gagal Membuat PDF", error.message || "Silakan coba lagi.");
     } finally {
       setIsPrinting(false);
     }
@@ -235,4 +323,3 @@ const styles = StyleSheet.create({
   loadingText: { color: '#ffffff', marginTop: 16, fontSize: 16 },
   adContainer: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1a', paddingBottom: 5 }
 });
- 
