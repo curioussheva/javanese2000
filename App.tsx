@@ -55,73 +55,74 @@ const customJS = `
     if (sidebar) sidebar.style.display = "none";
   };
 
-// ==================== IMPROVED PRINT FUNCTION ====================
-window.printPage = async function() {
-  if (!window.ReactNativeWebView) {
-    console.warn("ReactNativeWebView not available");
-    return;
-  }
-
-  try {
-    const bodyClone = document.body.cloneNode(true);
-
-    // === CLEANING ===
-    let sidebar = bodyClone.querySelector("#mySidebar");
-    if (sidebar) sidebar.remove();
-
-    let dropdown = bodyClone.querySelector("#myDropdown");
-    if (dropdown) dropdown.remove();
-
-    const unwanted = bodyClone.querySelectorAll('button, nav, header, footer, .no-print, [onclick*="w3_open"], [onclick*="w3_close"]');
-    unwanted.forEach(el => el.remove());
-
-    bodyClone.querySelectorAll('img').forEach(img => {
-      if (img.closest('#mySidebar, .w3-sidebar, .dropdown, nav')) {
-        img.remove();
-      }
-    });
-    
-    bodyClone.querySelector('img[src*="print-icon"]')?.remove();
-
-    const images = bodyClone.querySelectorAll('img');
-    for (let img of images) {
-      if (!img.src || img.src.startsWith('data:')) continue;
-
-      try {
-        const canvas = document.createElement('canvas');
-        const maxWidth = 1000;
-        const ratio = maxWidth / (img.naturalWidth || img.width || 800);
-
-        canvas.width = (img.naturalWidth || img.width || 800) * ratio;
-        canvas.height = (img.naturalHeight || img.height || 600) * ratio;
-
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
-          if (dataUrl.length > 50) img.src = dataUrl;
-        }
-      } catch (e) {
-        console.warn('Canvas failed');
-      }
+  // ==================== IMPROVED PRINT FUNCTION ====================
+  window.printPage = async function() {
+    if (!window.ReactNativeWebView) {
+      console.warn("ReactNativeWebView not available");
+      return;
     }
 
-    window.ReactNativeWebView.postMessage(JSON.stringify({
-      type: 'PRINT',
-      payload: bodyClone.innerHTML
-    }));
+    try {
+      const bodyClone = document.body.cloneNode(true);
 
-  } catch (err) {
-    console.error('PrintPage error:', err);
-    window.ReactNativeWebView.postMessage(JSON.stringify({
-      type: 'PRINT_ERROR',
-      message: err.message || 'Failed to prepare content'
-    }));
-  }
-};
+      // === CLEANING ===
+      let sidebar = bodyClone.querySelector("#mySidebar");
+      if (sidebar) sidebar.remove();
 
-window.print = window.printPage; 
+      let dropdown = bodyClone.querySelector("#myDropdown");
+      if (dropdown) dropdown.remove();
 
+      const unwanted = bodyClone.querySelectorAll('button, nav, header, footer, .no-print, [onclick*="w3_open"], [onclick*="w3_close"]');
+      unwanted.forEach(el => el.remove());
+
+      bodyClone.querySelectorAll('img').forEach(img => {
+        if (img.closest('#mySidebar, .w3-sidebar, .dropdown, nav')) {
+          img.remove();
+        }
+      });
+      
+      bodyClone.querySelector('img[src*="print-icon"]')?.remove();
+
+      const images = bodyClone.querySelectorAll('img');
+      for (let img of images) {
+        if (!img.src || img.src.startsWith('data:')) continue;
+
+        try {
+          const canvas = document.createElement('canvas');
+          const maxWidth = 1000;
+          const ratio = maxWidth / (img.naturalWidth || img.width || 800);
+
+          canvas.width = (img.naturalWidth || img.width || 800) * ratio;
+          canvas.height = (img.naturalHeight || img.height || 600) * ratio;
+
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+            if (dataUrl.length > 50) img.src = dataUrl;
+          }
+        } catch (e) {
+          console.warn('Canvas failed');
+        }
+      }
+
+      window.ReactNativeWebView.postMessage(JSON.stringify({
+        type: 'PRINT',
+        payload: bodyClone.innerHTML
+      }));
+
+    } catch (err) {
+      console.error('PrintPage error:', err);
+      window.ReactNativeWebView.postMessage(JSON.stringify({
+        type: 'PRINT_ERROR',
+        message: err.message || 'Failed to prepare content'
+      }));
+    }
+  };
+
+  window.print = window.printPage; 
+
+  // ==================== UI & LINK INITIALIZERS ====================
   function initAccordion() {
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {
@@ -133,12 +134,6 @@ window.print = window.printPage;
         }
       };
     }
-  }
-
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-    initAccordion();
-  } else {
-    document.addEventListener("DOMContentLoaded", initAccordion);
   }
 
   function handleInternalLinks() {
@@ -153,10 +148,35 @@ window.print = window.printPage;
     }, true); 
   }
 
-  if (document.readyState === "complete" || document.readyState === "interactive") {
+  // ==================== FIX: ENCODE SPACES IN URLS ====================
+  function fixLocalPaths() {
+    var tags = document.querySelectorAll('a, img');
+    tags.forEach(function(tag) {
+      var attr = tag.tagName === 'A' ? 'href' : 'src';
+      var val = tag.getAttribute(attr);
+      
+      // Jika memiliki atribut, bukan link internet, dan bukan anchor (#)
+      if (val && !val.match(/^(https?:|data:|#)/)) {
+        // Mengubah spasi menjadi %20, dll
+        var encoded = encodeURI(val);
+        if (val !== encoded) {
+          tag[attr] = encoded;
+        }
+      }
+    });
+  }
+
+  // ==================== RUN ON LOAD ====================
+  function runAllInitializers() {
+    initAccordion();
     handleInternalLinks();
+    fixLocalPaths(); // Eksekusi perbaikan path otomatis
+  }
+
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    runAllInitializers();
   } else {
-    document.addEventListener("DOMContentLoaded", handleInternalLinks);
+    document.addEventListener("DOMContentLoaded", runAllInitializers);
   }
 
 })();
