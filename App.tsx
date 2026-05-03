@@ -5,7 +5,8 @@ import {
   Alert, 
   ActivityIndicator, 
   View,
-  Text
+  Text,
+  Linking
 } from 'react-native';
 
 import { WebView } from 'react-native-webview';
@@ -267,7 +268,20 @@ export default function App() {
           source={require('./assets/reader/index.html')}
           originWhitelist={['*']}
           injectedJavaScript={customJS}
+           onShouldStartLoadWithRequest={(request) => {
+    const { url } = request;
+    if (
+      (url.startsWith('http://') || url.startsWith('https://')) &&
+      !url.includes('127.0.0.1') &&
+      !url.includes('localhost')
+    ) {
+      Linking.openURL(url);
+      return false; // Blokir WebView, buka di browser
+    }
+    return true; // Navigasi lokal (file://) tetap jalan
+  }}
           onNavigationStateChange={(navState) => {
+          console.log('Current URL:', navState.url);
             setCanGoBack(navState.canGoBack);
             if (!navState.loading && navState.url !== lastUrl && !navState.url.includes('#')) {
               setLastUrl(navState.url);
@@ -323,3 +337,5 @@ const styles = StyleSheet.create({
   loadingText: { color: '#ffffff', marginTop: 16, fontSize: 16 },
   adContainer: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1a', paddingBottom: 5 }
 });
+
+
