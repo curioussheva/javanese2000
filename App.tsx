@@ -15,20 +15,18 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 
-// === IMPORT ADMOB ===
 import { 
   BannerAd, 
   BannerAdSize, 
   TestIds, 
   useInterstitialAd 
-} from 'react-native-google-mobile-ads';
+} from 'react-native-google-mobile-ads'; 
 
 const adUnitIdBanner = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2718792162592521/1039823651';
 const adUnitIdInterstitial = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-2718792162592521/2240406446';
  
 const customJS = `
 (function() {
-  // Dropdown & Sidebar functions
   window.myFunction = function() {
     const dropdown = document.getElementById("myDropdown");
     if (dropdown) dropdown.classList.toggle("show");
@@ -55,74 +53,45 @@ const customJS = `
     if (sidebar) sidebar.style.display = "none";
   };
 
-  // ==================== IMPROVED PRINT FUNCTION ====================
   window.printPage = async function() {
-    if (!window.ReactNativeWebView) {
-      console.warn("ReactNativeWebView not available");
-      return;
-    }
-
+    if (!window.ReactNativeWebView) return;
     try {
       const bodyClone = document.body.cloneNode(true);
-
-      // === CLEANING ===
       let sidebar = bodyClone.querySelector("#mySidebar");
       if (sidebar) sidebar.remove();
-
       let dropdown = bodyClone.querySelector("#myDropdown");
       if (dropdown) dropdown.remove();
-
       const unwanted = bodyClone.querySelectorAll('button, nav, header, footer, .no-print, [onclick*="w3_open"], [onclick*="w3_close"]');
       unwanted.forEach(el => el.remove());
-
       bodyClone.querySelectorAll('img').forEach(img => {
-        if (img.closest('#mySidebar, .w3-sidebar, .dropdown, nav')) {
-          img.remove();
-        }
+        if (img.closest('#mySidebar, .w3-sidebar, .dropdown, nav')) img.remove();
       });
-      
       bodyClone.querySelector('img[src*="print-icon"]')?.remove();
-
       const images = bodyClone.querySelectorAll('img');
       for (let img of images) {
         if (!img.src || img.src.startsWith('data:')) continue;
-
         try {
           const canvas = document.createElement('canvas');
           const maxWidth = 1000;
           const ratio = maxWidth / (img.naturalWidth || img.width || 800);
-
           canvas.width = (img.naturalWidth || img.width || 800) * ratio;
           canvas.height = (img.naturalHeight || img.height || 600) * ratio;
-
           const ctx = canvas.getContext('2d');
           if (ctx) {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
             const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
             if (dataUrl.length > 50) img.src = dataUrl;
           }
-        } catch (e) {
-          console.warn('Canvas failed');
-        }
+        } catch (e) {}
       }
-
-      window.ReactNativeWebView.postMessage(JSON.stringify({
-        type: 'PRINT',
-        payload: bodyClone.innerHTML
-      }));
-
+      window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'PRINT', payload: bodyClone.innerHTML }));
     } catch (err) {
-      console.error('PrintPage error:', err);
-      window.ReactNativeWebView.postMessage(JSON.stringify({
-        type: 'PRINT_ERROR',
-        message: err.message || 'Failed to prepare content'
-      }));
+      window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'PRINT_ERROR', message: err.message || 'Failed' }));
     }
   };
 
-  window.print = window.printPage; 
+  window.print = window.printPage;
 
-  // ==================== UI & LINK INITIALIZERS ====================
   function initAccordion() {
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {
@@ -136,51 +105,46 @@ const customJS = `
     }
   }
 
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    initAccordion();
+  } else {
+    document.addEventListener("DOMContentLoaded", initAccordion);
+  }
+
   function handleInternalLinks() {
     document.addEventListener('click', function(e) {
       const link = e.target.closest('a');
       if (!link) return;
-
       const href = link.getAttribute('href') || link.href;
       if (href && !href.startsWith('http') && !href.startsWith('#')) {
-        link.target = '_self';    
+        link.target = '_self';
       }
-    }, true); 
-  }
-
-  // ==================== FIX: ENCODE SPACES IN URLS ====================
-  function fixLocalPaths() {
-    var tags = document.querySelectorAll('a, img');
-    tags.forEach(function(tag) {
-      var attr = tag.tagName === 'A' ? 'href' : 'src';
-      var val = tag.getAttribute(attr);
-      
-      // Jika memiliki atribut, bukan link internet, dan bukan anchor (#)
-      if (val && !val.match(/^(https?:|data:|#)/)) {
-        // Mengubah spasi menjadi %20, dll
-        var encoded = encodeURI(val);
-        if (val !== encoded) {
-          tag[attr] = encoded;
-        }
-      }
-    });
-  }
-
-  // ==================== RUN ON LOAD ====================
-  function runAllInitializers() {
-    initAccordion();
-    handleInternalLinks();
-    fixLocalPaths(); // Eksekusi perbaikan path otomatis
+    }, true);
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
-    runAllInitializers();
+    handleInternalLinks();
   } else {
-    document.addEventListener("DOMContentLoaded", runAllInitializers);
+    document.addEventListener("DOMContentLoaded", handleInternalLinks);
   }
 
 })();
 `;
+
+// ← Satu deklarasi saja, hapus yang duplikat
+const baseUrlScript = __DEV__
+  ? `(function() {
+      var base = document.createElement('base');
+      base.href = 'http://127.0.0.1:8081/assets/reader/';
+      document.head.insertBefore(base, document.head.firstChild);
+    })();`
+  : `(function() {
+      var base = document.createElement('base');
+      base.href = 'file:///android_asset/assets/reader/';
+      document.head.insertBefore(base, document.head.firstChild);
+    })();`;
+
+const fullInjectedJS = baseUrlScript + customJS;
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
@@ -197,12 +161,9 @@ export default function App() {
   useEffect(() => { load(); }, [load]);
 
   useEffect(() => {
-    if (isClosed) {
-      load();
-    }
+    if (isClosed) load();
   }, [isClosed, load]);
 
-  // Logic Iklan: Muncul tiap 5 halaman & minimal jeda 60 detik
   useEffect(() => {
     const currentTime = Date.now();
     if (pageViews > 0 && pageViews % 5 === 0 && isLoaded && (currentTime - lastAdShownTime > 60000)) {
@@ -212,57 +173,24 @@ export default function App() {
   }, [pageViews, isLoaded, show, lastAdShownTime]);
 
   const handlePrint = async (htmlPayload: string) => {
-    if (!htmlPayload) {
-      Alert.alert("Error", "Tidak ada konten untuk dicetak");
-      return;
-    }
-
+    if (!htmlPayload) return;
     setIsPrinting(true);
-
     try {
       const finalHtml = `
-        <!DOCTYPE html>
         <html>
           <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
-              @page { margin: 15mm; size: A4; }
-              body { 
-                font-family: Arial, Helvetica, sans-serif; 
-                line-height: 1.6; 
-                color: #000; 
-                padding: 20px;
-              }
-              h1, h2, h3 { text-align: center; }
-              p { text-align: justify; font-size: 12pt; margin-bottom: 12pt; }
-              img { 
-                max-width: 100% !important; 
-                height: auto !important; 
-                display: block; 
-                margin: 15px auto; 
-                page-break-inside: avoid; 
-              }
+              body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+              img { max-width: 100%; height: auto; }
+              h1, h2 { text-align: center; }
             </style>
           </head>
-          <body>
-            <div id="pdf-content">${htmlPayload}</div>
-          </body>
-        </html>
-      `;
-
+          <body>${htmlPayload}</body>
+        </html>`;
       const { uri } = await Print.printToFileAsync({ html: finalHtml });
-
-      console.log('PDF generated at:', uri);
-
-      await Sharing.shareAsync(uri, {
-        mimeType: 'application/pdf',
-        dialogTitle: 'Simpan PDF Artikel',
-        UTI: 'com.adobe.pdf',
-      });
-
+      await Sharing.shareAsync(uri);
     } catch (error: any) {
-      console.error('PDF Generation Error:', error);
-      Alert.alert("Gagal Membuat PDF", error.message || "Silakan coba lagi.");
+      Alert.alert("Gagal Membuat PDF", error.message);
     } finally {
       setIsPrinting(false);
     }
@@ -285,23 +213,26 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <WebView
           ref={webViewRef}
-          source={require('./assets/reader/index.html')}
+          source={
+  __DEV__
+    ? require('./assets/reader/test.html')
+    : { uri: 'file:///android_asset/assets/reader/test.html' }
+}
           originWhitelist={['*']}
-          injectedJavaScript={customJS}
-           onShouldStartLoadWithRequest={(request) => {
-    const { url } = request;
-    if (
-      (url.startsWith('http://') || url.startsWith('https://')) &&
-      !url.includes('127.0.0.1') &&
-      !url.includes('localhost')
-    ) {
-      Linking.openURL(url);
-      return false; // Blokir WebView, buka di browser
-    }
-    return true; // Navigasi lokal (file://) tetap jalan
-  }}
+          injectedJavaScript={fullInjectedJS}
+          onShouldStartLoadWithRequest={(request) => {
+            const { url } = request;
+            if (
+              (url.startsWith('http://') || url.startsWith('https://')) &&
+              !url.includes('127.0.0.1') &&
+              !url.includes('localhost')
+            ) {
+              Linking.openURL(url);
+              return false;
+            }
+            return true;
+          }}
           onNavigationStateChange={(navState) => {
-          console.log('Current URL:', navState.url);
             setCanGoBack(navState.canGoBack);
             if (!navState.loading && navState.url !== lastUrl && !navState.url.includes('#')) {
               setLastUrl(navState.url);
@@ -316,6 +247,10 @@ export default function App() {
             } catch (e) {
               console.log("Log:", event.nativeEvent.data);
             }
+          }}
+          onError={(syntheticEvent) => {
+            const { nativeEvent } = syntheticEvent;
+            console.log('WebView error:', JSON.stringify(nativeEvent));
           }}
           javaScriptEnabled={true}
           domStorageEnabled={true}
@@ -356,6 +291,4 @@ const styles = StyleSheet.create({
   },
   loadingText: { color: '#ffffff', marginTop: 16, fontSize: 16 },
   adContainer: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1a', paddingBottom: 5 }
-});
-
-
+}); 
