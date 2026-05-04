@@ -213,11 +213,7 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <WebView
           ref={webViewRef}
-          source={
-  __DEV__
-    ? require('./assets/reader/test.html')
-    : { uri: 'file:///android_asset/assets/reader/test.html' }
-}
+          source={require('./assets/reader/test.html')} 
           originWhitelist={['*']}
           injectedJavaScript={fullInjectedJS}
           onShouldStartLoadWithRequest={(request) => {
