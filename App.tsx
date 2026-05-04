@@ -11,6 +11,7 @@ import {
 
 import { WebView } from 'react-native-webview';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { Asset } from 'expo-asset';  // ← tambah
 
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
@@ -31,7 +32,6 @@ const customJS = `
     const dropdown = document.getElementById("myDropdown");
     if (dropdown) dropdown.classList.toggle("show");
   };
-
   window.filterFunction = function() {
     const input = document.getElementById("myInput");
     const filter = input ? input.value.toUpperCase() : "";
@@ -42,17 +42,14 @@ const customJS = `
       a[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
     }
   };
-
   window.w3_open = function() {
     const sidebar = document.getElementById("mySidebar");
     if (sidebar) sidebar.style.display = "block";
   };
-
   window.w3_close = function() {
     const sidebar = document.getElementById("mySidebar");
     if (sidebar) sidebar.style.display = "none";
   };
-
   window.printPage = async function() {
     if (!window.ReactNativeWebView) return;
     try {
@@ -89,9 +86,7 @@ const customJS = `
       window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'PRINT_ERROR', message: err.message || 'Failed' }));
     }
   };
-
   window.print = window.printPage;
-
   function initAccordion() {
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {
@@ -104,13 +99,11 @@ const customJS = `
       };
     }
   }
-
   if (document.readyState === "complete" || document.readyState === "interactive") {
     initAccordion();
   } else {
     document.addEventListener("DOMContentLoaded", initAccordion);
   }
-
   function handleInternalLinks() {
     document.addEventListener('click', function(e) {
       const link = e.target.closest('a');
@@ -121,24 +114,22 @@ const customJS = `
       }
     }, true);
   }
-
   if (document.readyState === "complete" || document.readyState === "interactive") {
     handleInternalLinks();
   } else {
     document.addEventListener("DOMContentLoaded", handleInternalLinks);
   }
-
 })();
 `;
- 
- const baseUrlScript = __DEV__
+
+const baseUrlScript = __DEV__
   ? `(function() {
       var base = document.createElement('base');
       base.href = 'http://127.0.0.1:8081/assets/reader/';
       document.head.insertBefore(base, document.head.firstChild);
     })();`
-  : ``; // ← kosong untuk production
-  
+  : ``;
+
 const fullInjectedJS = baseUrlScript + customJS;
 
 export default function App() {
@@ -148,6 +139,7 @@ export default function App() {
   const [pageViews, setPageViews] = useState(0); 
   const [lastUrl, setLastUrl] = useState('');
   const [lastAdShownTime, setLastAdShownTime] = useState(0);
+  const [htmlUri, setHtmlUri] = useState<string | null>(null); // ← tambah
 
   const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitIdInterstitial, {
     requestNonPersonalizedAdsOnly: true,
@@ -158,6 +150,23 @@ export default function App() {
   useEffect(() => {
     if (isClosed) load();
   }, [isClosed, load]);
+
+  // ← Tambah: resolve asset URI untuk production
+  useEffect(() => {
+    if (!__DEV__) {
+      (async () => {
+        try {
+          const asset = Asset.fromModule(require('./assets/reader/test.html'));
+          await asset.downloadAsync();
+          console.log('Asset localUri:', asset.localUri);
+          console.log('Asset uri:', asset.uri);
+          setHtmlUri(asset.localUri ?? asset.uri);
+        } catch (e) {
+          console.error('Asset error:', e);
+        }
+      })();
+    }
+  }, []);
 
   useEffect(() => {
     const currentTime = Date.now();
@@ -203,16 +212,19 @@ export default function App() {
     return () => backHandler.remove();
   }, [canGoBack]);
 
+  // ← Source logic
+  const webViewSource = __DEV__
+    ? require('./assets/reader/test.html')
+    : htmlUri
+      ? { uri: htmlUri }
+      : { html: '<html><body style="background:#1a1a1a;color:white;padding:20px"><h3>Loading...</h3></body></html>' };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <WebView
           ref={webViewRef}
-          source={
-  __DEV__
-    ? require('./assets/reader/test.html')
-    : { uri: 'file:///android_asset/assets/reader/test.html' }
-}
+          source={webViewSource}
           originWhitelist={['*']}
           injectedJavaScript={fullInjectedJS}
           onShouldStartLoadWithRequest={(request) => {
@@ -246,6 +258,7 @@ export default function App() {
           onError={(syntheticEvent) => {
             const { nativeEvent } = syntheticEvent;
             console.log('WebView error:', JSON.stringify(nativeEvent));
+            Alert.alert('WebView Error', nativeEvent.url + '\n' + nativeEvent.description);
           }}
           javaScriptEnabled={true}
           domStorageEnabled={true}
