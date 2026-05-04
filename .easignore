@@ -1,4 +1,4 @@
-# Dependencies
+# dependencies
 node_modules/
 
 # Build outputs
@@ -10,8 +10,9 @@ web-build/
 # Expo/EAS
 .expo/
 .eas/
+credentials.json
 
-# Local configuration & Secrets (SANGAT PENTING)
+# Local configuration & Secrets
 .env*.local
 *.jks
 *.p8
@@ -19,6 +20,7 @@ web-build/
 *.key
 *.mobileprovision
 *.pem
+keystore_base64.txt
 
 # Debug logs
 npm-debug.*
@@ -33,5 +35,5 @@ Thumbs.db
 temp/
 .metro-health-check*
 
-# Git
-.git/
+# typescript
+*.tsbuildinfo

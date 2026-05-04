@@ -41,3 +41,14 @@ yarn-error.*
 /android
 
 temp/
+
+# Keystore temporary files
+keystore_base64.txt
+
+# EAS Credentials
+credentials.json
+
+
+# React Native / Android build logs
+android/build/
+android/app/build/

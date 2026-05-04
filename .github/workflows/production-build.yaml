@@ -1,0 +1,68 @@
+name: Android Production Preview (APK)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - name: ☕ Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: 🤖 Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 🛠 Prebuild Expo
+        run: npx expo prebuild --platform android
+
+      # Penting agar file HTML/CSS/Images masuk ke dalam aset mentah Android
+      - name: 📂 Bundle Assets
+        run: npx expo export --platform android
+
+      - name: 🔨 Build Release APK (Gradle)
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+
+      - name: ✍️ Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: android/app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0" # Sesuaikan dengan SDK yang Anda gunakan
+
+      - name: 📤 Upload Production APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Javanese2000-Production-Build
+          # Menggunakan output spesifik dari step signing
+          path: ${{ steps.sign_app.outputs.signedReleaseFile }}
+          retention-days: 7 # APK akan otomatis dihapus dari GitHub setelah 7 hari
+ 
