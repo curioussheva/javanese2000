@@ -130,20 +130,15 @@ const customJS = `
 
 })();
 `;
-
-// ← Satu deklarasi saja, hapus yang duplikat
-const baseUrlScript = __DEV__
+ 
+ const baseUrlScript = __DEV__
   ? `(function() {
       var base = document.createElement('base');
       base.href = 'http://127.0.0.1:8081/assets/reader/';
       document.head.insertBefore(base, document.head.firstChild);
     })();`
-  : `(function() {
-      var base = document.createElement('base');
-      base.href = 'file:///android_asset/assets/reader/';
-      document.head.insertBefore(base, document.head.firstChild);
-    })();`;
-
+  : ``; // ← kosong untuk production
+  
 const fullInjectedJS = baseUrlScript + customJS;
 
 export default function App() {
@@ -213,7 +208,11 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <WebView
           ref={webViewRef}
-          source={require('./assets/reader/test.html')} 
+          source={
+  __DEV__
+    ? require('./assets/reader/test.html')
+    : { uri: 'file:///android_asset/assets/reader/test.html' }
+}
           originWhitelist={['*']}
           injectedJavaScript={fullInjectedJS}
           onShouldStartLoadWithRequest={(request) => {
