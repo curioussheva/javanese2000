@@ -9,10 +9,12 @@ import {
   Linking
 } from 'react-native';
 import { w3css, customCss } from './styles';
- 
+import { htmlAssets } from './htmlAssets';
+
 import { WebView } from 'react-native-webview';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Asset } from 'expo-asset';  // ← tambah
+import { Asset } from 'expo-asset';
+import * as FileSystem from 'expo-file-system';
 
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
@@ -141,13 +143,11 @@ const baseUrlScript = __DEV__
       base.href = 'http://127.0.0.1:8081/assets/reader/';
       document.head.insertBefore(base, document.head.firstChild);
     })();`
-  : `(function() {
-      var base = document.createElement('base');
-      base.href = 'file:///android_asset/assets/reader/';
-      document.head.insertBefore(base, document.head.firstChild);
-    })();`; 
+  : ``;
 
-const fullInjectedJS = cssInjectionScript + baseUrlScript + customJS; 
+const fullInjectedJS = cssInjectionScript + baseUrlScript + customJS;
+
+const READER_DIR = FileSystem.documentDirectory + 'reader/';
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
@@ -156,33 +156,67 @@ export default function App() {
   const [pageViews, setPageViews] = useState(0); 
   const [lastUrl, setLastUrl] = useState('');
   const [lastAdShownTime, setLastAdShownTime] = useState(0);
-  const [htmlUri, setHtmlUri] = useState<string | null>(null);
-  const [currentUri, setCurrentUri] = useState<string | null>(null);
+  const [indexUri, setIndexUri] = useState<string | null>(null);
+  const [isReady, setIsReady] = useState(__DEV__);
+  const [copyProgress, setCopyProgress] = useState(0);
 
   const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitIdInterstitial, {
     requestNonPersonalizedAdsOnly: true,
   });
 
   useEffect(() => { load(); }, [load]);
-
   useEffect(() => {
     if (isClosed) load();
   }, [isClosed, load]);
 
+  // Copy semua HTML ke documentDirectory saat pertama launch
   useEffect(() => {
-    if (!__DEV__) {
-      (async () => {
-        try {
-          const asset = Asset.fromModule(require('./assets/reader/index.html'));
-          await asset.downloadAsync();
-          console.log('Asset localUri:', asset.localUri);
-          console.log('Asset uri:', asset.uri);
-          setHtmlUri(asset.localUri ?? asset.uri);
-        } catch (e) {
-          console.error('Asset error:', e);
+    if (__DEV__) return;
+    (async () => {
+      try {
+        // Cek apakah sudah pernah di-copy
+        const indexPath = READER_DIR + 'index.html';
+        const info = await FileSystem.getInfoAsync(indexPath);
+        
+        if (info.exists) {
+          // Sudah ada - langsung pakai
+          setIndexUri(indexPath);
+          setIsReady(true);
+          return;
         }
-      })();
-    }
+
+        // Pertama kali - copy semua file
+        console.log('First launch - copying HTML assets...');
+        
+        for (let i = 0; i < htmlAssets.length; i++) {
+          const item = htmlAssets[i];
+          const asset = Asset.fromModule(item.module);
+          await asset.downloadAsync();
+          
+          if (!asset.localUri) continue;
+
+          const destPath = READER_DIR + item.path;
+          const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
+          
+          await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
+          await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
+          
+          setCopyProgress(Math.round(((i + 1) / htmlAssets.length) * 100));
+        }
+
+        setIndexUri(indexPath);
+        setIsReady(true);
+        console.log('All HTML assets copied!');
+        
+      } catch (e) {
+        console.error('Setup error:', e);
+        // Fallback ke expo-asset langsung
+        const asset = Asset.fromModule(require('./assets/reader/index.html'));
+        await asset.downloadAsync();
+        setIndexUri(asset.localUri ?? asset.uri);
+        setIsReady(true);
+      }
+    })();
   }, []);
 
   useEffect(() => {
@@ -229,14 +263,25 @@ export default function App() {
     return () => backHandler.remove();
   }, [canGoBack]);
 
-  // ← baseUrl fix CSS/images di production
+  // Loading screen saat pertama copy
+  if (!isReady) {
+    return (
+      <SafeAreaProvider>
+        <SafeAreaView style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+          <ActivityIndicator size="large" color="#4CAF50" />
+          <Text style={{ color: 'white', marginTop: 16, fontSize: 16 }}>
+            Mempersiapkan konten... {copyProgress}%
+          </Text>
+        </SafeAreaView>
+      </SafeAreaProvider>
+    );
+  }
+
   const webViewSource = __DEV__
-  ? require('./assets/reader/index.html')
-  : currentUri
-    ? { uri: currentUri, baseUrl: 'file:///android_asset/assets/reader/' }
-    : htmlUri
-      ? { uri: htmlUri, baseUrl: 'file:///android_asset/assets/reader/' }
-      : { html: '<html><body style="background:#1a1a1a;color:white;padding:20px"><h3>Loading...</h3></body></html>' }; 
+    ? require('./assets/reader/index.html')
+    : indexUri
+      ? { uri: indexUri, baseUrl: READER_DIR }
+      : { html: '<html><body style="background:#1a1a1a;color:white;padding:20px"><h3>Loading...</h3></body></html>' };
 
   return (
     <SafeAreaProvider>
@@ -247,27 +292,14 @@ export default function App() {
           originWhitelist={['*']}
           injectedJavaScript={fullInjectedJS}
           onShouldStartLoadWithRequest={(request) => {
-  const { url } = request;
-
-  // Link eksternal → buka browser
-  if ((url.startsWith('http://') || url.startsWith('https://')) &&
-      !url.includes('127.0.0.1') && !url.includes('localhost')) {
-    Linking.openURL(url);
-    return false;
-  }
-
-  // Navigasi dari cache → redirect ke android_asset via state
-  if (!__DEV__ && url.startsWith('file:///data/')) {
-    const filename = url.split('/cache/').pop() ?? '';
-    if (filename) {
-      const androidUrl = `file:///android_asset/assets/reader/${filename}`;
-      setCurrentUri(androidUrl);
-      return false;
-    }
-  }
-
-  return true;
-}} 
+            const { url } = request;
+            if ((url.startsWith('http://') || url.startsWith('https://')) &&
+                !url.includes('127.0.0.1') && !url.includes('localhost')) {
+              Linking.openURL(url);
+              return false;
+            }
+            return true;
+          }}
           onNavigationStateChange={(navState) => {
             setCanGoBack(navState.canGoBack);
             if (!navState.loading && navState.url !== lastUrl && !navState.url.includes('#')) {
@@ -287,7 +319,6 @@ export default function App() {
           onError={(syntheticEvent) => {
             const { nativeEvent } = syntheticEvent;
             console.log('WebView error:', JSON.stringify(nativeEvent));
-            Alert.alert('WebView Error', nativeEvent.url + '\n' + nativeEvent.description);
           }}
           javaScriptEnabled={true}
           domStorageEnabled={true}
@@ -328,4 +359,4 @@ const styles = StyleSheet.create({
   },
   loadingText: { color: '#ffffff', marginTop: 16, fontSize: 16 },
   adContainer: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1a', paddingBottom: 5 }
-});
+}); 
