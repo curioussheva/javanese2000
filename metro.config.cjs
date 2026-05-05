@@ -2,15 +2,25 @@ const { getDefaultConfig } = require('expo/metro-config');
 
 const config = getDefaultConfig(__dirname);
 
-// Tambahkan ekstensi yang kamu butuhkan sebagai asset
+// Tambahkan ekstensi asset
 config.resolver.assetExts.push('txt', 'css', 'html', 'json', 'JPG', 'jpeg', 'jpg');
 
-// JANGAN hapus 'js' dari assetExts (biarkan Metro yang handle default-nya)
-// Tapi pastikan folder khusus kamu di-block agar tidak dianggap module
-config.resolver.blockList = [
-  ...(config.resolver.blockList || []),
-  /assets\/reader\/js/,           // blokir seluruh folder ini
-  /assets\/reader\/js\/.*\.(js|txt|css)$/   // lebih spesifik
+// Fix blockList - gunakan array langsung tanpa spread
+const blockList = [
+  /assets\/reader\/js\/.*/,
 ];
 
-module.exports = config; 
+// Merge dengan existing blockList dengan aman
+const existing = config.resolver.blockList;
+if (existing) {
+  if (Array.isArray(existing)) {
+    config.resolver.blockList = [...existing, ...blockList];
+  } else {
+    // existing adalah RegExp tunggal
+    config.resolver.blockList = [existing, ...blockList];
+  }
+} else {
+  config.resolver.blockList = blockList;
+}
+
+module.exports = config;
