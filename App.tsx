@@ -14,8 +14,7 @@ import { htmlAssets } from './htmlAssets';
 import { WebView } from 'react-native-webview';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Asset } from 'expo-asset';
-import * as FileSystem from 'expo-file-system';
-
+import * as FileSystem from 'expo-file-system/legacy';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 
