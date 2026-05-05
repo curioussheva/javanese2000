@@ -1,29 +1,18 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { 
-  StyleSheet, 
-  BackHandler, 
-  Alert, 
-  ActivityIndicator, 
-  View,
-  Text,
-  Linking
+  StyleSheet, BackHandler, Alert, ActivityIndicator, 
+  View, Text, Linking
 } from 'react-native';
 import { w3css, customCss } from './styles';
 import { htmlAssets } from './htmlAssets';
-
+import { imageAssets } from './imageAssets';
 import { WebView } from 'react-native-webview';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Asset } from 'expo-asset';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
-
-import { 
-  BannerAd, 
-  BannerAdSize, 
-  TestIds, 
-  useInterstitialAd 
-} from 'react-native-google-mobile-ads'; 
+import { BannerAd, BannerAdSize, TestIds, useInterstitialAd } from 'react-native-google-mobile-ads'; 
 
 const adUnitIdBanner = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2718792162592521/1039823651';
 const adUnitIdInterstitial = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-2718792162592521/2240406446';
@@ -142,11 +131,17 @@ const baseUrlScript = __DEV__
       base.href = 'http://127.0.0.1:8081/assets/reader/';
       document.head.insertBefore(base, document.head.firstChild);
     })();`
-  : ``;
+  : `(function() {
+      var base = document.createElement('base');
+      base.href = '${FileSystem.documentDirectory}reader/';
+      document.head.insertBefore(base, document.head.firstChild);
+    })();`;
 
 const fullInjectedJS = cssInjectionScript + baseUrlScript + customJS;
 
 const READER_DIR = FileSystem.documentDirectory + 'reader/';
+const VERSION_FILE = READER_DIR + '.version';
+const APP_VERSION = '2';
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
@@ -164,57 +159,80 @@ export default function App() {
   });
 
   useEffect(() => { load(); }, [load]);
+
   useEffect(() => {
     if (isClosed) load();
   }, [isClosed, load]);
 
-  // Copy semua HTML ke documentDirectory saat pertama launch
-  // SATU useEffect saja - dengan debug Alert
-useEffect(() => {
-  if (__DEV__) return;
-  (async () => {
-    try {
-      const indexPath = READER_DIR + 'index.html';
-      const info = await FileSystem.getInfoAsync(indexPath);
-      
-      Alert.alert('Debug', `READER_DIR: ${READER_DIR}\nindex exists: ${info.exists}`);
-      
-      if (info.exists) {
-        setIndexUri(indexPath);
-        setIsReady(true);
-        return;
-      }
+  // Setup assets - semua logic ada di dalam useEffect ini
+  useEffect(() => {
+    if (__DEV__) return;
+    (async () => {
+      try {
+        const indexPath = READER_DIR + 'index.html';
 
-      for (let i = 0; i < htmlAssets.length; i++) {
-        const item = htmlAssets[i];
-        const asset = Asset.fromModule(item.module);
-        await asset.downloadAsync();
-        
-        if (!asset.localUri) {
-          console.warn('No localUri for:', item.path);
-          continue;
+        // Cek version
+        let versionOk = false;
+        const versionInfo = await FileSystem.getInfoAsync(VERSION_FILE);
+        if (versionInfo.exists) {
+          const ver = await FileSystem.readAsStringAsync(VERSION_FILE);
+          versionOk = ver.trim() === APP_VERSION;
         }
 
-        const destPath = READER_DIR + item.path;
-        const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
-        await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
-        await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
-        setCopyProgress(Math.round(((i + 1) / htmlAssets.length) * 100));
-      }
+        if (versionOk) {
+          setIndexUri(indexPath);
+          setIsReady(true);
+          return;
+        }
 
-      Alert.alert('Done', `Copied to: ${indexPath}`);
-      setIndexUri(indexPath);
-      setIsReady(true);
-      
-    } catch (e: any) {
-      Alert.alert('Error', e.message ?? String(e));
-      const asset = Asset.fromModule(require('./assets/reader/index.html'));
-      await asset.downloadAsync();
-      setIndexUri(asset.localUri ?? asset.uri);
-      setIsReady(true);
-    }
-  })();
-}, []);
+        // Copy HTML files
+        const totalAssets = htmlAssets.length + imageAssets.length;
+        let copied = 0;
+
+        for (const item of htmlAssets) {
+          const asset = Asset.fromModule(item.module);
+          await asset.downloadAsync();
+          if (!asset.localUri) continue;
+          const destPath = READER_DIR + item.path;
+          const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
+          await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
+          await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
+          copied++;
+          setCopyProgress(Math.round((copied / totalAssets) * 100));
+        }
+
+        // Copy image files
+        for (const item of imageAssets) {
+          const asset = Asset.fromModule(item.module);
+          await asset.downloadAsync();
+          if (!asset.localUri) continue;
+          const destPath = READER_DIR + item.path;
+          const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
+          await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
+          const exists = await FileSystem.getInfoAsync(destPath);
+          if (!exists.exists) {
+            await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
+          }
+          copied++;
+          setCopyProgress(Math.round((copied / totalAssets) * 100));
+        }
+
+        // Tulis version file
+        await FileSystem.writeAsStringAsync(VERSION_FILE, APP_VERSION);
+
+        setIndexUri(indexPath);
+        setIsReady(true);
+
+      } catch (e: any) {
+        Alert.alert('Setup Error', e.message ?? String(e));
+        // Fallback
+        const asset = Asset.fromModule(require('./assets/reader/index.html'));
+        await asset.downloadAsync();
+        setIndexUri(asset.localUri ?? asset.uri);
+        setIsReady(true);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     const currentTime = Date.now();
@@ -260,7 +278,7 @@ useEffect(() => {
     return () => backHandler.remove();
   }, [canGoBack]);
 
-  // Loading screen saat pertama copy
+  // Loading screen
   if (!isReady) {
     return (
       <SafeAreaProvider>
@@ -356,4 +374,4 @@ const styles = StyleSheet.create({
   },
   loadingText: { color: '#ffffff', marginTop: 16, fontSize: 16 },
   adContainer: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1a', paddingBottom: 5 }
-}); 
+});
