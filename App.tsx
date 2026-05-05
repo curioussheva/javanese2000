@@ -8,7 +8,8 @@ import {
   Text,
   Linking
 } from 'react-native';
-
+import { w3css, customCss } from './styles';
+ 
 import { WebView } from 'react-native-webview';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Asset } from 'expo-asset';  // ← tambah
@@ -25,7 +26,7 @@ import {
 
 const adUnitIdBanner = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2718792162592521/1039823651';
 const adUnitIdInterstitial = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-2718792162592521/2240406446';
- 
+
 const customJS = `
 (function() {
   window.myFunction = function() {
@@ -122,15 +123,31 @@ const customJS = `
 })();
 `;
 
+const cssInjectionScript = `
+(function() {
+  function injectCSS(css) {
+    var style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+  injectCSS(\`${w3css}\`);
+  injectCSS(\`${customCss}\`);
+})();
+`;
+
 const baseUrlScript = __DEV__
   ? `(function() {
       var base = document.createElement('base');
       base.href = 'http://127.0.0.1:8081/assets/reader/';
       document.head.insertBefore(base, document.head.firstChild);
     })();`
-  : ``;
+  : `(function() {
+      var base = document.createElement('base');
+      base.href = 'file:///android_asset/assets/reader/';
+      document.head.insertBefore(base, document.head.firstChild);
+    })();`; 
 
-const fullInjectedJS = baseUrlScript + customJS;
+const fullInjectedJS = cssInjectionScript + baseUrlScript + customJS; 
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
@@ -139,7 +156,7 @@ export default function App() {
   const [pageViews, setPageViews] = useState(0); 
   const [lastUrl, setLastUrl] = useState('');
   const [lastAdShownTime, setLastAdShownTime] = useState(0);
-  const [htmlUri, setHtmlUri] = useState<string | null>(null); // ← tambah
+  const [htmlUri, setHtmlUri] = useState<string | null>(null);
 
   const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitIdInterstitial, {
     requestNonPersonalizedAdsOnly: true,
@@ -151,12 +168,11 @@ export default function App() {
     if (isClosed) load();
   }, [isClosed, load]);
 
-  // ← Tambah: resolve asset URI untuk production
   useEffect(() => {
     if (!__DEV__) {
       (async () => {
         try {
-          const asset = Asset.fromModule(require('./assets/reader/test.html'));
+          const asset = Asset.fromModule(require('./assets/reader/index.html'));
           await asset.downloadAsync();
           console.log('Asset localUri:', asset.localUri);
           console.log('Asset uri:', asset.uri);
@@ -212,11 +228,14 @@ export default function App() {
     return () => backHandler.remove();
   }, [canGoBack]);
 
-  // ← Source logic
+  // ← baseUrl fix CSS/images di production
   const webViewSource = __DEV__
-    ? require('./assets/reader/test.html')
+    ? require('./assets/reader/index.html')
     : htmlUri
-      ? { uri: htmlUri }
+      ? { 
+          uri: htmlUri,
+          baseUrl: 'file:///android_asset/assets/reader/'
+        }
       : { html: '<html><body style="background:#1a1a1a;color:white;padding:20px"><h3>Loading...</h3></body></html>' };
 
   return (
@@ -228,17 +247,30 @@ export default function App() {
           originWhitelist={['*']}
           injectedJavaScript={fullInjectedJS}
           onShouldStartLoadWithRequest={(request) => {
-            const { url } = request;
-            if (
-              (url.startsWith('http://') || url.startsWith('https://')) &&
-              !url.includes('127.0.0.1') &&
-              !url.includes('localhost')
-            ) {
-              Linking.openURL(url);
-              return false;
-            }
-            return true;
-          }}
+  const { url } = request;
+
+  // Link eksternal → buka browser
+  if ((url.startsWith('http://') || url.startsWith('https://')) &&
+      !url.includes('127.0.0.1') && !url.includes('localhost')) {
+    Linking.openURL(url);
+    return false;
+  }
+
+  // Navigasi dari cache → redirect ke android_asset
+  if (url.includes('/cache/') || url.includes('/data/user/')) {
+    const parts = url.split('/assets/reader/');
+    if (parts.length > 1) {
+      const relativePath = parts[1];
+      const androidUrl = `file:///android_asset/assets/reader/${relativePath}`;
+      webViewRef.current?.injectJavaScript(
+        `window.location.replace('${androidUrl}');`
+      );
+      return false;
+    }
+  }
+
+  return true;
+}}  
           onNavigationStateChange={(navState) => {
             setCanGoBack(navState.canGoBack);
             if (!navState.loading && navState.url !== lastUrl && !navState.url.includes('#')) {
@@ -299,4 +331,4 @@ const styles = StyleSheet.create({
   },
   loadingText: { color: '#ffffff', marginTop: 16, fontSize: 16 },
   adContainer: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1a', paddingBottom: 5 }
-}); 
+});
