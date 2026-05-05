@@ -157,6 +157,7 @@ export default function App() {
   const [lastUrl, setLastUrl] = useState('');
   const [lastAdShownTime, setLastAdShownTime] = useState(0);
   const [htmlUri, setHtmlUri] = useState<string | null>(null);
+  const [currentUri, setCurrentUri] = useState<string | null>(null);
 
   const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitIdInterstitial, {
     requestNonPersonalizedAdsOnly: true,
@@ -230,13 +231,12 @@ export default function App() {
 
   // ← baseUrl fix CSS/images di production
   const webViewSource = __DEV__
-    ? require('./assets/reader/index.html')
+  ? require('./assets/reader/index.html')
+  : currentUri
+    ? { uri: currentUri, baseUrl: 'file:///android_asset/assets/reader/' }
     : htmlUri
-      ? { 
-          uri: htmlUri,
-          baseUrl: 'file:///android_asset/assets/reader/'
-        }
-      : { html: '<html><body style="background:#1a1a1a;color:white;padding:20px"><h3>Loading...</h3></body></html>' };
+      ? { uri: htmlUri, baseUrl: 'file:///android_asset/assets/reader/' }
+      : { html: '<html><body style="background:#1a1a1a;color:white;padding:20px"><h3>Loading...</h3></body></html>' }; 
 
   return (
     <SafeAreaProvider>
@@ -256,21 +256,18 @@ export default function App() {
     return false;
   }
 
-  // Navigasi dari cache → redirect ke android_asset
-  if (url.includes('/cache/') || url.includes('/data/user/')) {
-    const parts = url.split('/assets/reader/');
-    if (parts.length > 1) {
-      const relativePath = parts[1];
-      const androidUrl = `file:///android_asset/assets/reader/${relativePath}`;
-      webViewRef.current?.injectJavaScript(
-        `window.location.replace('${androidUrl}');`
-      );
+  // Navigasi dari cache → redirect ke android_asset via state
+  if (!__DEV__ && url.startsWith('file:///data/')) {
+    const filename = url.split('/cache/').pop() ?? '';
+    if (filename) {
+      const androidUrl = `file:///android_asset/assets/reader/${filename}`;
+      setCurrentUri(androidUrl);
       return false;
     }
   }
 
   return true;
-}}  
+}} 
           onNavigationStateChange={(navState) => {
             setCanGoBack(navState.canGoBack);
             if (!navState.loading && navState.url !== lastUrl && !navState.url.includes('#')) {
