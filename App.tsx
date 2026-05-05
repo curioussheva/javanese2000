@@ -170,54 +170,52 @@ export default function App() {
   }, [isClosed, load]);
 
   // Copy semua HTML ke documentDirectory saat pertama launch
-  useEffect(() => {
-    if (__DEV__) return;
-    (async () => {
-      try {
-        // Cek apakah sudah pernah di-copy
-        const indexPath = READER_DIR + 'index.html';
-        const info = await FileSystem.getInfoAsync(indexPath);
-        
-        if (info.exists) {
-          // Sudah ada - langsung pakai
-          setIndexUri(indexPath);
-          setIsReady(true);
-          return;
-        }
-
-        // Pertama kali - copy semua file
-        console.log('First launch - copying HTML assets...');
-        
-        for (let i = 0; i < htmlAssets.length; i++) {
-          const item = htmlAssets[i];
-          const asset = Asset.fromModule(item.module);
-          await asset.downloadAsync();
-          
-          if (!asset.localUri) continue;
-
-          const destPath = READER_DIR + item.path;
-          const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
-          
-          await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
-          await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
-          
-          setCopyProgress(Math.round(((i + 1) / htmlAssets.length) * 100));
-        }
-
+  // SATU useEffect saja - dengan debug Alert
+useEffect(() => {
+  if (__DEV__) return;
+  (async () => {
+    try {
+      const indexPath = READER_DIR + 'index.html';
+      const info = await FileSystem.getInfoAsync(indexPath);
+      
+      Alert.alert('Debug', `READER_DIR: ${READER_DIR}\nindex exists: ${info.exists}`);
+      
+      if (info.exists) {
         setIndexUri(indexPath);
         setIsReady(true);
-        console.log('All HTML assets copied!');
-        
-      } catch (e) {
-        console.error('Setup error:', e);
-        // Fallback ke expo-asset langsung
-        const asset = Asset.fromModule(require('./assets/reader/index.html'));
-        await asset.downloadAsync();
-        setIndexUri(asset.localUri ?? asset.uri);
-        setIsReady(true);
+        return;
       }
-    })();
-  }, []);
+
+      for (let i = 0; i < htmlAssets.length; i++) {
+        const item = htmlAssets[i];
+        const asset = Asset.fromModule(item.module);
+        await asset.downloadAsync();
+        
+        if (!asset.localUri) {
+          console.warn('No localUri for:', item.path);
+          continue;
+        }
+
+        const destPath = READER_DIR + item.path;
+        const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
+        await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
+        await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
+        setCopyProgress(Math.round(((i + 1) / htmlAssets.length) * 100));
+      }
+
+      Alert.alert('Done', `Copied to: ${indexPath}`);
+      setIndexUri(indexPath);
+      setIsReady(true);
+      
+    } catch (e: any) {
+      Alert.alert('Error', e.message ?? String(e));
+      const asset = Asset.fromModule(require('./assets/reader/index.html'));
+      await asset.downloadAsync();
+      setIndexUri(asset.localUri ?? asset.uri);
+      setIsReady(true);
+    }
+  })();
+}, []);
 
   useEffect(() => {
     const currentTime = Date.now();
