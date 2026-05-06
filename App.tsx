@@ -115,25 +115,26 @@ const customJS = `
 
 const cssInjectionScript = `
 (function() {
-  function injectCSS(css) {
+  function injectCSS(cssContent) {
     var style = document.createElement('style');
-    style.textContent = css;
+    style.innerHTML = cssContent;
     document.head.appendChild(style);
   }
-  injectCSS(\`${w3css}\`);
-  injectCSS(\`${customCss}\`);
+  // Gunakan JSON.stringify agar karakter newline di file styles.ts tidak merusak script
+  injectCSS(${JSON.stringify(w3css)});
+  injectCSS(${JSON.stringify(customCss)});
 })();
-`;
+`; 
 
 const baseUrlScript = __DEV__
   ? `(function() {
-      var base = document.createElement('base');
-      base.href = 'http://127.0.0.1:8081/assets/reader/';
-      document.head.insertBefore(base, document.head.firstChild);
+      // Jangan suntikkan <base> di mode Dev. 
+      // Biarkan WebView memuat secara relatif dari require() index.html
+      console.log("Metro Dev Mode Active");
     })();`
   : `(function() {
       var base = document.createElement('base');
-      base.href = '${FileSystem.documentDirectory}reader/';
+      base.href = '${READER_DIR}';
       document.head.insertBefore(base, document.head.firstChild);
     })();`;
 
