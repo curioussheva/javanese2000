@@ -12,8 +12,11 @@
       "backgroundColor": "#486344"
     },
     "assetBundlePatterns": [
-      "assets/reader/**/*"
-    ],
+      "assets/reader/**/*.html",
+      "assets/reader/css/**",
+      "assets/reader/*.html",
+      "assets/reader/js/**"
+     ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",

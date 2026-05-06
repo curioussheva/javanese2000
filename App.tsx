@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { w3css, customCss } from './styles';
 import { htmlAssets } from './htmlAssets';
-import { imageAssets } from './imageAssets';
+//import { imageAssets } from './imageAssets';
 import { WebView } from 'react-native-webview';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Asset } from 'expo-asset';
@@ -186,7 +186,7 @@ export default function App() {
         }
 
         // Copy HTML files
-        const totalAssets = htmlAssets.length + imageAssets.length;
+        const totalAssets = htmlAssets.length;
         let copied = 0;
 
         for (const item of htmlAssets) {
@@ -202,7 +202,7 @@ export default function App() {
         }
 
         // Copy image files
-        for (const item of imageAssets) {
+{/*        for (const item of imageAssets) {
           const asset = Asset.fromModule(item.module);
           await asset.downloadAsync();
           if (!asset.localUri) continue;
@@ -216,7 +216,7 @@ export default function App() {
           copied++;
           setCopyProgress(Math.round((copied / totalAssets) * 100));
         }
-
+*/}
         // Tulis version file
         await FileSystem.writeAsStringAsync(VERSION_FILE, APP_VERSION);
 
