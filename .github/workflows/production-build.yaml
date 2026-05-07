@@ -41,12 +41,13 @@ jobs:
         run: |
           rm -rf android/app/src/main/res/drawable* 2>/dev/null || true
           rm -rf android/app/build/generated/res/createBundleReleaseJsAndAssets/drawable* 2>/dev/null || true
+          cd android && ./gradlew clean --no-daemon
 
       - name: 🔨 Build Release APK (Gradle)
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew clean assembleRelease --no-daemon
+          ./gradlew assembleRelease --no-daemon
 
       - name: ✍️ Sign APK
         uses: r0adkll/sign-android-release@v1
