@@ -259,7 +259,7 @@ export const imageAssets: { path: string; module: any }[] = [
   { path: 'images/kumbokarno-hanoman.jpg', module: require('./assets/reader/images/kumbokarno-hanoman.jpg') },
   { path: 'images/kupu-kupu-1.jpeg', module: require('./assets/reader/images/kupu-kupu-1.jpeg') },
   { path: 'images/kupu-kupu.jpeg', module: require('./assets/reader/images/kupu-kupu.jpeg') },
-  { path: 'images/logo-1.jpeg', module: require('./assets/reader/images/logo-1.jpeg') },
+//  { path: 'images/logo-1.jpeg', module: require('./assets/reader/images/logo-1.jpeg') },
   { path: 'images/logo.png', module: require('./assets/reader/images/logo.png') },
   { path: 'images/logo1.png', module: require('./assets/reader/images/logo1.png') },
   { path: 'images/meditasi.2jpg.jpg', module: require('./assets/reader/images/meditasi.2jpg.jpg') },
