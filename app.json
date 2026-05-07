@@ -14,9 +14,9 @@
     "assetBundlePatterns": [
       "assets/reader/**/*.html",
       "assets/reader/css/**",
-      "assets/reader/*.html",
-      "assets/reader/js/**"
-     ],
+      "assets/reader/js/**",
+      "assets/reader/images/**"
+    ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
