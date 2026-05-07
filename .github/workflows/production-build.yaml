@@ -34,14 +34,11 @@ jobs:
         run: pnpm install
 
       - name: 🛠 Prebuild Expo
-        run: |
-          npx expo prebuild --platform android --clean
+        run: npx expo prebuild --platform android
 
-      - name: 🧹 Clean up duplicate resources
-        run: |
-          rm -rf android/app/src/main/res/drawable* 2>/dev/null || true
-          rm -rf android/app/build/generated/res/createBundleReleaseJsAndAssets/drawable* 2>/dev/null || true
-          cd android && ./gradlew clean --no-daemon
+      # Penting agar file HTML/CSS/Images masuk ke dalam aset mentah Android
+      - name: 📂 Bundle Assets
+        run: npx expo export --platform android
 
       - name: 🔨 Build Release APK (Gradle)
         run: |
@@ -68,3 +65,4 @@ jobs:
           # Menggunakan output spesifik dari step signing
           path: ${{ steps.sign_app.outputs.signedReleaseFile }}
           retention-days: 7 # APK akan otomatis dihapus dari GitHub setelah 7 hari
+  
