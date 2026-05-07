@@ -34,11 +34,7 @@ jobs:
         run: pnpm install
 
       - name: 🛠 Prebuild Expo
-        run: npx expo prebuild --platform android
-
-      # Penting agar file HTML/CSS/Images masuk ke dalam aset mentah Android
-      - name: 📂 Bundle Assets
-        run: npx expo export --platform android
+        run: npx expo prebuild --platform android --clean
 
       - name: 🔨 Build Release APK (Gradle)
         run: |
@@ -65,4 +61,3 @@ jobs:
           # Menggunakan output spesifik dari step signing
           path: ${{ steps.sign_app.outputs.signedReleaseFile }}
           retention-days: 7 # APK akan otomatis dihapus dari GitHub setelah 7 hari
- 
