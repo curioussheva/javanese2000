@@ -35,8 +35,12 @@ jobs:
 
       - name: 🛠 Prebuild Expo
         run: |
-          rm -rf android/app/src/main/res/drawable* 2>/dev/null || true
           npx expo prebuild --platform android --clean
+
+      - name: 🧹 Clean up duplicate resources
+        run: |
+          rm -rf android/app/src/main/res/drawable* 2>/dev/null || true
+          rm -rf android/app/build/generated/res/createBundleReleaseJsAndAssets/drawable* 2>/dev/null || true
 
       - name: 🔨 Build Release APK (Gradle)
         run: |
