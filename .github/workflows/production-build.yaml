@@ -34,13 +34,15 @@ jobs:
         run: pnpm install
 
       - name: 🛠 Prebuild Expo
-        run: npx expo prebuild --platform android --clean
+        run: |
+          rm -rf android/app/src/main/res/drawable* 2>/dev/null || true
+          npx expo prebuild --platform android --clean
 
       - name: 🔨 Build Release APK (Gradle)
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease --no-daemon
+          ./gradlew clean assembleRelease --no-daemon
 
       - name: ✍️ Sign APK
         uses: r0adkll/sign-android-release@v1
