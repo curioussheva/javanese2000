@@ -13,136 +13,75 @@ import * as FileSystem from 'expo-file-system/legacy';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 import { BannerAd, BannerAdSize, TestIds, useInterstitialAd } from 'react-native-google-mobile-ads'; 
+ 
+const READER_DIR = FileSystem.documentDirectory + 'reader/';
+const VERSION_FILE = READER_DIR + '.version';
+const APP_VERSION = '3';
 
 const adUnitIdBanner = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2718792162592521/1039823651';
 const adUnitIdInterstitial = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-2718792162592521/2240406446';
 
+// Script fungsional inti
 const customJS = `
-(function() {
-  window.myFunction = function() {
-    const dropdown = document.getElementById("myDropdown");
-    if (dropdown) dropdown.classList.toggle("show");
-  };
-  window.filterFunction = function() {
-    const input = document.getElementById("myInput");
-    const filter = input ? input.value.toUpperCase() : "";
-    const div = document.getElementById("myDropdown");
-    const a = div ? div.getElementsByTagName("a") : [];
-    for (let i = 0; i < a.length; i++) {
-      const txtValue = a[i].textContent || a[i].innerText;
-      a[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-    }
-  };
-  window.w3_open = function() {
-    const sidebar = document.getElementById("mySidebar");
-    if (sidebar) sidebar.style.display = "block";
-  };
-  window.w3_close = function() {
-    const sidebar = document.getElementById("mySidebar");
-    if (sidebar) sidebar.style.display = "none";
-  };
+  window.w3_open = () => { if(document.getElementById("mySidebar")) document.getElementById("mySidebar").style.display = "block"; };
+  window.w3_close = () => { if(document.getElementById("mySidebar")) document.getElementById("mySidebar").style.display = "none"; };
+  
   window.printPage = async function() {
     if (!window.ReactNativeWebView) return;
-    try {
-      const bodyClone = document.body.cloneNode(true);
-      let sidebar = bodyClone.querySelector("#mySidebar");
-      if (sidebar) sidebar.remove();
-      let dropdown = bodyClone.querySelector("#myDropdown");
-      if (dropdown) dropdown.remove();
-      const unwanted = bodyClone.querySelectorAll('button, nav, header, footer, .no-print, [onclick*="w3_open"], [onclick*="w3_close"]');
-      unwanted.forEach(el => el.remove());
-      bodyClone.querySelectorAll('img').forEach(img => {
-        if (img.closest('#mySidebar, .w3-sidebar, .dropdown, nav')) img.remove();
-      });
-      bodyClone.querySelector('img[src*="print-icon"]')?.remove();
-      const images = bodyClone.querySelectorAll('img');
-      for (let img of images) {
-        if (!img.src || img.src.startsWith('data:')) continue;
-        try {
-          const canvas = document.createElement('canvas');
-          const maxWidth = 1000;
-          const ratio = maxWidth / (img.naturalWidth || img.width || 800);
-          canvas.width = (img.naturalWidth || img.width || 800) * ratio;
-          canvas.height = (img.naturalHeight || img.height || 600) * ratio;
-          const ctx = canvas.getContext('2d');
-          if (ctx) {
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
-            if (dataUrl.length > 50) img.src = dataUrl;
-          }
-        } catch (e) {}
-      }
-      window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'PRINT', payload: bodyClone.innerHTML }));
-    } catch (err) {
-      window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'PRINT_ERROR', message: err.message || 'Failed' }));
-    }
+    const bodyClone = document.body.cloneNode(true);
+    const unwanted = bodyClone.querySelectorAll('button, nav, header, footer, .no-print, .w3-sidebar, [onclick*="w3_open"]');
+    unwanted.forEach(el => el.remove());
+    window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'PRINT', payload: bodyClone.innerHTML }));
   };
-  window.print = window.printPage;
+
   function initAccordion() {
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {
-      acc[i].onclick = function() {
-        this.classList.toggle("active");
-        const panel = this.nextElementSibling;
-        if (panel) {
-          panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
-        }
-      };
+      if (!acc[i].dataset.bound) {
+        acc[i].dataset.bound = "true";
+        acc[i].onclick = function() {
+          this.classList.toggle("active");
+          const panel = this.nextElementSibling;
+          if (panel) panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+        };
+      }
     }
   }
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-    initAccordion();
-  } else {
-    document.addEventListener("DOMContentLoaded", initAccordion);
-  }
-  function handleInternalLinks() {
-    document.addEventListener('click', function(e) {
-      const link = e.target.closest('a');
-      if (!link) return;
-      const href = link.getAttribute('href') || link.href;
-      if (href && !href.startsWith('http') && !href.startsWith('#')) {
-        link.target = '_self';
-      }
-    }, true);
-  }
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-    handleInternalLinks();
-  } else {
-    document.addEventListener("DOMContentLoaded", handleInternalLinks);
-  }
-})();
+  initAccordion();
 `;
 
-const cssInjectionScript = `
+// Injeksi Tunggal (CSS + BaseURL + Meta + JS)
+const fullInjectedJS = `
 (function() {
-  function injectCSS(cssContent) {
-    var style = document.createElement('style');
-    style.innerHTML = cssContent;
-    document.head.appendChild(style);
+  // 1. Meta Viewport agar tidak zoom-out
+  if (!document.querySelector('meta[name="viewport"]')) {
+    var meta = document.createElement('meta');
+    meta.name = "viewport"; meta.content = "width=device-width, initial-scale=1.0";
+    document.head.appendChild(meta);
   }
-  // Gunakan JSON.stringify agar karakter newline di file styles.ts tidak merusak script
-  injectCSS(${JSON.stringify(w3css)});
-  injectCSS(${JSON.stringify(customCss)});
+
+  // 2. Injeksi CSS
+  try {
+    const style = document.createElement('style');
+    style.innerHTML = ${JSON.stringify(w3css)} + "\\n" + ${JSON.stringify(customCss)};
+    document.head.appendChild(style);
+  } catch (e) {}
+
+    // 3. Base URL (Optimasi untuk Termux/Metro)
+  if (!document.querySelector('base')) {
+    const base = document.createElement('base');
+    // Gunakan jalur tunggal
+    base.href = ${__DEV__ ? "'http://localhost:8081/assets/reader/'" : `'file://${READER_DIR}'`};
+    document.head.insertBefore(base, document.head.firstChild);
+  }
+  
+  // 4. Masukkan fungsionalitas
+  ${customJS}
+
+  window.ReactNativeWebView.postMessage(JSON.stringify({type: 'JS_READY'}));
 })();
-`; 
-
-const baseUrlScript = __DEV__
-  ? `(function() {
-      // Jangan suntikkan <base> di mode Dev. 
-      // Biarkan WebView memuat secara relatif dari require() index.html
-      console.log("Metro Dev Mode Active");
-    })();`
-  : `(function() {
-      var base = document.createElement('base');
-      base.href = '${READER_DIR}';
-      document.head.insertBefore(base, document.head.firstChild);
-    })();`;
-
-const fullInjectedJS = cssInjectionScript + baseUrlScript + customJS;
-
-const READER_DIR = FileSystem.documentDirectory + 'reader/';
-const VERSION_FILE = READER_DIR + '.version';
-const APP_VERSION = '2';
+true;
+`;
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
@@ -155,81 +94,47 @@ export default function App() {
   const [isReady, setIsReady] = useState(__DEV__);
   const [copyProgress, setCopyProgress] = useState(0);
 
-  const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitIdInterstitial, {
-    requestNonPersonalizedAdsOnly: true,
-  });
+  const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitIdInterstitial);
 
   useEffect(() => { load(); }, [load]);
+  useEffect(() => { if (isClosed) load(); }, [isClosed, load]);
 
-  useEffect(() => {
-    if (isClosed) load();
-  }, [isClosed, load]);
-
-  // Setup assets - semua logic ada di dalam useEffect ini
   useEffect(() => {
     if (__DEV__) return;
     (async () => {
       try {
         const indexPath = READER_DIR + 'index.html';
-
-        // Cek version
-        let versionOk = false;
         const versionInfo = await FileSystem.getInfoAsync(VERSION_FILE);
+        
         if (versionInfo.exists) {
           const ver = await FileSystem.readAsStringAsync(VERSION_FILE);
-          versionOk = ver.trim() === APP_VERSION;
+          if (ver.trim() === APP_VERSION) {
+            setIndexUri(indexPath); setIsReady(true); return;
+          }
         }
 
-        if (versionOk) {
-          setIndexUri(indexPath);
-          setIsReady(true);
-          return;
-        }
-
-        // Copy HTML files
         const totalAssets = htmlAssets.length + imageAssets.length;
         let copied = 0; 
+        const allAssets = [...htmlAssets, ...imageAssets];
 
-        for (const item of htmlAssets) {
+        for (const item of allAssets) {
           const asset = Asset.fromModule(item.module);
           await asset.downloadAsync();
-          if (!asset.localUri) continue;
           const destPath = READER_DIR + item.path;
           const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
+          
           await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
-          await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
+          await FileSystem.copyAsync({ from: asset.localUri!, to: destPath });
+          
           copied++;
           setCopyProgress(Math.round((copied / totalAssets) * 100));
         }
 
-        // Copy image files
-       for (const item of imageAssets) {
-          const asset = Asset.fromModule(item.module);
-          await asset.downloadAsync();
-          if (!asset.localUri) continue;
-          const destPath = READER_DIR + item.path;
-          const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
-          await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
-          const exists = await FileSystem.getInfoAsync(destPath);
-          if (!exists.exists) {
-            await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
-          }
-          copied++;
-          setCopyProgress(Math.round((copied / totalAssets) * 100));
-        }
-
-        // Tulis version file
         await FileSystem.writeAsStringAsync(VERSION_FILE, APP_VERSION);
-
         setIndexUri(indexPath);
         setIsReady(true);
-
       } catch (e: any) {
-        Alert.alert('Setup Error', e.message ?? String(e));
-        // Fallback
-        const asset = Asset.fromModule(require('./assets/reader/index.html'));
-        await asset.downloadAsync();
-        setIndexUri(asset.localUri ?? asset.uri);
+        Alert.alert('Setup Error', e.message);
         setIsReady(true);
       }
     })();
@@ -244,34 +149,17 @@ export default function App() {
   }, [pageViews, isLoaded, show, lastAdShownTime]);
 
   const handlePrint = async (htmlPayload: string) => {
-    if (!htmlPayload) return;
     setIsPrinting(true);
     try {
-      const finalHtml = `
-        <html>
-          <head>
-            <style>
-              body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
-              img { max-width: 100%; height: auto; }
-              h1, h2 { text-align: center; }
-            </style>
-          </head>
-          <body>${htmlPayload}</body>
-        </html>`;
-      const { uri } = await Print.printToFileAsync({ html: finalHtml });
+      const { uri } = await Print.printToFileAsync({ html: `<html><body>${htmlPayload}</body></html>` });
       await Sharing.shareAsync(uri);
-    } catch (error: any) {
-      Alert.alert("Gagal Membuat PDF", error.message);
-    } finally {
-      setIsPrinting(false);
-    }
+    } finally { setIsPrinting(false); }
   };
 
   useEffect(() => {
     const backAction = () => {
       if (canGoBack && webViewRef.current) {
-        webViewRef.current.goBack();
-        return true;
+        webViewRef.current.goBack(); return true;
       }
       return false;
     };
@@ -279,25 +167,18 @@ export default function App() {
     return () => backHandler.remove();
   }, [canGoBack]);
 
-  // Loading screen
   if (!isReady) {
     return (
-      <SafeAreaProvider>
-        <SafeAreaView style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-          <ActivityIndicator size="large" color="#4CAF50" />
-          <Text style={{ color: 'white', marginTop: 16, fontSize: 16 }}>
-            Mempersiapkan konten... {copyProgress}%
-          </Text>
-        </SafeAreaView>
-      </SafeAreaProvider>
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <ActivityIndicator size="large" color="#4CAF50" />
+        <Text style={{ color: 'white', marginTop: 16 }}>Mempersiapkan konten {copyProgress}%</Text>
+      </View>
     );
   }
 
   const webViewSource = __DEV__
-    ? require('./assets/reader/index.html')
-    : indexUri
-      ? { uri: indexUri, baseUrl: READER_DIR }
-      : { html: '<html><body style="background:#1a1a1a;color:white;padding:20px"><h3>Loading...</h3></body></html>' };
+    ? require('./assets/reader/index.html') 
+    : { uri: indexUri || '' };
 
   return (
     <SafeAreaProvider>
@@ -307,56 +188,41 @@ export default function App() {
           source={webViewSource}
           originWhitelist={['*']}
           injectedJavaScript={fullInjectedJS}
+          injectedJavaScriptBeforeContentLoaded={fullInjectedJS}
           onShouldStartLoadWithRequest={(request) => {
             const { url } = request;
-            if ((url.startsWith('http://') || url.startsWith('https://')) &&
-                !url.includes('127.0.0.1') && !url.includes('localhost')) {
-              Linking.openURL(url);
-              return false;
-            }
+            if (url.includes('localhost') || url.startsWith('file://') || url.startsWith('data:')) return true;
+            if (url.startsWith('http')) { Linking.openURL(url); return false; }
             return true;
           }}
           onNavigationStateChange={(navState) => {
             setCanGoBack(navState.canGoBack);
-            if (!navState.loading && navState.url !== lastUrl && !navState.url.includes('#')) {
-              setLastUrl(navState.url);
-              setPageViews(prev => prev + 1);
+            if (!navState.loading && navState.url !== lastUrl) {
+              setLastUrl(navState.url); setPageViews(prev => prev + 1);
             }
           }}
           onMessage={(event) => {
             try {
               const data = JSON.parse(event.nativeEvent.data);
-              if (data.type === 'PRINT') handlePrint(data.payload || "");
-              else if (data.type === 'PRINT_ERROR') Alert.alert("Print Error", data.message);
-            } catch (e) {
-              console.log("Log:", event.nativeEvent.data);
-            }
+              if (data.type === 'PRINT') handlePrint(data.payload);
+            } catch (e) {}
           }}
-          onError={(syntheticEvent) => {
-            const { nativeEvent } = syntheticEvent;
-            console.log('WebView error:', JSON.stringify(nativeEvent));
-          }}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
           allowFileAccess={true}
           allowUniversalAccessFromFileURLs={true}
-          mixedContentMode="always"
+          domStorageEnabled={true}
+          javaScriptEnabled={true}
           style={styles.webview}
         />
-
+        
         {isPrinting && (
           <View style={styles.loadingOverlay}>
-            <ActivityIndicator size="large" color="#ffffff" />
-            <Text style={styles.loadingText}>Membuat PDF...</Text>
+            <ActivityIndicator size="large" color="#fff" />
+            <Text style={{color: '#fff'}}>Memproses PDF...</Text>
           </View>
         )}
 
         <View style={styles.adContainer}>
-          <BannerAd
-            unitId={adUnitIdBanner}
-            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-            requestOptions={{ requestNonPersonalizedAdsOnly: true }}
-          />
+          <BannerAd unitId={adUnitIdBanner} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} />
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -366,13 +232,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#1a1a1a' },
   webview: { flex: 1 },
-  loadingOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 999,
-  },
-  loadingText: { color: '#ffffff', marginTop: 16, fontSize: 16 },
-  adContainer: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1a', paddingBottom: 5 }
+  loadingOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'center', alignItems: 'center' },
+  adContainer: { alignItems: 'center', backgroundColor: '#1a1a1a', paddingBottom: 2 }
 });
+
