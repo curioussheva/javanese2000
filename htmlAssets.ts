@@ -272,7 +272,6 @@ export const htmlAssets: { path: string; module: any }[] = [
   { path: 'spiritual-dan-kebatinan-keris-jawa/pemilik-keris-sebenarnya.html', module: require('./assets/reader/spiritual-dan-kebatinan-keris-jawa/pemilik-keris-sebenarnya.html') },
   { path: 'spiritual-dan-kebatinan-keris-jawa/perawatan-keris-jawa.html', module: require('./assets/reader/spiritual-dan-kebatinan-keris-jawa/perawatan-keris-jawa.html') },
   { path: 'spiritual-dan-kebatinan-keris-jawa/spiritual-dan-kebatinan-keris-jawa.html', module: require('./assets/reader/spiritual-dan-kebatinan-keris-jawa/spiritual-dan-kebatinan-keris-jawa.html') },
-  { path: 'spiritual-dan-kebatinan-keris-jawa/spiritual-danamp;-kebatinan-keris-jawa/arti-mimpi-menayuh-keris.html', module: require('./assets/reader/spiritual-dan-kebatinan-keris-jawa/spiritual-danamp;-kebatinan-keris-jawa/arti-mimpi-menayuh-keris.html') },
   { path: 'spiritual-dan-kebatinan-keris-jawa/status-keris-dan-kelas-keris.html', module: require('./assets/reader/spiritual-dan-kebatinan-keris-jawa/status-keris-dan-kelas-keris.html') },
   { path: 'spiritual-dan-kebatinan-keris-jawa/tata-cara-dalam-perkerisan.html', module: require('./assets/reader/spiritual-dan-kebatinan-keris-jawa/tata-cara-dalam-perkerisan.html') },
   { path: 'spiritual-dan-kebatinan-keris-jawa/tuah-keris-filosofi-dasar.html', module: require('./assets/reader/spiritual-dan-kebatinan-keris-jawa/tuah-keris-filosofi-dasar.html') },

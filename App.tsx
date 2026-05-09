@@ -126,17 +126,12 @@ const cssInjectionScript = `
 })();
 `; 
 
-const baseUrlScript = __DEV__
-  ? `(function() {
-      // Jangan suntikkan <base> di mode Dev. 
-      // Biarkan WebView memuat secara relatif dari require() index.html
-      console.log("Metro Dev Mode Active");
-    })();`
-  : `(function() {
-      var base = document.createElement('base');
-      base.href = '${READER_DIR}';
-      document.head.insertBefore(base, document.head.firstChild);
-    })();`;
+const baseUrlScript = `
+(function() {
+  var base = document.createElement('base');
+  base.href = '${READER_DIR}';
+  document.head.insertBefore(base, document.head.firstChild);
+})();`; 
 
 const fullInjectedJS = cssInjectionScript + baseUrlScript + customJS;
 
@@ -167,7 +162,7 @@ export default function App() {
 
   // Setup assets - semua logic ada di dalam useEffect ini
   useEffect(() => {
-    if (__DEV__) return;
+
     (async () => {
       try {
         const indexPath = READER_DIR + 'index.html';
@@ -186,37 +181,47 @@ export default function App() {
           return;
         }
 
-        // Copy HTML files
-        const totalAssets = htmlAssets.length + imageAssets.length;
-        let copied = 0; 
+// Copy HTML files
+const totalAssets = htmlAssets.length + imageAssets.length;
+let copied = 0;
 
-        for (const item of htmlAssets) {
-          const asset = Asset.fromModule(item.module);
-          await asset.downloadAsync();
-          if (!asset.localUri) continue;
-          const destPath = READER_DIR + item.path;
-          const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
-          await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
-          await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
-          copied++;
-          setCopyProgress(Math.round((copied / totalAssets) * 100));
-        }
+for (const item of htmlAssets) {
+  try {
+    const asset = Asset.fromModule(item.module);
+    await asset.downloadAsync();
+    console.log(`✅ Downloaded: ${item.path} -> ${asset.localUri}`);
+    if (!asset.localUri) continue;
+    const destPath = READER_DIR + item.path;
+    const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
+    await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
+    await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
+    copied++;
+    setCopyProgress(Math.round((copied / totalAssets) * 100));
+  } catch (e) {
+    console.error(`❌ Failed HTML: ${item.path}`, e);
+  }
+}
 
         // Copy image files
        for (const item of imageAssets) {
-          const asset = Asset.fromModule(item.module);
-          await asset.downloadAsync();
-          if (!asset.localUri) continue;
-          const destPath = READER_DIR + item.path;
-          const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
-          await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
-          const exists = await FileSystem.getInfoAsync(destPath);
-          if (!exists.exists) {
-            await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
-          }
-          copied++;
-          setCopyProgress(Math.round((copied / totalAssets) * 100));
-        }
+        try {
+    const asset = Asset.fromModule(item.module);
+    await asset.downloadAsync();
+    console.log(`✅ Downloaded image: ${item.path}`);
+    if (!asset.localUri) continue;
+    const destPath = READER_DIR + item.path;
+    const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
+    await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
+    const exists = await FileSystem.getInfoAsync(destPath);
+    if (!exists.exists) {
+      await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
+    }
+    copied++;
+    setCopyProgress(Math.round((copied / totalAssets) * 100));
+       } catch (e) {
+    console.error(`❌ Failed image: ${item.path}`, e);
+  }
+       }
 
         // Tulis version file
         await FileSystem.writeAsStringAsync(VERSION_FILE, APP_VERSION);
@@ -293,11 +298,9 @@ export default function App() {
     );
   }
 
-  const webViewSource = __DEV__
-    ? require('./assets/reader/index.html')
-    : indexUri
-      ? { uri: indexUri, baseUrl: READER_DIR }
-      : { html: '<html><body style="background:#1a1a1a;color:white;padding:20px"><h3>Loading...</h3></body></html>' };
+  const webViewSource = indexUri
+  ? { uri: indexUri, baseUrl: READER_DIR }
+  : { html: '<html><body style="background:#1a1a1a;color:white;padding:20px"><h3>Loading...</h3></body></html>' }; 
 
   return (
     <SafeAreaProvider>
@@ -318,9 +321,12 @@ export default function App() {
           }}
           onNavigationStateChange={(navState) => {
             setCanGoBack(navState.canGoBack);
-            if (!navState.loading && navState.url !== lastUrl && !navState.url.includes('#')) {
+              if (!navState.loading && navState.url !== lastUrl && !navState.url.includes('#')) {
               setLastUrl(navState.url);
               setPageViews(prev => prev + 1);
+              if (webViewRef.current) {
+              webViewRef.current.injectJavaScript(fullInjectedJS);
+               }
             }
           }}
           onMessage={(event) => {

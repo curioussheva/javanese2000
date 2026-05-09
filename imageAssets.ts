@@ -294,7 +294,7 @@ export const imageAssets: { path: string; module: any }[] = [
   { path: 'images/minyak-sesaji-3-1.jpeg', module: require('./assets/reader/images/minyak-sesaji-3-1.jpeg') },
   { path: 'images/minyak-sesaji-3.jpeg', module: require('./assets/reader/images/minyak-sesaji-3.jpeg') },
   { path: 'images/minyak-sesaji.jpeg', module: require('./assets/reader/images/minyak-sesaji.jpeg') },
-  { path: 'images/minyak-singer+minyak-cendana-merah.jpg', module: require('./assets/reader/images/minyak-singer+minyak-cendana-merah.jpg') },
+  { path: 'images/minyak-singer-minyak-cendana-merah.jpg', module: require('./assets/reader/images/minyak-singer-minyak-cendana-merah.jpg') },
   { path: 'images/minyak-urapan.jpg', module: require('./assets/reader/images/minyak-urapan.jpg') },
   { path: 'images/monas-3.jpeg', module: require('./assets/reader/images/monas-3.jpeg') },
   { path: 'images/mpu-supiyanto-1.jpg', module: require('./assets/reader/images/mpu-supiyanto-1.jpg') },
