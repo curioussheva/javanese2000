@@ -281,4 +281,6 @@ export const htmlAssets: { path: string; module: any }[] = [
   { path: 'spiritual-dan-kebatinan-keris-jawa/tuah-keris.html', module: require('./assets/reader/spiritual-dan-kebatinan-keris-jawa/tuah-keris.html') },
   { path: 'spiritual-dan-kebatinan-keris-jawa/wahyu-keraton-di-dalam-keris-jawa.html', module: require('./assets/reader/spiritual-dan-kebatinan-keris-jawa/wahyu-keraton-di-dalam-keris-jawa.html') },
   { path: 'test.html', module: require('./assets/reader/test.html') },
+  { path: 'css/custom.css', module: require('./assets/reader/css/custom.css') },
+  { path: 'css/w3.css', module: require('./assets/reader/css/w3.css') },
 ];

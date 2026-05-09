@@ -17,22 +17,8 @@ config.watchFolders = [
 ];
 
 // 4. Definisi blockList
-const blockList = [
-  /assets\/reader\/js\/.*/,
-  /android\/.*/,
-  /ios\/.*/,
-];
 
 // 5. Merge blockList secara aman
-const existing = resolver.blockList;
-if (existing) {
-  if (Array.isArray(existing)) {
-    resolver.blockList = [...existing, ...blockList];
-  } else {
-    resolver.blockList = [existing, ...blockList];
-  }
-} else {
-  resolver.blockList = blockList;
-}
+
 
 module.exports = config;
