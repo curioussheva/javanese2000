@@ -1,73 +1,58 @@
 <!DOCTYPE html>
+
 <html>
 <title>Test Layout</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" href="./css/w3.css">
-<link rel="stylesheet" href="./css/custom.css">
-
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="./css/w3-css" rel="stylesheet"/>
+<link href="./css/custom-css" rel="stylesheet"/>
 <body>
 <div class="w3-dark-grey w3-card">
-
-  <b class="w3-bar-item w3-button w3-green" style="text-align:center;width:100%">
-    <h6>TEST LAYOUT - Javanese2000</h6>
-  </b>
-
-  <br>
-
-  <!-- TEST ACCORDION + LINKS -->
-  <button class="accordion w3-bar-item w3-button">Test Navigation Links</button>
-  <div class="panel">
-    <a href="#" class="w3-bar-item w3-button">Home</a>
-    <a href="#" class="w3-bar-item w3-button">Bio</a>
-    <a href="#" class="w3-bar-item w3-button">Artikel Lain-Lain</a>
-  </div>
-
-  <button class="accordion w3-bar-item w3-button">Test Accordion 2</button>
-  <div class="panel">
-    <a href="#" class="w3-bar-item w3-button">Link 1 → Home</a>
-    <a href="#" class="w3-bar-item w3-button">Link 2 → Bio</a>
-  </div>
-
-  <br>
-
-  <!-- TEST CSS W3 COLORS -->
-  <div class="w3-container w3-padding">
-    <div class="w3-green w3-padding w3-margin-bottom">w3-green ✓</div>
-    <div class="w3-dark-grey w3-padding w3-margin-bottom" style="color:white">w3-dark-grey ✓</div>
-    <div class="w3-card w3-padding w3-margin-bottom">w3-card ✓</div>
-  </div>
-
-  <!-- TEST LOREM IPSUM -->
-  <div class="w3-container w3-padding">
-    <h4>Lorem Ipsum Test</h4>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-  </div>
-
-  <!-- TEST IMAGE -->
-
-  <!-- TEST SIDEBAR BUTTON -->
-  <div class="w3-container w3-padding">
-    <h4>Sidebar Test</h4>
-    <button class="w3-button w3-green" onclick="w3_open()">Open Sidebar</button>
-  </div>
-
-  <br><br>
+<b class="w3-bar-item w3-button w3-green" style="text-align:center;width:100%">
+<h6>TEST LAYOUT - Javanese2000</h6>
+</b>
+<br/>
+<!-- TEST ACCORDION + LINKS -->
+<button class="accordion w3-bar-item w3-button">Test Navigation Links</button>
+<div class="panel">
+<a class="w3-bar-item w3-button" href="#">Home</a>
+<a class="w3-bar-item w3-button" href="#">Bio</a>
+<a class="w3-bar-item w3-button" href="#">Artikel Lain-Lain</a>
 </div>
-
+<button class="accordion w3-bar-item w3-button">Test Accordion 2</button>
+<div class="panel">
+<a class="w3-bar-item w3-button" href="#">Link 1 → Home</a>
+<a class="w3-bar-item w3-button" href="#">Link 2 → Bio</a>
+</div>
+<br/>
+<!-- TEST CSS W3 COLORS -->
+<div class="w3-container w3-padding">
+<div class="w3-green w3-padding w3-margin-bottom">w3-green ✓</div>
+<div class="w3-dark-grey w3-padding w3-margin-bottom" style="color:white">w3-dark-grey ✓</div>
+<div class="w3-card w3-padding w3-margin-bottom">w3-card ✓</div>
+</div>
+<!-- TEST LOREM IPSUM -->
+<div class="w3-container w3-padding">
+<h4>Lorem Ipsum Test</h4>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+<p>Sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+</div>
+<!-- TEST IMAGE -->
+<!-- TEST SIDEBAR BUTTON -->
+<div class="w3-container w3-padding">
+<h4>Sidebar Test</h4>
+<button class="w3-button w3-green" onclick="w3_open()">Open Sidebar</button>
+</div>
+<br/><br/>
+</div>
 <!-- SIDEBAR -->
-<div class="w3-sidebar w3-bar-block w3-dark-grey w3-card w3-animate-left"
-     style="display:none" id="mySidebar">
-  <center>
-
-  </center>
-  <b class="w3-bar-item w3-button w3-green" style="text-align:center">Sidebar OK ✓</b>
-  <a href="#" class="w3-bar-item w3-button">Home</a>
-  <a href="#" class="w3-bar-item w3-button">Bio</a>
-  <button class="w3-bar-item w3-button" onclick="w3_close()">Close ✕</button>
+<div class="w3-sidebar w3-bar-block w3-dark-grey w3-card w3-animate-left" id="mySidebar" style="display:none">
+<center>
+</center>
+<b class="w3-bar-item w3-button w3-green" style="text-align:center">Sidebar OK ✓</b>
+<a class="w3-bar-item w3-button" href="#">Home</a>
+<a class="w3-bar-item w3-button" href="#">Bio</a>
+<button class="w3-bar-item w3-button" onclick="w3_close()">Close ✕</button>
 </div>
-
 </body>
 </html> 
