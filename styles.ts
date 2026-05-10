@@ -272,13 +272,8 @@ export const customCss = `
   max-height: 0;
   overflow: auto;
   transition: max-height 0.2s ease-out;
-  
 }
 
-
-
-
-  
 .dropbtn {
   background-color: #04AA6D;
   color: white;
@@ -298,20 +293,7 @@ export const customCss = `
   background-position: 14px 12px;
   background-repeat: no-repeat;
   font-size: 16px;
-  padd.dropbtn:hover, .dropbtn:focus {
-  background-color: #3e8e41;
-}
-
-#myInput {
-  box-sizing: border-box;
-  background-image: url('searchicon.png');
-  background-position: 14px 12px;
-  background-repeat: no-repeat;
-  font-size: 16px;
   padding: 14px 20px 12px 45px;
-  border: none;
-  border-bottom: 1px solid #ddd;
-}ing: 14px 20px 12px 45px;
   border: none;
   border-bottom: 1px solid #ddd;
 }
@@ -344,7 +326,6 @@ export const customCss = `
 
 .show {display: block;}
 
-
 .w3-xlarge { posititon: fixed; }
 
 .gallery {
@@ -353,20 +334,14 @@ export const customCss = `
   justify-content: center;
 }
 
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 .gallery img {
-  flex: 1; /* Gambar akan mengisi ruang yang tersedia */
+  flex: 1;
   margin: 10px;
   height: 170px;
   object-fit: cover;
   border-radius: 10px;
-  min-width: 110px; /* Lebar minimum gambar */
-  max-width: 150px; /* Lebar maksimum gambar */
+  min-width: 110px;
+  max-width: 150px;
 }
 
 @media (max-width: 768px) {
@@ -379,12 +354,10 @@ export const customCss = `
   .gallery img {
     width: 100%;
   }
-.sites-canvas-main {
-  margin-left:0px;
-  margin-right:0px;
+  .sites-canvas-main {
+    margin-left:0px;
+    margin-right:0px;
   }
-  
 }
-
-
 `;
+ 

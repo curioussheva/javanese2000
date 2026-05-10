@@ -126,18 +126,21 @@ const cssInjectionScript = `
 })();
 `; 
 
+
+// 1. Deklarasikan dulu
+const READER_DIR = FileSystem.documentDirectory + 'reader/';
+const VERSION_FILE = READER_DIR + '.version';
+const APP_VERSION = '2';
+
+// 2. Baru gunakan di baseUrlScript
 const baseUrlScript = `
 (function() {
   var base = document.createElement('base');
   base.href = '${READER_DIR}';
   document.head.insertBefore(base, document.head.firstChild);
-})();`; 
+})();`;
 
 const fullInjectedJS = cssInjectionScript + baseUrlScript + customJS;
-
-const READER_DIR = FileSystem.documentDirectory + 'reader/';
-const VERSION_FILE = READER_DIR + '.version';
-const APP_VERSION = '2';
 
 export default function App() {
   const webViewRef = useRef<WebView>(null);
@@ -147,7 +150,7 @@ export default function App() {
   const [lastUrl, setLastUrl] = useState('');
   const [lastAdShownTime, setLastAdShownTime] = useState(0);
   const [indexUri, setIndexUri] = useState<string | null>(null);
-  const [isReady, setIsReady] = useState(__DEV__);
+  const [isReady, setIsReady] = useState(false); // 1. Selalu mulai dari false
   const [copyProgress, setCopyProgress] = useState(0);
 
   const { isLoaded, isClosed, load, show } = useInterstitialAd(adUnitIdInterstitial, {
@@ -162,83 +165,74 @@ export default function App() {
 
   // Setup assets - semua logic ada di dalam useEffect ini
   useEffect(() => {
+  (async () => {
+    try {
+      const indexPath = READER_DIR + 'index.html';
+      let versionOk = false;
 
-    (async () => {
-      try {
-        const indexPath = READER_DIR + 'index.html';
+      // Cek versi
+      const versionInfo = await FileSystem.getInfoAsync(VERSION_FILE);
+      if (versionInfo.exists) {
+        const ver = await FileSystem.readAsStringAsync(VERSION_FILE);
+        versionOk = ver.trim() === APP_VERSION;
+      }
 
-        // Cek version
-        let versionOk = false;
-        const versionInfo = await FileSystem.getInfoAsync(VERSION_FILE);
-        if (versionInfo.exists) {
-          const ver = await FileSystem.readAsStringAsync(VERSION_FILE);
-          versionOk = ver.trim() === APP_VERSION;
-        }
+      // 2. Jika DEV, kita paksa copy ulang agar perubahan terlihat
+      if (__DEV__) versionOk = false;
 
-        if (versionOk) {
-          setIndexUri(indexPath);
-          setIsReady(true);
-          return;
-        }
-
-// Copy HTML files
-const totalAssets = htmlAssets.length + imageAssets.length;
-let copied = 0;
-
-for (const item of htmlAssets) {
-  try {
-    const asset = Asset.fromModule(item.module);
-    await asset.downloadAsync();
-    console.log(`✅ Downloaded: ${item.path} -> ${asset.localUri}`);
-    if (!asset.localUri) continue;
-    const destPath = READER_DIR + item.path;
-    const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
-    await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
-    await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
-    copied++;
-    setCopyProgress(Math.round((copied / totalAssets) * 100));
-  } catch (e) {
-    console.error(`❌ Failed HTML: ${item.path}`, e);
-  }
-}
-
-        // Copy image files
-       for (const item of imageAssets) {
-        try {
-    const asset = Asset.fromModule(item.module);
-    await asset.downloadAsync();
-    console.log(`✅ Downloaded image: ${item.path}`);
-    if (!asset.localUri) continue;
-    const destPath = READER_DIR + item.path;
-    const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
-    await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
-    const exists = await FileSystem.getInfoAsync(destPath);
-    if (!exists.exists) {
-      await FileSystem.copyAsync({ from: asset.localUri, to: destPath });
-    }
-    copied++;
-    setCopyProgress(Math.round((copied / totalAssets) * 100));
-       } catch (e) {
-    console.error(`❌ Failed image: ${item.path}`, e);
-  }
-       }
-
-        // Tulis version file
-        await FileSystem.writeAsStringAsync(VERSION_FILE, APP_VERSION);
-
+      if (versionOk) {
         setIndexUri(indexPath);
         setIsReady(true);
-
-      } catch (e: any) {
-        Alert.alert('Setup Error', e.message ?? String(e));
-        // Fallback
-        const asset = Asset.fromModule(require('./assets/reader/index.html'));
-        await asset.downloadAsync();
-        setIndexUri(asset.localUri ?? asset.uri);
-        setIsReady(true);
+        return;
       }
-    })();
-  }, []);
+
+      const totalAssets = htmlAssets.length + imageAssets.length;
+      let copied = 0;
+
+      // Copy HTML
+      for (const item of htmlAssets) {
+        try {
+          const asset = Asset.fromModule(item.module);
+          await asset.downloadAsync();
+          const destPath = READER_DIR + item.path;
+          const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
+          await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
+          await FileSystem.copyAsync({ from: asset.localUri!, to: destPath }); // Overwrite aktif
+          copied++;
+          setCopyProgress(Math.round((copied / totalAssets) * 100));
+        } catch (e) { console.error(e); }
+      }
+
+      // Copy Images
+      for (const item of imageAssets) {
+        try {
+          const asset = Asset.fromModule(item.module);
+          await asset.downloadAsync();
+          const destPath = READER_DIR + item.path;
+          const destFolder = destPath.substring(0, destPath.lastIndexOf('/'));
+          await FileSystem.makeDirectoryAsync(destFolder, { intermediates: true });
+          
+          // 3. Hanya cek 'exists' jika BUKAN mode dev
+          const exists = await FileSystem.getInfoAsync(destPath);
+          if (!exists.exists || __DEV__) {
+            await FileSystem.copyAsync({ from: asset.localUri!, to: destPath });
+          }
+          
+          copied++;
+          setCopyProgress(Math.round((copied / totalAssets) * 100));
+        } catch (e) { console.error(e); }
+      }
+
+      await FileSystem.writeAsStringAsync(VERSION_FILE, APP_VERSION);
+      setIndexUri(indexPath);
+      setIsReady(true);
+
+    } catch (e: any) {
+      console.error(e);
+      setIsReady(true); 
+    }
+  })();
+}, []);
 
   useEffect(() => {
     const currentTime = Date.now();
