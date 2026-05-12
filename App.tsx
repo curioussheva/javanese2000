@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { 
   StyleSheet, BackHandler, Alert, ActivityIndicator, 
-  View, Text, Linking
+  View, Text, Linking, Image
 } from 'react-native';
 import { w3css, customCss } from './styles';
 import { htmlAssets } from './htmlAssets';
@@ -78,6 +78,7 @@ const customJS = `
     }
   };
   window.print = window.printPage;
+  
   function initAccordion() {
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {
@@ -90,11 +91,7 @@ const customJS = `
       };
     }
   }
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-    initAccordion();
-  } else {
-    document.addEventListener("DOMContentLoaded", initAccordion);
-  }
+  
   function handleInternalLinks() {
     document.addEventListener('click', function(e) {
       const link = e.target.closest('a');
@@ -105,14 +102,55 @@ const customJS = `
       }
     }, true);
   }
-  if (document.readyState === "complete" || document.readyState === "interactive") {
+
+  // ========== Lightbox ==========
+  function initLightbox() {
+    document.querySelectorAll('a.lightbox').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var imgSrc = link.getAttribute('href');
+        if (!imgSrc) return;
+
+        // Buat overlay
+        var overlay = document.createElement('div');
+        overlay.className = 'lightbox-overlay';
+        
+        var img = document.createElement('img');
+        img.src = imgSrc;
+        overlay.appendChild(img);
+
+        var closeBtn = document.createElement('span');
+        closeBtn.className = 'lightbox-close';
+        closeBtn.innerHTML = '×';
+        overlay.appendChild(closeBtn);
+
+        // Tutup saat klik di luar gambar atau tombol close
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay || e.target === closeBtn) {
+            overlay.remove();
+          }
+        });
+
+        document.body.appendChild(overlay);
+      });
+    });
+  }
+
+  // Inisialisasi semua
+  function initAll() {
+    initAccordion();
     handleInternalLinks();
+    initLightbox();
+  }
+
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    initAll();
   } else {
-    document.addEventListener("DOMContentLoaded", handleInternalLinks);
+    document.addEventListener("DOMContentLoaded", initAll);
   }
 })();
 `;
-
+  
 const cssInjectionScript = `
 (function() {
   function injectCSS(cssContent) {
@@ -278,23 +316,44 @@ export default function App() {
     return () => backHandler.remove();
   }, [canGoBack]);
 
-  // Loading screen
-  if (!isReady) {
-    return (
-      <SafeAreaProvider>
-        <SafeAreaView style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-          <ActivityIndicator size="large" color="#4CAF50" />
-          <Text style={{ color: 'white', marginTop: 16, fontSize: 16 }}>
-            Mempersiapkan konten... {copyProgress}%
+// Loading screen
+// Loading screen
+if (!isReady) {
+  return (
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.loadingContainer}>
+        <View style={styles.loadingContent}>
+          {/* Title */}
+          <Text style={styles.loadingTitle}>Javanese 2000</Text>
+          
+          {/* Subtitle */}
+          <Text style={styles.loadingSubtitle}>
+            Filosofi Kebatinan, Spiritual, dan Kegaiban
           </Text>
-        </SafeAreaView>
-      </SafeAreaProvider>
-    );
-  }
-
+          
+          {/* Logo */}
+          <Image
+            source={require('./assets/logo.png')}
+            style={styles.loadingLogo}
+            resizeMode="contain"
+          />
+          
+          {/* Spinner */}
+          <ActivityIndicator size="large" color="#FFFFFF" style={styles.loadingSpinner} />
+          
+          {/* Progress text */}
+          <Text style={styles.loadingProgressText}>
+            Memuat data... {copyProgress}%
+          </Text>
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
+  );
+}
+ 
   const webViewSource = indexUri
   ? { uri: indexUri, baseUrl: READER_DIR }
-  : { html: '<html><body style="background:#1a1a1a;color:white;padding:20px"><h3>Loading...</h3></body></html>' }; 
+  : { html: '<html><body style="background:#486344;color:white;padding:20px"><h3>Loading...</h3></body></html>' }; 
 
   return (
     <SafeAreaProvider>
@@ -305,14 +364,26 @@ export default function App() {
           originWhitelist={['*']}
           injectedJavaScript={fullInjectedJS}
           onShouldStartLoadWithRequest={(request) => {
-            const { url } = request;
-            if ((url.startsWith('http://') || url.startsWith('https://')) &&
-                !url.includes('127.0.0.1') && !url.includes('localhost')) {
-              Linking.openURL(url);
-              return false;
-            }
-            return true;
-          }}
+  const { url } = request;
+  
+  // 1. Tangani mailto: dan skema non-http/file
+  if (url.startsWith('mailto:') || url.startsWith('tel:') || url.startsWith('sms:')) {
+    Linking.openURL(url).catch(() => {
+      Alert.alert('Info', 'Tidak dapat membuka aplikasi');
+    });
+    return false;
+  }
+   
+  // 2. Tangani link eksternal (http/https) selain localhost
+  if ((url.startsWith('http://') || url.startsWith('https://')) &&
+      !url.includes('127.0.0.1') && !url.includes('localhost')) {
+    Linking.openURL(url);
+    return false;
+  }
+  
+  // 3. Izinkan file://, about:, data: (WebView internal)
+  return true;
+}}
           onNavigationStateChange={(navState) => {
             setCanGoBack(navState.canGoBack);
               if (!navState.loading && navState.url !== lastUrl && !navState.url.includes('#')) {
@@ -361,11 +432,56 @@ export default function App() {
       </SafeAreaView>
     </SafeAreaProvider>
   );
-}
+} 
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#1a1a1a' },
+  container: { flex: 1, backgroundColor: '#486344' },
   webview: { flex: 1 },
+  
+  // Loading screen styles
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: '#486344',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingContent: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 40,
+  },
+  loadingTitle: {
+    color: '#FFFFFF',
+    fontSize: 33,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 8,
+    letterSpacing: 1,
+  },
+  loadingSubtitle: {
+    color: '#D4E4C9',
+    fontSize: 18,
+    fontWeight: '400',
+    textAlign: 'center',
+    marginBottom: 30,
+    lineHeight: 20,
+  },
+  loadingLogo: {
+    width: 240,
+    height: 240,
+    marginBottom: 30,
+  },
+  loadingSpinner: {
+    marginBottom: 20,
+  },
+  loadingProgressText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '500',
+    textAlign: 'center',
+    opacity: 0.9,
+  },
+  
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -374,5 +490,5 @@ const styles = StyleSheet.create({
     zIndex: 999,
   },
   loadingText: { color: '#ffffff', marginTop: 16, fontSize: 16 },
-  adContainer: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1a', paddingBottom: 5 }
+  adContainer: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#486344', paddingBottom: 5 }
 }); 
